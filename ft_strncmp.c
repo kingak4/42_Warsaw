@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:28:30 by kikwasni          #+#    #+#             */
-/*   Updated: 2024/12/17 12:24:52 by kikwasni         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:29:03 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	unsigned int	i;
 
 	i = 0;
+	(void) n;
 	while ((s1[1] != '\0') && (s2[i] != '\0'))
 	{
 		if (s1[i] == s2[i])

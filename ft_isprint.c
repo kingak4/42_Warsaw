@@ -6,11 +6,11 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:27:09 by kikwasni          #+#    #+#             */
-/*   Updated: 2024/12/17 12:22:43 by kikwasni         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:29:23 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <"libft.h"
+#include "libft.h"
 
 int	ft_isprint(int c)
 {

@@ -6,13 +6,13 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:28:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2024/12/17 12:25:19 by kikwasni         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:33:00 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if ((c >= 'a') && (c <= 'z'))
 	{
