@@ -1,52 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 13:27:31 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/03 14:47:04 by kikwasni         ###   ########.fr       */
+/*   Created: 2024/12/18 13:27:17 by kikwasni          #+#    #+#             */
+/*   Updated: 2025/01/02 14:08:00 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+int	ft_atoi(const char *nptr)
 {
-	const char	*s;
-	char		*d;
-	size_t		i;
+	int	result;
+	int	sign;
+	int	a;
 
-	s = (const char *) src;
-	d = (char *) dest;
-	i = 0;
-	if ((!d) || (!s))
-		return (NULL);
-	if (d > s)
+	sign = 1;
+	result = 0;
+	a = 0;
+	while ((nptr[a] == 32) || (nptr[a] >= 9 && nptr[a] <= 13))
 	{
-		while (n-- > 0)
-		{
-			d[n] = s[n];
-		}
+		a++;
 	}
-	else
+	if (nptr[a] == '+')
+		a++;
+	else if (nptr[a] == '-')
 	{
-		while (i < n)
-		{
-			d[i] = s[i];
-			i++;
-		}
+		sign = -1;
+		a++;
 	}
-	return (dest);
+	while ((nptr[a] >= '0') && (nptr[a] <= '9'))
+	{
+		result = result * 10 + nptr[a] - '0';
+		a++;
+	}
+	return (sign * result);
 }
 //int main()
 //{
-//	char	d[4] = "";
-//	char	s[] = "elo";
-//	ft_memmove(d, s, 3);
-//	 d[3] = '\0';
-//	printf("%s\n", d );
+//	const char *n = "-4886";
+//	printf("%d\n",ft_atoi(n));
 //	return(0);
 //}

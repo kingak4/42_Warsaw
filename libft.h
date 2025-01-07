@@ -6,18 +6,16 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:00:11 by kikwasni          #+#    #+#             */
-/*   Updated: 2024/12/18 12:34:52 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/07 08:27:17 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <stdio.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 void			ft_bzero(void *s, size_t n);
 void			*ft_calloc(size_t count, size_t size);
@@ -47,5 +45,8 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 char			*ft_strjoin(char const *s1, char const *s2);
+int				ft_atoi(const char *nptr);
+void			*ft_memmove(void *dest, const void *src, size_t n);
+char			*strnstr(const char *big, const char *little, size_t len);
 
 #endif

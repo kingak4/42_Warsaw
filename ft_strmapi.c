@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 09:15:55 by kikwasni          #+#    #+#             */
-/*   Updated: 2024/12/17 12:24:46 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:17:59 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	{
 		return (NULL);
 	}
+	i = 0;
 	while (s[i] != '\0')
 	{
 		str[i] = f(i, s[i]);

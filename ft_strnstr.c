@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 13:27:42 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/03 15:22:58 by kikwasni         ###   ########.fr       */
+/*   Created: 2025/01/07 08:28:39 by kikwasni          #+#    #+#             */
+/*   Updated: 2025/01/07 09:23:23 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
 
+	if (!*little)
+		return ((char *)big);
 	i = 0;
-	while (str[i] != '\0')
+	j = 0;
+	while ((i < len) && (big[i] != '\0'))
 	{
-		if (str[i] == (char)c)
+		j = 0;
+		while ((i + j < len) && (big[i + j] == little[j])
+			&& (little[j] != '\0'))
 		{
-			return ((char *)&str[i]);
+			j++;
 		}
+		if (little[j] == '\0')
+			return ((char *)&big[i]);
 		i++;
-	}
-	if (c == '\0')
-	{
-		return ((char *)&str[i]);
 	}
 	return (NULL);
 }
-/*
-int main()
-{
-	char	str[] = "elo melo";
-	int	c = 'e';
-	char	*result;
-	result = ft_strchr(str, c);
-	printf("%s\n", result);
-	return(0);
-}
-*/
+//int main ()
+//{
+//	char	*big = "Witam serdecznie ";
+//	char	*little = "serdecznie";
+//	printf("%s\n", ft_strnstr(big, little, 20));
+//	return(0);
+//}

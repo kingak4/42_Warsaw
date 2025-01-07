@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 09:14:58 by kikwasni          #+#    #+#             */
-/*   Updated: 2024/12/17 10:52:45 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:11:48 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,9 @@ void	*ft_calloc(size_t count, size_t size)
 //         printf("Błąd alokacji pamięci!\n");
 //         return 1;
 //     }
-
-//     // Sprawdzamy zawartość zaalokowanej tablicy (powinna być wyzerowana)
 //     for (int i = 0; i < 5; i++) {
-//         printf("%d ", array[i]); // Wszystkie wartości powinny wynosić 0
+//         printf("%d ", array[i]); 
 //     }
-
-//     free(array); // Zwalniamy pamięć
+//     free(array); 
 //     return 0;
 // }

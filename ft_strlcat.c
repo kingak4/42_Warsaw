@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:27:55 by kikwasni          #+#    #+#             */
-/*   Updated: 2024/12/17 12:24:25 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:31:40 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	size_t	j;
 
 	i = 0;
-	j = 0;
 	while ((dest[i] != '\0') && (i < size - 1))
 	{
 		i++;
 	}
+	if ( i < size)
+	{
+	j = 0;
 	while ((src[j] != '\0') && (1 < size - 1))
 	{
-		dest[i] = src[j];
-		i++;
+		dest[i + j] = src[j];
 		j++;
 	}
-	dest[i] = '\0';
+	dest[i + j] = '\0';
+	}
 	while (src[j] != '\0')
-	{
 		j++;
-	}
 	return (i + j);
 }
 /*

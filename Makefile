@@ -30,7 +30,10 @@ FILES = ft_memset \
 		ft_putendl_fd \
 		ft_putnbr_fd \
 		ft_strncmp \
-		ft_strjoin
+		ft_strjoin \
+		ft_atoi \
+		ft_memmove \
+		ft_strnstr \
 
 NAME = libft.a
 SRCS = $(addsuffix .c, $(FILES))
