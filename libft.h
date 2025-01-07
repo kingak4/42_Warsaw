@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:00:11 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/07 08:27:17 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/07 09:39:26 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int				ft_tolower(int c);
 char			*ft_strjoin(char const *s1, char const *s2);
 int				ft_atoi(const char *nptr);
 void			*ft_memmove(void *dest, const void *src, size_t n);
-char			*strnstr(const char *big, const char *little, size_t len);
+char			*ft_strnstr(const char *big, const char *little, size_t len);
+char			*ft_itoa(int n);
 
 #endif

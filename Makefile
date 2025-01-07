@@ -34,6 +34,7 @@ FILES = ft_memset \
 		ft_atoi \
 		ft_memmove \
 		ft_strnstr \
+		ft_itoa \
 
 NAME = libft.a
 SRCS = $(addsuffix .c, $(FILES))
