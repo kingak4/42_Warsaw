@@ -5,7 +5,6 @@ RM = rm -f
 FILES = ft_memset \
 		ft_bzero \
 		ft_memcpy \
-		ft_memcpy \
 		ft_memchr \
 		ft_memcmp \
 		ft_strlen \
@@ -29,12 +28,13 @@ FILES = ft_memset \
 		ft_putstr_fd \
 		ft_putendl_fd \
 		ft_putnbr_fd \
-		ft_strncmp \
 		ft_strjoin \
 		ft_atoi \
 		ft_memmove \
 		ft_strnstr \
 		ft_itoa \
+		ft_strtrim \
+		ft_striteri \
 
 NAME = libft.a
 SRCS = $(addsuffix .c, $(FILES))
@@ -47,7 +47,11 @@ $(NAME): $(OBJS)
 	@echo "Library $(NAME) created successfully!"
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
-	
+
+so:
+	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
+	gcc -nostartfiles -shared -o libft.so $(OBJS)	
+
 clean:
 	$(RM) $(OBJS)
 
@@ -56,26 +60,27 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean reSRCS = $(addsuffix .c, $(FILES))
-OBJS = $(SRCS:.c=.o)
+.PHONY: all clean fclean 
+#reSRCS = $(addsuffix .c, $(FILES))
+#OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+#all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
-	@echo "Library $(NAME) created successfully!"
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+#$(NAME): $(OBJS)
+#	$(AR) $(NAME) $(OBJS)
+#	@echo "Library $(NAME) created successfully!"
+#%.o: %.c
+#	$(CC) $(CFLAGS) -c $< -o $@
 	
-clean:
-	$(RM) $(OBJS)
+#clean:
+#	$(RM) $(OBJS)
 
-fclean: clean
-	$(RM) $(NAME)
+#fclean: clean
+#	$(RM) $(NAME)
 
-re: fclean all
+#re: fclean all
 
-.PHONY: all clean fclean re
+#.PHONY: all clean fclean re
 
 
 

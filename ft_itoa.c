@@ -6,16 +6,15 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:38:54 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/08 09:38:59 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:55:40 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-char *safe_malloc(int sign, int len)
+char	*safe_malloc(int sign, int len)
 {
-	char *result;
+	char	*result;
 
 	result = malloc(sign + len + 1);
 	if (!result)
@@ -26,7 +25,7 @@ char *safe_malloc(int sign, int len)
 	return (result);
 }
 
-void check_sign(int *sign, unsigned int *tmp, int n)
+void	check_sign(int *sign, unsigned int *tmp, int n)
 {
 	if (n < 0)
 	{
@@ -68,29 +67,13 @@ char	*ft_itoa(int n)
 	return (result);
 }
 
-int main(void)
-{
-	int test_numbers[] = {0, 123, -123, 2147483647, -2147483648};
-	int num_tests;
-	int i;
-	char *converted;
+//int main(void)
+//{
+//	int	n = -123;
+//	char	*s;
 
-	num_tests = sizeof(test_numbers) / sizeof(test_numbers[0]);
-	printf("Testing ft_itoa with different integers:\n");
-	i = 0;
-	while (i < num_tests)
-	{
-		converted = ft_itoa(test_numbers[i]);
-		if (converted)
-		{
-			printf("ft_itoa(%d) = \"%s\"\n", test_numbers[i], converted);
-			free(converted);
-		}
-		else
-		{
-			printf("ft_itoa(%d) failed to allocate memory!\n", test_numbers[i]);
-		}
-		i++;
-	}
-	return (0);
-}
+//	s = ft_itoa(n);
+//	printf("%s\n", s);
+//	free(s);
+//	return(0);
+//}
