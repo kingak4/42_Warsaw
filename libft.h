@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:00:11 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/08 16:33:29 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/09 08:32:32 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void			*ft_memmove(void *dest, const void *src, size_t n);
 char			*ft_strnstr(const char *big, const char *little, size_t len);
 char			*ft_itoa(int n);
 char			*ft_strtrim(char const *s1, char const *set);
+char			**ft_split(char const *s, char c);
 
 #endif
