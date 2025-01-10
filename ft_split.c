@@ -6,13 +6,13 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 08:31:43 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/09 15:04:18 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:49:14 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
- 
+
 static size_t	count_token(char const *s, char c)
 {
 	size_t	i;
@@ -33,14 +33,16 @@ static size_t	count_token(char const *s, char c)
 	}
 	return (count);
 }
-static char		**free_token(char **result, size_t token_index)
+
+static char	**free_token(char **result, size_t token_index)
 {
 	while (token_index > 0)
-				free(result[--token_index]);
+		free(result[--token_index]);
 	free(result);
 	return (NULL);
 }
-static char		**tk(const char *s, char c, size_t token_count, char ** result)
+
+static char	**tk(const char *s, char c, char **result)
 {
 	size_t	token_index;
 	size_t	start;
@@ -51,9 +53,9 @@ static char		**tk(const char *s, char c, size_t token_count, char ** result)
 	while (s[start])
 	{
 		while ((s[start]) && (s[start] == c))
-			start++;;
+			start++;
 		if (s[start] == '\0')
-			break;
+			break ;
 		end = start;
 		while ((s[end]) && (s[end] != c))
 			end++;
@@ -71,9 +73,6 @@ static char		**tk(const char *s, char c, size_t token_count, char ** result)
 char	**ft_split(char const *s, char c)
 {
 	size_t	token_count;
-	size_t	token_index;
-	size_t	start;
-	size_t	end;
 	char	**result;
 
 	if (!s)
@@ -82,27 +81,27 @@ char	**ft_split(char const *s, char c)
 	result = malloc((token_count + 1) * sizeof(char *));
 	if (!result)
 		return (NULL);
-	return (tk(s, c, token_index, result));
+	return (tk(s, c, result));
 }
-int main()
-{
-	char const *s = "hello,world!";
-	char c = ',';
-	char **result;
-	int i = 0;
+//int main()
+//{
+//	char const *s = "hello,world!";
+//	char c = ',';
+//	char **result;
+//	int i = 0;
 
-	result = ft_split(s, c);
-	if (result == NULL)
-	{
-		return 1;
-	}
-	while (result[i] != NULL)
-	{
-		printf("%s\n", result[i]);
-		free(result[i]);
-		i++;
-	}
-	free(result);
+//	result = ft_split(s, c);
+//	if (result == NULL)
+//	{
+//		return 1;
+//	}
+//	while (result[i] != NULL)
+//	{
+//		printf("%s\n", result[i]);
+//		free(result[i]);
+//		i++;
+//	}
+//	free(result);
 
-	return 0;
-}
+//	return 0;
+//}
