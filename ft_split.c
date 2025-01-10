@@ -12,7 +12,7 @@
 
 #include "libft.h"
 #include <stdio.h>
-
+ 
 static size_t	count_token(char const *s, char c)
 {
 	size_t	i;
@@ -33,6 +33,40 @@ static size_t	count_token(char const *s, char c)
 	}
 	return (count);
 }
+static char		**free_token(char **result, size_t token_index)
+{
+	while (token_index > 0)
+				free(result[--token_index]);
+	free(result);
+	return (NULL);
+}
+static char		**tk(const char *s, char c, size_t token_count, char ** result)
+{
+	size_t	token_index;
+	size_t	start;
+	size_t	end;
+
+	start = 0;
+	token_index = 0;
+	while (s[start])
+	{
+		while ((s[start]) && (s[start] == c))
+			start++;;
+		if (s[start] == '\0')
+			break;
+		end = start;
+		while ((s[end]) && (s[end] != c))
+			end++;
+		result[token_index] = ft_substr(s, start, end - start);
+		if (!result[token_index])
+			free_token(result, token_index);
+		token_index++;
+		start ++;
+		start = end;
+	}
+	result[token_index] = NULL;
+	return (result);
+}
 
 char	**ft_split(char const *s, char c)
 {
@@ -48,31 +82,7 @@ char	**ft_split(char const *s, char c)
 	result = malloc((token_count + 1) * sizeof(char *));
 	if (!result)
 		return (NULL);
-	start = 0;
-	token_index = 0;
-	while (s[start])
-	{
-		while ((s[start]) && (s[start] == c))
-			start++;;
-		if (s[start] == '\0')
-			break;
-		end = start;
-		while ((s[end]) && (s[end] != c))
-			end++;
-		result[token_index] = ft_substr(s, start, end - start);
-		if (!result[token_index])
-		{
-			while (token_index > 0)
-				free(result[--token_index]);
-		free(result);
-		return (NULL);
-		}
-		token_index++;
-		start ++;
-		start = end;
-	}
-	result[token_index] = NULL;
-	return (result);
+	return (tk(s, c, token_index, result));
 }
 int main()
 {
