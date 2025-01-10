@@ -53,7 +53,7 @@ char	**ft_split(char const *s, char c)
 	while (s[start])
 	{
 		while ((s[start]) && (s[start] == c))
-			start++;
+			start++;;
 		if (s[start] == '\0')
 			break;
 		end = start;
@@ -62,23 +62,21 @@ char	**ft_split(char const *s, char c)
 		result[token_index] = ft_substr(s, start, end - start);
 		if (!result[token_index])
 		{
-			
 			while (token_index > 0)
 				free(result[--token_index]);
 		free(result);
 		return (NULL);
 		}
+		token_index++;
 		start ++;
-		printf("%zu\n", start);
+		start = end;
 	}
-	token_index++;
-	start = end;
 	result[token_index] = NULL;
 	return (result);
 }
 int main()
 {
-	char const *s = "hello, world!";
+	char const *s = "hello,world!";
 	char c = ',';
 	char **result;
 	int i = 0;
