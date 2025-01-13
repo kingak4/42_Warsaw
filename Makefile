@@ -58,26 +58,26 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean 
-#reSRCS = $(addsuffix .c, $(FILES))
-#OBJS = $(SRCS:.c=.o)
+reSRCS = $(addsuffix .c, $(FILES))
+OBJS = $(SRCS:.c=.o)
 
-#all: $(NAME)
+all: $(NAME)
 
-#$(NAME): $(OBJS)
-#	$(AR) $(NAME) $(OBJS)
-#	@echo "Library $(NAME) created successfully!"
-#%.o: %.c
-#	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJS)
+	$(AR) $(NAME) $(OBJS)
+	@echo "Library $(NAME) created successfully!"
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 	
-#clean:
-#	$(RM) $(OBJS)
+clean:
+	$(RM) $(OBJS)
 
-#fclean: clean
-#	$(RM) $(NAME)
+fclean: clean
+	$(RM) $(NAME)
 
-#re: fclean all
+re: fclean all
 
-#.PHONY: all clean fclean re
+.PHONY: all clean fclean re
 
 
 

@@ -82,25 +82,23 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	return (tk(s, c, result));
 }
-int main()
-{
-	char const *s = "hello,world!";
-	char c = ',';
-	char **result;
-	int i = 0;
-
-	result = ft_split(s, c);
-	if (result == NULL)
-	{
-		return 1;
-	}
-	while (result[i] != NULL)
-	{
-		printf("%s\n", result[i]);
-		free(result[i]);
-		i++;
-	}
-	free(result);
-
-	return 0;
-}
+// int main()
+// {
+// 	char const *s = "hello,world!";
+// 	char c = ',';
+// 	char **result;
+// 	int i = 0;
+// 	result = ft_split(s, c);
+// 	if (result == NULL)
+// 	{
+// 		return 1;
+// 	}
+// 	while (result[i] != NULL)
+// 	{
+// 		printf("%s\n", result[i]);
+// 		free(result[i]);
+// 		i++;
+// 	}
+// 	free(result);
+// 	return 0;
+// }

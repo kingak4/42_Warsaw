@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size)
 {
@@ -34,30 +33,14 @@ unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size)
 	dest[i] = '\0';
 	return (len);
 }
-<<<<<<< HEAD
 
 //int main()
 //{
 //	unsigned int	len;
 //	const char	src[] = "hej, jak się masz?";
 //	char	dest[4];
-
 //	len = ft_strlcpy(dest, src, sizeof(dest));
 //	printf("%u\n", len);
 //	printf("%s\n", dest);
 //	return(0);
 //}
-=======
-
-int main()
-{
-	unsigned int	len;
-	const char	src[] = "hej, jak się masz?";
-	char	dest[4];
-
-	len = ft_strlcpy(dest, src, sizeof(dest));
-	printf("%u\n", len);
-	printf("%s\n", dest);
-	return(0);
-}
->>>>>>> 8654f6bf982ce2bbd7bf33ddc3e432169ddfbea5
