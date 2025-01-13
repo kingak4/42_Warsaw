@@ -31,11 +31,11 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putnbr_fd(n / 10, fd);
 		write(fd, &"0123456789"[n % 10], 1);
 	}
-}
-int main()
-{
-	int	n = -2147483648;
+// }
+// int main()
+// {
+// 	int	n = -2147483648;
 
-	ft_putnbr_fd(n, 1);
-	return(0);
-}
+// 	ft_putnbr_fd(n, 1);
+// 	return(0);
+// }
