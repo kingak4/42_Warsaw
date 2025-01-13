@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 08:31:43 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/10 14:49:14 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/12 10:23:56 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,25 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	return (tk(s, c, result));
 }
-//int main()
-//{
-//	char const *s = "hello,world!";
-//	char c = ',';
-//	char **result;
-//	int i = 0;
+int main()
+{
+	char const *s = "hello,world!";
+	char c = ',';
+	char **result;
+	int i = 0;
 
-//	result = ft_split(s, c);
-//	if (result == NULL)
-//	{
-//		return 1;
-//	}
-//	while (result[i] != NULL)
-//	{
-//		printf("%s\n", result[i]);
-//		free(result[i]);
-//		i++;
-//	}
-//	free(result);
+	result = ft_split(s, c);
+	if (result == NULL)
+	{
+		return 1;
+	}
+	while (result[i] != NULL)
+	{
+		printf("%s\n", result[i]);
+		free(result[i]);
+		i++;
+	}
+	free(result);
 
-//	return 0;
-//}
+	return 0;
+}
