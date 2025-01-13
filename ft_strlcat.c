@@ -20,6 +20,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 
 	i = 0;
 	j = 0;
+<<<<<<< HEAD
 	if ((!src) || (!dest))
 		return (0);
 	while ((dest[i] != '\0') && (i < size - 1))
@@ -27,6 +28,9 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	if (i == size)
 		return (size);
 	while ((src[j] != '\0') && (i + j < size - 1))
+=======
+	while ((src[j] != '\0') && (i + j  < size - 1))
+>>>>>>> 8654f6bf982ce2bbd7bf33ddc3e432169ddfbea5
 	{
 		dest[i + j] = src[j];
 		j++;
@@ -36,6 +40,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 		j++;
 	return (i + j);
 }
+<<<<<<< HEAD
 int main()
 {
 	char	dest[30] = "hejka";
@@ -47,3 +52,17 @@ int main()
 	printf("%s\n", dest);
 	return (0);
 }
+=======
+
+// int main()
+// {
+// 	char	dest[30] = "hejka";
+// 	char	src[] = " jak tam ?";
+// 	size_t	result;
+
+// 	result = ft_strlcat(dest, src, sizeof(dest));
+// 	printf("%zu\n", result);
+// 	printf("%s\n", dest);
+// 	return(0);
+// }
+>>>>>>> 8654f6bf982ce2bbd7bf33ddc3e432169ddfbea5
