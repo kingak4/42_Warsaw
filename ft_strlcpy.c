@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size)
 {
@@ -28,7 +29,7 @@ unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size)
 	}
 	return (len);
 }
-/*
+
 int main()
 {
 	unsigned int	len;
@@ -40,4 +41,3 @@ int main()
 	printf("%s\n", dest);
 	return(0);
 }
-*/
