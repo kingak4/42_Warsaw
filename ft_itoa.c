@@ -6,13 +6,13 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:38:54 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/08 13:55:40 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:04:41 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*safe_malloc(int sign, int len)
+static char	*safe_malloc(int sign, int len)
 {
 	char	*result;
 
@@ -25,7 +25,7 @@ char	*safe_malloc(int sign, int len)
 	return (result);
 }
 
-void	check_sign(int *sign, unsigned int *tmp, int n)
+static void	check_sign(int *sign, unsigned int *tmp, int n)
 {
 	if (n < 0)
 	{

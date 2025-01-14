@@ -47,7 +47,7 @@ $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 	@echo "Library $(NAME) created successfully!"
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@clear
 
 clean:
 	$(RM) $(OBJS)
