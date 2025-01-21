@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 09:14:58 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/03 15:11:48 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/16 09:05:38 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	*ft_calloc(size_t count, size_t size)
 // int  main()
 // {
 // 	 int *array = (int *)ft_calloc(5, sizeof(int)); 
-//     if (!array) {
-//         printf("Błąd alokacji pamięci!\n");
-//         return 1;
-//     }
+//  if (!array) {
+//  printf("Błąd alokacji pamięci!\n");
+// eturn 1;
+//}
 //     for (int i = 0; i < 5; i++) {
-//         printf("%d ", array[i]); 
-//     }
-//     free(array); 
-//     return 0;
+// printf("%d ", array[i]); 
+//}
+// free(array); 
+// return 0;
 // }

@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:27:24 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/03 15:00:41 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:43:16 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned char		*d;
-	const unsigned char	*s;
+	char	*d;
+	char	*s;
 
-	if ((!dest) || (!src))
+	if ((!dest) && (!src))
 	{
 		return (NULL);
 	}
-	d = (unsigned char *) dest;
-	s = (const unsigned char *) src;
+	d = (char *) dest;
+	s = (char *) src;
 	while (n--)
 	{
 		*d = *s;
@@ -31,11 +31,14 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
+//#include <stdio.h>
+
 //int main()
 //{
 //	char	src[] = "czesc";
 //	char	dest[6];
 //	ft_memcpy(dest, src, 6);
+//	dest[5] = '\0';
 //	printf("%s\n", dest);
 //	return(0);
 //}
