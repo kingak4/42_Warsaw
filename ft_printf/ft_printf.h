@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:15:43 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/23 18:02:42 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:17:46 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@
 # include <stdarg.h>
 # include "./libft/libft.h"
 
-int		ft_printf(const char *format, ...);
-void	ft_putstr(char *str);
+int				ft_printf(const char *format, ...);
+void			ft_putstr(char *str);
+void			ft_putchar(char c);
+int				ft_intlen(int nbr);
+void			ft_putnbr(int nb);
+void			ft_putnbr_unsigned(unsigned int nb);
+unsigned int	ft_len_unsigned(unsigned int nb);
 
 #endif

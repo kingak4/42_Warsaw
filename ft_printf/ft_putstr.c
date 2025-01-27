@@ -6,24 +6,24 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:15:19 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/23 18:09:06 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:09:32 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
 	if (!str)
 		return ;
-	while(str != '\0')
+	while (*str != '\0')
 		write(1, &str, 1);
 }
 
 int	ft_intlen(int nbr)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (nbr < 0)
 	{
@@ -32,7 +32,27 @@ int	ft_intlen(int nbr)
 	}
 	while (nbr != 0)
 	{
-		 nbr /= 10;
+		nbr /= 10;
+		i++;
+	}
+	return (i);
+}
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+unsigned int	ft_len_unsigned(unsigned int nb)
+{
+	int	i;
+
+	i = 0;
+	if (nb == 0)
+		return (1);
+	while (nb != 0)
+	{
+		nb /= 10;
 		i++;
 	}
 	return (i);
