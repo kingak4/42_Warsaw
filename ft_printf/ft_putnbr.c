@@ -6,38 +6,50 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:45:11 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/27 13:21:00 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/29 10:47:50 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
-void	ft_putnbr(int nb)
+void	ft_putnbr(int n)
 {
-	if (nb == 0)
+	char	c;
+
+	if (n == 0)
 	{
 		write(1, "0", 1);
 		return ;
 	}
-	if (nb < 0)
+	if (n == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		return ;
+	}
+	else if (n < 0)
 	{
 		write(1, "-", 1);
-		nb = -nb;
+		n = -n;
 	}
-	ft_putnbr(nb / 10);
-	ft_putchar(nb % 10 + '0');
+	if (n >= 10)
+		ft_putnbr(n / 10);
+	c = '0' + (n % 10);
+	write(1, &c, 1);
 }
 
-void	ft_putnbr_unsigned(unsigned int nb)
+int	ft_putnbr_unsigned(unsigned int nb)
 {
+	int	count;
+
+	count = 0;
 	if (nb == 0)
 	{
 		write(1, "0", 1);
-		return ;
+		return (1);
 	}
 	if (nb >= 10)
-	{
-		ft_putnbr_unsigned(nb / 10);
-		ft_putchar(nb % 10 + '0');
-	}
+		count = ft_putnbr_unsigned(nb / 10);
+	ft_putchar(nb % 10 + '0');
+	count++;
+	return (count);
 }

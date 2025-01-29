@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_print_pointer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 16:15:19 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/28 14:50:52 by kikwasni         ###   ########.fr       */
+/*   Created: 2025/01/28 12:29:53 by kikwasni          #+#    #+#             */
+/*   Updated: 2025/01/28 12:57:42 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(char *str)
+int	ft_print_pointer(char *p)
 {
-	int i;
-
-	i = 0;
-	if (!str)
-		return ;
-	while (str[i] != '\0')
+	int	count;
+	
+	count = 0;
+	if (!p)
 	{
-		write(1, &str[i], 1);
-		i++;
+		ft_putstr("NULL");
+		return (4);
 	}
+	ft_putstr("0x");
+	count += 2;
+	count += ft_printx((uintptr_t)p);
+	return (count);
 }
-

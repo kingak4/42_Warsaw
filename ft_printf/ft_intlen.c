@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 16:15:19 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/28 14:50:52 by kikwasni         ###   ########.fr       */
+/*   Created: 2025/01/28 14:26:52 by kikwasni          #+#    #+#             */
+/*   Updated: 2025/01/28 14:27:31 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(char *str)
+int	ft_intlen(int nbr)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (!str)
-		return ;
-	while (str[i] != '\0')
+	if (nbr < 0)
 	{
-		write(1, &str[i], 1);
+		nbr = -nbr;
 		i++;
 	}
+	while (nbr != 0)
+	{
+		nbr /= 10;
+		i++;
+	}
+	return (i);
 }
-
