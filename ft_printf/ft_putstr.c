@@ -6,23 +6,23 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:15:19 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/28 14:50:52 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:37:58 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(char *str)
+int	ft_putstr(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
-		return ;
+		return (write(1, "(null)", 6));
 	while (str[i] != '\0')
 	{
 		write(1, &str[i], 1);
 		i++;
 	}
+	return (i);
 }
-

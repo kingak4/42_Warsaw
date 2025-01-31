@@ -6,25 +6,34 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:29:15 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/28 13:50:21 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:06:28 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_upperx(int nb)
+int	ft_print_upperx(unsigned int nb)
 {
-	const char	*tmp;
-	int			count;
-	
-	count = 0;
-	tmp = "0123456789ABCDEF";
-	if (nb == 0)
-		return (1);
-	count = ft_printx(nb / 16);
-	write(1, &tmp[nb % 16], 1);
-	count++;
-	return (count);
+	int	i;
+
+	i = 0;
+	if (nb >= 16)
+	{
+		i += ft_print_upperx(nb / 16);
+		i += ft_print_upperx(nb % 16);
+	}
+	else
+	{
+		if (nb >= 10)
+			ft_putchar("ABCDEF"[(nb % 16) - 10]);
+		else
+		{
+			nb += '0';
+			ft_putchar(nb);
+		}
+		i ++;
+	}
+	return (i);
 }
 
 //int main()

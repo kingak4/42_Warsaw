@@ -8,7 +8,6 @@ FILES = ft_printf \
 		ft_printx \
 		ft_print_uperx \
 		ft_print_pointer \
-		ft_intlen \
 		ft_putchar \
 
 		

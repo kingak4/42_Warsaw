@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:15:43 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/28 14:25:06 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:34:20 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@
 # include "./libft/libft.h"
 
 int				ft_printf(const char *format, ...);
-void			ft_putstr(char *str);
+int				ft_putstr(char *str);
 void			ft_putchar(char c);
-int				ft_intlen(int nbr);
-void			ft_putnbr(int nb);
+int				ft_putnbr(int nb);
 int				ft_putnbr_unsigned(unsigned int nb);
-int				ft_print_upperx(int nb);
-int				ft_printx(int nb);
-int				ft_print_pointer(char *p);
+int				ft_print_upperx(unsigned int nb);
+int				ft_printx(unsigned int n);
+int				ft_print_pointer(void *p);
 
 #endif

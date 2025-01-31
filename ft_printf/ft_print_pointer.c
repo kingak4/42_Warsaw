@@ -6,24 +6,34 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:29:53 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/28 12:57:42 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:07:24 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_pointer(char *p)
+static int	printer(void *ptr)
 {
-	int	count;
-	
-	count = 0;
-	if (!p)
+	int	len;
+
+	len = 0;
+	if ((unsigned long)ptr >= 16)
 	{
-		ft_putstr("NULL");
-		return (4);
+		len += printer((void *)((unsigned long)ptr / 16));
+		len += printer((void *)((unsigned long)ptr % 16));
 	}
-	ft_putstr("0x");
-	count += 2;
-	count += ft_printx((uintptr_t)p);
-	return (count);
+	else
+	{
+		ft_putchar("0123456789abcdef"[(unsigned long)ptr % 16]);
+		len++;
+	}
+	return (len);
+}
+
+int	ft_print_pointer(void *ptr)
+{
+	if (!ptr)
+		return (ft_putstr("(nil)"));
+	write(1, "0x", 2);
+	return (printer(ptr) + 2);
 }
