@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:15:43 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/01/30 14:34:20 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/03 10:36:25 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <stdint.h>
-# include "./libft/libft.h"
 
 int				ft_printf(const char *format, ...);
 int				ft_putstr(char *str);
