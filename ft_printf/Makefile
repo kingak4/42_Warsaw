@@ -8,21 +8,19 @@ FILES = ft_printf \
 		ft_printx \
 		ft_print_uperx \
 		ft_print_pointer \
-		ft_putchar \
-
+		ft_putchar
 		
 NAME = libftprintf.a
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
-	@echo "Library $(NAME) created successfully!"
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+all: $(NAME)
 
 clean:
 	$(RM) $(OBJS)
