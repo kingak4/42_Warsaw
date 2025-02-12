@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:21:14 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/10 10:54:21 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:58:13 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 10
+#endif
 
-int		find_newline(char *buffer);
-char	*append_to_line(char *line, char *buffer, int newline_index);
-void	shift_buffer(char *buffer, int newline_index);
-char	*handle_eof(char *line, char *buffer);
-int		read_and_store(int fd, char *buffer);
 char	*get_next_line(int fd);
+int		find_newline(char *buffer);
+char	*add_to_line(char *rest, char *buffer, int newline_index);
+void	shift_buffer(char *buffer, int newline_index);
+char	*check_rest(char *rest, char *buffer);
+char	read_and_store(int fd);
 
 
 #endif

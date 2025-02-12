@@ -6,12 +6,39 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:21:17 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/10 11:55:55 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:50:10 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	char	*d;
+	char	*s;
 
+	if ((!dest) && (!src))
+	{
+		return (NULL);
+	}
+	d = (char *) dest;
+	s = (char *) src;
+	while (n--)
+	{
+		*d = *s;
+		d++;
+		s++;
+	}
+	return (dest);
+}
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s != '\0')
+		i++;
+	return (i);
+}
 int	find_newline(char *buffer)
 {
 	int	i;
@@ -27,29 +54,26 @@ int	find_newline(char *buffer)
 			return (i);
 		i++;
 	}
-	return (-1);
+	return (-1); // zoazctmy czy nie damy 0
 }
-char	*append_to_line(char *line, char *buffer, int newline_index)
+char	*add_to_line(char *rest, char *buffer, int newline_index)
 {
-	int	i;
-	int	j;
+	int		len;
+	char	*new_str;
 
-	i = 0;
-	j = 0;
-	if (line == NULL)
+	len = ft_strlen(buffer) + ft_strlen(rest);
+	if (rest == NULL)
 	{
-		line = (char *) malloc(sizeof(*buffer) * (newline_index + 1));
+		rest = (char *) malloc(BUFFER_SIZE + 1);
 		if (!line)
 			return (NULL);
 	}
-	while (buffer[i] && i < newline_index)
-	{
-		line[j] = buffer[i];
-		i++;
-		j++;
-	}
-	line[j] = '\0';
-	return (line);
+	new_str = (char *)malloc(rest + 1);
+	if (!new_str)
+		 return (NULL);
+	new_str = ft_memcpy(rest, buffer, len);
+	rest[len] = '\0';
+	return (rest);
 }
 void	shift_buffer(char *buffer, int newline_index)
 {
@@ -62,25 +86,33 @@ void	shift_buffer(char *buffer, int newline_index)
 		}
 	buffer[newline_index] = '\0';
 }
-char *handle_eof(char *line, char *buffer)
+char *check_rest(char *rest, char *buffer)
 {
-	if (!line)
+	if (!rest)
 		return (NULL);
-	if (line[0] == '\0')
+	if (rest[0] == '\0')
 		return (NULL);
-	return (line);
+	return (rest);
 }
-int	read_and_store(int fd, char *buffer)
+char	*read_and_store(int fd, char *rest)
 {
-	static int	bytes_read;
-	static int	new_line;
+	int		bytes_read;
+	int		new_line;
+	char	*buffer;
 	
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	if (bytes_read == -1)
-		return (-1);
-	if (bytes_read == 0)
-		return (0);
-	buffer[bytes_read] = '\0';
-	new_line = find_newline(buffer);
-	return (new_line);
+	bytes_read = 1;
+	while (bytes_read > 0)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			free (buffer);
+			free (rest);
+			return (NULL);
+		}
+		buffer[bytes_read] = '\0';	// po co to ?
+		new_line = find_newline(buffer);
+		add_to_line(rest, buffer, new_line);
+	}
+	return (buffer); // a tu nie powinno byc rest xd ?
 }
