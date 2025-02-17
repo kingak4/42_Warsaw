@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:21:19 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/12 11:38:23 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/13 09:47:43 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char *get_next_line(int fd)
 	buffer = read_and_store(fd);
 	if (!buffer)
 		return (NULL);
-	
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (buffer[0] != '\0')
@@ -54,10 +53,11 @@ char *get_next_line(int fd)
 	return (rest);
 }
 
-//#include "fcntl.h"
-//int main()
-//{
-//	int fd = open("hey", O_RDONLY);
-//	char *x;
-//	x = get_next_line(fd);
-//}
+#include "fcntl.h"
+int main()
+{
+	int fd = open("hey", O_RDONLY);
+	char *x;
+	x = get_next_line(fd);
+	return (0);
+}

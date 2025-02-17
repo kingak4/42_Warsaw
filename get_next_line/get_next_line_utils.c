@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:21:17 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/12 11:50:10 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/13 09:43:15 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*add_to_line(char *rest, char *buffer, int newline_index)
 	if (rest == NULL)
 	{
 		rest = (char *) malloc(BUFFER_SIZE + 1);
-		if (!line)
+		if (!rest)
 			return (NULL);
 	}
 	new_str = (char *)malloc(rest + 1);
