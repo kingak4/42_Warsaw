@@ -13,6 +13,31 @@
 
 #include "get_next_line.h"
 
+char	*ft_substr(char *s, int start, int len)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	if (!s)
+		return (NULL);
+	str = (char *)malloc(sizeof(*s) * (len + 1));
+	if (str == 0)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if ((i >= start) && (j < len))
+		{
+			str[j] = s[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
+}
 void	*ft_calloc(size_t nmeb, size_t size)
 {
 	size_t			i;
@@ -58,6 +83,48 @@ void	*ft_memcpy(void *dest, void *src, size_t n)
 		s++;
 	}
 	return (dest);
+}
+
+
+char	*one_line(char *buffer)
+{
+	int		id;
+	char	*c;
+
+	if (!buffer)
+		return (NULL);
+	id = find_newline(buffer);
+	if (id >= 0)
+	{
+		c = ft_substr(buffer, 0, id + 1);
+	}
+	else
+		c = ft_substr(buffer, 0, ft_strlen(buffer));
+	return (c);
+}
+
+char *next_res(char *rest)
+{
+	char *new_res;
+	int i;
+	int j;
+	int len;
+
+	i = 0;
+	j = 0;
+	while( rest[i] && rest[i] != '\n')
+		i++;
+	len = ft_strlen(rest) - i;
+	new_res = ft_calloc(len, 1);
+	i++;
+	while(rest[i])
+	{
+		new_res[j] = rest[i];
+		j++;
+		i++;
+	}
+	free(rest);
+	return (new_res);
 }
 size_t	ft_strlen(char *s)
 {
@@ -126,12 +193,10 @@ int	find_newline(char *buffer)
 	return (-1);
 }
 
-
 char	*read_buffer(char *buffer, int fd, char *rest)
 {
 	int			bytes_read;
 	int			new_line_id;
-	static char	*result;
 
 	bytes_read = 1;
 	if (!rest)
@@ -152,8 +217,6 @@ char	*read_buffer(char *buffer, int fd, char *rest)
 		buffer[bytes_read] = '\0';
 		rest = add_to_rest(rest, buffer);
 		new_line_id = find_newline(buffer);
-		if (new_line_id != -1)
-			break;
 	}
 	free(buffer);
 	return (rest);

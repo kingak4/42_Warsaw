@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:28:24 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/18 16:52:25 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:29:10 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # include <unistd.h>
 # include <limits.h>
 # include <fcntl.h>
+#include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 22
 # endif
 
 int		find_newline(char *buffer);
@@ -30,5 +31,8 @@ size_t	ft_strlen(char *s);
 char	*add_to_rest(char *rest, char *buffer);
 void	*ft_calloc(size_t nmeb, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
+char	*ft_substr(char *s, int start, int len);
+char	*one_line(char *buffer);
+char *next_res(char *rest);
 
 #endif
