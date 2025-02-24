@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:28:29 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/24 14:46:31 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/24 14:50:10 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,60 +86,6 @@ void	*ft_memcpy(void *dest, void *src, size_t n)
 	return (dest);
 }
 
-char	*one_line(char *buffer)
-{
-	int		id;
-	char	*c;
-	int		i;
-
-	i = 0;
-	id = -1;
-	if (!buffer)
-		return (NULL);
-	while (buffer[i] != '\0')
-	{
-		if (buffer[i] == '\n')
-		{
-			id = i;
-			break ;
-		}
-		i++;
-	}
-	if (id >= 0)
-		c = ft_substr(buffer, 0, id + 1);
-	else
-		c = ft_substr(buffer, 0, ft_strlen(buffer));
-	return (c);
-}
-
-char	*next_res(char *rest)
-{
-	char	*new_res;
-	int		i;
-	int		j;
-	int		len;
-
-	i = 0;
-	j = 0;
-	new_res = NULL;
-	if (!rest)
-		return (NULL);
-	while (rest[i] && rest[i] != '\n')
-		i++;
-	len = ft_strlen(rest) - i;
-	if (len > 0)
-		new_res = ft_calloc(len, 1);
-	i++;
-	while (i < ft_strlen(rest) && rest[i])
-	{
-		new_res[j] = rest[i];
-		j++;
-		i++;
-	}
-	free(rest);
-	return (new_res);
-}
-
 int	ft_strlen(char *s)
 {
 	int	i;
@@ -169,50 +115,4 @@ char	*ft_strjoin(char *s1, char *s2)
 	ft_memcpy(new_line + len_s1, s2, len_s2);
 	new_line[len_s1 + len_s2] = '\0';
 	return (new_line);
-}
-
-char	*add_to_rest(char *rest, char *buffer)
-{
-	char	*r;
-
-	if (rest == NULL)
-	{
-		rest = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
-		if (!rest)
-			return (NULL);
-	}
-	r = ft_strjoin(rest, buffer);
-	free(rest);
-	rest = r;
-	if (!rest)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	return (rest);
-}
-
-char	*read_buffer(int fd, char *rest)
-{
-	int		bytes_read;
-	char	*buffer;
-
-	if (!rest)
-		rest = ft_calloc(1, 1);
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	bytes_read = 1;
-	while (bytes_read > 0)
-	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
-		{
-			free (buffer);
-			free(rest);
-			return (NULL);
-		}
-		buffer[bytes_read] = '\0';
-		rest = add_to_rest(rest, buffer);
-	}
-	free (buffer);
-	return (rest);
 }
