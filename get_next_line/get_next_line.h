@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:28:24 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/24 09:07:19 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:12:30 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@
 # include <unistd.h>
 # include <limits.h>
 # include <fcntl.h>
-#include <stdio.h>
+# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 22
 # endif
 
 int		find_newline(char *buffer);
-char	*read_buffer(char *buffer, int fd, char *rest);
+char	*read_buffer(int fd, char *rest);
 char	*get_next_line(int fd);
 void	*ft_memcpy(void *dest, void *src, size_t n);
-size_t	ft_strlen(char *s);
+int	ft_strlen(char *s);
 char	*add_to_rest(char *rest, char *buffer);
 void	*ft_calloc(size_t nmeb, size_t size);
 char	*ft_strjoin(char *s1, char *s2);

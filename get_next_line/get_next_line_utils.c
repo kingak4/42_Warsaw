@@ -115,25 +115,24 @@ char *next_res(char *rest)
 	new_res = NULL;
 	if (!rest)
 		return (NULL);
-	while( rest[i] && rest[i] != '\n')
+	while (rest[i] && rest[i] != '\n')
 		i++;
 	len = ft_strlen(rest) - i;
 	if ( len > 0)
 		new_res = ft_calloc(len, 1);
 	i++;
-	while(rest[i])
+	while (i < ft_strlen(rest) && rest[i])
 	{
 		new_res[j] = rest[i];
 		j++;
 		i++;
 	}
 	free(rest);
-	new_res[j] = '\0';
 	return (new_res);
 }
-size_t	ft_strlen(char *s)
+int	ft_strlen(char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 
@@ -198,17 +197,15 @@ int	find_newline(char *buffer)
 	return (-1);
 }
 
-char	*read_buffer(char *buffer, int fd, char *rest)
+char	*read_buffer(int fd, char *rest)
 {
-	int			bytes_read;
+	int	bytes_read;
+	char *buffer;
 
-	bytes_read = 1;
 	if (!rest)
-	{
 		rest = ft_calloc(1, 1); 
-		rest[0] = '\0';
-	}
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	bytes_read = 1;
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
