@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:28:24 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/24 14:40:26 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:25:12 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #  define BUFFER_SIZE 22
 # endif
 
-char	*read_buffer(int fd, char *rest);
+char	*read_buffer(int fd, char *rest, int bytes_read);
 char	*get_next_line(int fd);
 void	*ft_memcpy(void *dest, void *src, size_t n);
 int		ft_strlen(char *s);

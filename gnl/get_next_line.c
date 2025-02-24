@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:28:21 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/24 16:38:23 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:25:04 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,8 @@ char	*add_to_rest(char *rest, char *buffer)
 	return (rest);
 }
 
-char	*read_buffer(int fd, char *rest)
+char	*read_buffer(int fd, char *rest, int bytes_read)
 {
-	int		bytes_read;
 	char	*buffer;
 
 	if (!rest)
@@ -127,7 +126,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	r = read_buffer(fd, rest);
+	r = read_buffer(fd, rest, 1);
 	if (!r)
 		return (NULL);
 	line = one_line(r);
