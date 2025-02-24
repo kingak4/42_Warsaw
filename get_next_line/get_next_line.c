@@ -5,59 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 12:21:19 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/13 09:47:43 by kikwasni         ###   ########.fr       */
+/*   Created: 2025/02/13 12:28:21 by kikwasni          #+#    #+#             */
+/*   Updated: 2025/02/24 11:28:04 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
+#include <fcntl.h>
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	char *rest;
 	char *buffer;
-	int new_line_id;
-	static char *rest;
+	static char	*rest;
+	char	*r;
+	char *line;
 	
-	if (!rest)
-		rest = malloc(1);
-	//if (rest)
-	//{
-	//	line = append_to_line(line, buffer, new_line_id);
-	//	free(rest);
-	//}
-	if (!buffer)
-		buffer = malloc(BUFFER_SIZE + 1);
-	//line = NULL;
-	buffer = read_and_store(fd);
-	if (!buffer)
+	
+	if (fd < 0 || BUFFER_SIZE <= 0 )
 		return (NULL);
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (buffer[0] != '\0')
-	{
-		new_line_id = find_newline(buffer);
-		if (new_line_id >= 0)
-		{
-			rest = add_to_line(rest, buffer, new_line_id);
-			shift_buffer(buffer, new_line_id);
-		}
-		//else
-		//{
-		//	rest = add_to_line(rest, buffer, new_line_id);
-		//	shift_buffer(buffer, new_line_id);
-		//	free(buffer);
-		//}
-	}
-	rest = check_rest(rest, buffer);
-	return (rest);
+	r = read_buffer(buffer , fd, rest);
+	line = one_line(r);
+	rest = next_res(r);
+	return (line);
 }
 
-#include "fcntl.h"
 int main()
 {
-	int fd = open("hey", O_RDONLY);
+	int fd = open("hey.txt", O_RDONLY);
 	char *x;
 	x = get_next_line(fd);
+	if (x)
+	{
+		printf("%s", x);
+		free(x);
+		
+	}
+	close(fd);
+	//x = get_next_line(fd);
+	//printf("%s", x);
+	//free(x);
 	return (0);
 }

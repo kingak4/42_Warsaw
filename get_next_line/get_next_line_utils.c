@@ -1,17 +1,71 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   gnl_a.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 12:21:17 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/02/13 09:43:15 by kikwasni         ###   ########.fr       */
+/*   Created: 2025/02/13 12:28:29 by kikwasni          #+#    #+#             */
+/*   Updated: 2025/02/13 13:00:40 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+
+char	*ft_substr(char *s, int start, int len)
+{
+	char	*str;
+	int	i;
+	int	j;
+
+	if (!s)
+		return (NULL);
+	str = (char *)malloc(sizeof(*s) * (len + 1));
+	if (str == 0)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if ((i >= start) && (j < len))
+		{
+			str[j] = s[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
+}
+void	*ft_calloc(size_t nmeb, size_t size)
+{
+	size_t			i;
+	size_t			j;
+	unsigned char	*space;
+	unsigned char	*ptr;
+
+	i = nmeb * size;
+	if (nmeb == 0 || size == 0)
+	{
+		nmeb = 1;
+		size = 1;
+	}
+	if (nmeb > INT_MAX / size)
+		return (NULL);
+	space = malloc(i);
+	if (!space)
+		return (NULL);
+	j = 0;
+	ptr = (unsigned char *)space;
+	while (j < i)
+	{
+		ptr[j] = 0;
+		j++;
+	}
+	return (space);
+}
+void	*ft_memcpy(void *dest, void *src, size_t n)
 {
 	char	*d;
 	char	*s;
@@ -30,15 +84,104 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
-int	ft_strlen(char *s)
+
+
+char	*one_line(char *buffer)
 {
-	int	i;
+	int		id;
+	char	*c;
+
+	if (!buffer)
+		return (NULL);
+	id = find_newline(buffer);
+	if (id >= 0)
+	{
+		c = ft_substr(buffer, 0, id + 1);
+	}
+	else
+		c = ft_substr(buffer, 0, ft_strlen(buffer));
+	return (c);
+}
+
+char *next_res(char *rest)
+{
+	char *new_res;
+	int i;
+	int j;
+	int len;
 
 	i = 0;
-	while (s != '\0')
+	j = 0;
+	new_res = NULL;
+	if (!rest)
+		return (NULL);
+	while( rest[i] && rest[i] != '\n')
+		i++;
+	len = ft_strlen(rest) - i;
+	if ( len > 0)
+		new_res = ft_calloc(len, 1);
+	i++;
+	while(rest[i])
+	{
+		new_res[j] = rest[i];
+		j++;
+		i++;
+	}
+	free(rest);
+	new_res[j] = '\0';
+	return (new_res);
+}
+size_t	ft_strlen(char *s)
+{
+	size_t	i;
+
+	i = 0;
+
+	while (s[i] != '\0')
 		i++;
 	return (i);
 }
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	len_s1;
+	size_t	len_s2;
+	char	*new_line;
+
+	if (!s1 || !s2)
+	{
+		return (NULL);
+	}
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	new_line = (char *)malloc(len_s1 + len_s2 + 1);
+	if (!new_line)
+		return (NULL);
+	ft_memcpy(new_line, s1, len_s1);
+	ft_memcpy(new_line + len_s1, s2, len_s2);
+	new_line[len_s1 + len_s2] = '\0';
+	return (new_line);
+}
+
+char	*add_to_rest(char *rest, char *buffer)
+{
+	char	*r;
+	if (rest == NULL)
+	{
+		rest = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
+		if (!rest)
+			return (NULL);
+	}
+	r = ft_strjoin(rest, buffer);
+	free(rest);
+	rest = r;
+	if (!rest)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	return (rest);
+}
+
 int	find_newline(char *buffer)
 {
 	int	i;
@@ -46,73 +189,38 @@ int	find_newline(char *buffer)
 	i = 0;
 	if (!buffer)
 		return (-1);
-	if (buffer[0] == '\0')
-		return (-1);
-	while (buffer[i])
+	while (buffer[i] != '\0')
 	{
 		if (buffer[i] == '\n')
 			return (i);
 		i++;
 	}
-	return (-1); // zoazctmy czy nie damy 0
+	return (-1);
 }
-char	*add_to_line(char *rest, char *buffer, int newline_index)
-{
-	int		len;
-	char	*new_str;
 
-	len = ft_strlen(buffer) + ft_strlen(rest);
-	if (rest == NULL)
-	{
-		rest = (char *) malloc(BUFFER_SIZE + 1);
-		if (!rest)
-			return (NULL);
-	}
-	new_str = (char *)malloc(rest + 1);
-	if (!new_str)
-		 return (NULL);
-	new_str = ft_memcpy(rest, buffer, len);
-	rest[len] = '\0';
-	return (rest);
-}
-void	shift_buffer(char *buffer, int newline_index)
+char	*read_buffer(char *buffer, int fd, char *rest)
 {
-	if (newline_index >= 0 )
-		newline_index++;
-		while (buffer[newline_index] != '\0')
-		{
-			buffer[newline_index - 1] = buffer[newline_index];
-			newline_index++;
-		}
-	buffer[newline_index] = '\0';
-}
-char *check_rest(char *rest, char *buffer)
-{
-	if (!rest)
-		return (NULL);
-	if (rest[0] == '\0')
-		return (NULL);
-	return (rest);
-}
-char	*read_and_store(int fd, char *rest)
-{
-	int		bytes_read;
-	int		new_line;
-	char	*buffer;
-	
+	int			bytes_read;
+
 	bytes_read = 1;
+	if (!rest)
+	{
+		rest = ft_calloc(1, 1); 
+		rest[0] = '\0';
+	}
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
 			free (buffer);
-			free (rest);
+			free(rest);
 			return (NULL);
 		}
-		buffer[bytes_read] = '\0';	// po co to ?
-		new_line = find_newline(buffer);
-		add_to_line(rest, buffer, new_line);
+		buffer[bytes_read] = '\0';
+		rest = add_to_rest(rest, buffer);
 	}
-	return (buffer); // a tu nie powinno byc rest xd ?
+	free(buffer);
+	return (rest);
 }
