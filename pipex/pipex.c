@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:32:48 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/04/16 21:37:56 by root             ###   ########.fr       */
+/*   Updated: 2025/04/16 23:06:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	exe(char *cmd,char **env)
 		free_sp(path_splited);
 		exit(1);
 	}
+	free(way);
+	free_sp(path_splited);
 }
 void	child(char *cmd, int *tab_fd, char **env,char *file)
 {

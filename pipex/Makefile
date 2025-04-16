@@ -1,22 +1,21 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-NAME = pipex.a
+NAME = pipex  # Zmieniamy na plik wykonywalny, nie biblioteka .a
 RM = rm -rf
 AR = ar rcs
-FILES =  pipex \
-	     pipex_utils \
-		
+FILES = pipex.c pipex_utils.c  # Upewnij się, że tu masz plik z funkcją main, czyli pipex.c
+OBJS = $(FILES:.c=.o)  # Pliki obiektowe
+
 LIBFT_PATH = libft
 LIBFTNAME = $(LIBFT_PATH)/libft.a
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C $(LIBFT_PATH)
-	cp $(LIBFTNAME) .
-	mv libft.a $(NAME)
-	$(AR) $(NAME) $(OBJS)
-	@echo "Library $(NAME) created successfully!"
+	make -C $(LIBFT_PATH)  # Kompilujemy bibliotekę libft
+	cp $(LIBFTNAME) .  # Kopiujemy libft.a do głównego katalogu
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFTNAME) -o $(NAME)  # Kompilujemy program wykonywalny
+	@echo "Program $(NAME) został pomyślnie utworzony!"
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

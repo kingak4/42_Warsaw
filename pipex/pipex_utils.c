@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:32:51 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/04/16 21:37:49 by root             ###   ########.fr       */
+/*   Updated: 2025/04/16 23:08:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exit_function(int exiter)
 {
 	if(exiter == 1)
-		ft_putstr_fd("./pipex infile cmd cmd outfile\n", 2);
+		ft_putstr_fd("to few arguments :( \n", 2);
 	exit(0);
 }
 int	open_file(char *file,int in)
@@ -91,6 +91,7 @@ char	*get_path(char *cmd,char **env)
 		if (access(exe_path, F_OK | X_OK) == 0)
 		{
 			free(full_path);
+			free_sp(all_path);
 			return(exe_path);
 		}
 		else
