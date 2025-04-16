@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:32:51 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/03/14 11:48:47 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/04/16 21:37:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,77 +18,115 @@ void	exit_function(int exiter)
 		ft_putstr_fd("./pipex infile cmd cmd outfile\n", 2);
 	exit(0);
 }
-int		open_file(char *file, int n)
+int	open_file(char *file,int in)
 {
-	int	open_rest;
-	//char	*r;
-	
-	//r = malloc(100);
-	
-	open_rest = -1;
-	if (!file)
-		return (-1);
-	if (n == 0)
-		open_rest = open(file, O_RDONLY);
-	if (n == 1)
-		open_rest = open(file, O_CREAT | O_WRONLY , 0644);
-	if (open_rest == -1)
+	int n;
+	if(in == 0)
+		n = open(file,O_RDONLY,0777);
+	if(in == 1)
+		n = open(file,O_RDWR | O_CREAT | O_TRUNC,0777);
+	if (n == -1)
 	{
-		perror("operation failed");
-		return (-1);
+		perror("Error in opening file");
+		exit(-1);
 	}
-	//read(open_rest, r, 100);
-	//printf("%s\n", r);
-	return (open_rest);
+	return(n);
 }
-void	free_tab(char **tab)
+void	free_sp(char **splited)
 {
-	size_t i;
+	int i;
 	
 	i = 0;
-	while(tab[i])
+	while (splited[i] != NULL)
 	{
-		free(tab[i]);
+		free(splited[i]);
 		i++;
 	}
-	free(tab);
+	free(splited);
 }
-char	*my_getenv( char *name, char **envp)
+char	*my_getenv(char *name, char **env)
 {
-	int		name_len;
+	int i;
+	int j;
 
-	if (!name || !envp)
-		return (NULL);
-	name_len = ft_strlen(name);
-	while (*envp)
+	i = 0;
+	j = 0;
+	while (env[j] != NULL)
 	{
-		if (ft_strncmp(*envp, name, name_len) == 0)
+		i = 0;
+		while(env[j][i] == name[i] && name[i] != '\0') 
 		{
-			if ((*envp)[name_len] == '=')
-			{
-				return (*envp + name_len + 1);
-			}
-			envp++;
+			i++;
+			if(name[i] == '\0' && env[j][i] == '=')
+				return(&env[j][i + 1]);
 		}
+		j++;
 	}
-	return (NULL);
+	return(NULL);
+
 }
-char	*get_path(char **envp)
+
+char	*get_path(char *cmd,char **env)
 {
-	const char	*rest;
-	int	i;
-	char **d;
-	
-	i = 47;
-	rest = my_getenv("PATH", envp);
-	d = ft_split(rest, i);
-	
+	char	*is_path;
+	char 	**all_path;
+	char	*full_path;
+	char	*exe_path;
+	int 	i;
+
+	i = 0;
+	if(ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, F_OK | X_OK) == 0)
+			return(ft_strdup(cmd));	
+	}
+	is_path = my_getenv("PATH",env);
+	if(!is_path)
+		return(NULL);
+	all_path = ft_split(is_path, ':');
+	while (all_path[i] != NULL)
+	{
+		full_path = ft_strjoin(all_path[i],"/");
+		exe_path = ft_strjoin(full_path,cmd);
+		if (access(exe_path, F_OK | X_OK) == 0)
+		{
+			free(full_path);
+			return(exe_path);
+		}
+		else
+		{
+			free(exe_path);
+			free(full_path);
+		}
+		i++;
+	}
+	free_sp(all_path); 
+	return(NULL);
 	
 }
 
+// int main(int argc, char **argv, char **env)
+// {
+// 	char *rest;
+// 	rest = my_getenv("PATH", env);
+//      printf("PATH: %s\n", rest);
 
-int main(int argc, char **argv, char **env)
-{
-	my_getenv()
-	return 0;
-}
+// }
+// int main(void)
+// {
+//     extern char **environ;
+//     char *cmd = "ls";
+
+//     char *result = get_path(cmd, environ);
+//     if (result)
+//     {
+//         printf("Znaleziono ścieżkę: %s\n", result);
+//         free(result);
+//     }
+//     else
+//     {
+//         printf("Nie znaleziono komendy: %s\n", cmd);
+//     }
+
+//     return 0;
+// }
