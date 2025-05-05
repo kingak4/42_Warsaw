@@ -4,7 +4,7 @@ NAME = so_long
 RM = rm -rf
 AR = ar rcs
 
-FILES = test.c
+FILES = start.c
 OBJS = $(FILES:.c=.o) 
 
 LIBFT_PATH = libft
