@@ -4,7 +4,7 @@ NAME = so_long
 RM = rm -rf
 AR = ar rcs
 
-FILES = start.c
+FILES = start.c hooks.c map_check.c
 OBJS = $(FILES:.c=.o) 
 
 LIBFT_PATH = libft

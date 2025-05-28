@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:00:11 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/04/24 14:18:55 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/05/13 09:48:48 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <stdint.h>
 # include <limits.h>
 # include <fcntl.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 22
+# endif
 
 void			ft_bzero(void *s, size_t n);
 void			*ft_calloc(size_t count, size_t size);
@@ -63,5 +67,15 @@ int				ft_putnbr_unsigned(unsigned int nb);
 int				ft_print_upperx(unsigned int nb);
 int				ft_printx(unsigned int n);
 int				ft_print_pointer(void *p);
+char			*read_buffer(int fd, char *rest, int bytes_read);
+char			*get_next_line(int fd);
+void			*ft_memcpy1(void *dest, void *src, size_t n);
+int				ft_strlen1(char *s);
+char			*add_to_rest(char *rest, char *buffer);
+void			*ft_calloc1(size_t nmeb, size_t size);
+char			*ft_strjoin1(char *s1, char *s2);
+char			*ft_substr1(char *s, int start, int len);
+char			*one_line(char *buffer);
+char			*next_res(char *rest);
 
 #endif

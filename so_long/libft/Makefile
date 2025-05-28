@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIC
 AR = ar rcs
 RM = rm -f
 FILES = ft_memset \
@@ -43,6 +43,8 @@ FILES = ft_memset \
 		ft_print_uperx \
 		ft_print_pointer \
 		ft_putchar \
+		get_next_line \
+		get_next_line_utils \
 
 NAME = libft.a
 SRCS = $(addsuffix .c, $(FILES))
