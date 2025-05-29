@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:59:39 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/05/28 16:59:45 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:46:45 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,18 @@ int	way_check(char **map)
 	}
 	flood_fill(map, size, begin);
 	print_map(map);
+	begin.y = 0;
+	while(map[begin.y])
+	{
+		begin.x = 0;
+		while(map[begin.y][begin.x] != '\0' && map[begin.y][begin.x] != '\n')
+		{
+			if(map[begin.y][begin.x] == 'E'|| map[begin.y][begin.x] == 'C' ||map[begin.y][begin.x] == '0' )
+				return(0);
+			begin.x++;	
+		}
+		begin.y++;
+	}
 	if(map_checker(map))	
 		return(0);
 	return(1);

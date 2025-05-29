@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/05/28 13:00:26 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:45:52 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ typedef struct s_so_long
 	int moves;
 } t_so_long;
 
+typedef struct s_texture
+{
+	void *mlx;
+    void *win;
+    void *img_wall;
+    void *img_floor;
+    void *img_player;
+    void *img_exit;
+    void *img_coin;
+    char **map;
+	int w;
+	int h;
+} t_texture;
 typedef struct  s_point
 {
   int           x;

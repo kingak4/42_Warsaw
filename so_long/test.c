@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:10:00 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/05/05 09:39:15 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:30:23 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 //int	hokkey(int x ,void *win, void *mlx)
 //{ 
 //	int y = 32;
+//	int height = 32;
 //	while (y <= height)
 //	{
-//		mlx_put_image_to_window(mlx, win, bird_img,x,y);
+//		mlx_put_image_to_window(mlx, win, "bird_img",x,y);
 //		y += 32;
 //		printf("%d", y);
 //	}
@@ -39,7 +40,7 @@
 //    void *bird_img;
 //	int x = 100;
 //	int y = 32;
-	
+//	void *param;
 
 //    mlx = mlx_init();
 
@@ -48,9 +49,9 @@
 //    bird_img = mlx_xpm_file_to_image(mlx, "bird.xpm", &width, &height);
 
 	
-//	mlx_loop_hook()
-//    //mlx_hook(win, 17, 0, close_window, mlx); // Zamyka okno przy kliknięciu w krzyżyk
-//    //return (0);
+//	mlx_loop_hook(mlx,hokkey,param);
+//    mlx_hook(win, 17, 0, close_window, mlx); // Zamyka okno przy kliknięciu w krzyżyk
+//    return (0);
 //}
 
 //int main()
@@ -78,3 +79,62 @@
 //	mlx_loop(mlx);
 	
 //}
+#define WIN_WIDTH 800
+#define WIN_HEIGHT 600
+
+typedef struct s_data {
+    void *mlx;
+    void *win;
+    void *img;
+}   t_data;
+
+// Funkcja do zamykania okna
+int close_window(t_data *data)
+{
+    mlx_destroy_window(data->mlx, data->win);
+    exit(0);
+    return (0);
+}
+
+// Funkcja rysująca obrazek w pętli (hook)
+int render(void *param)
+{
+    t_data *data = (t_data *)param;
+    int x = 100;
+    int y = 32;
+
+    while (y <= WIN_HEIGHT - 32)
+    {
+        mlx_put_image_to_window(data->mlx, data->win, data->img, x, y);
+        y += 32;
+    }
+    return (0);
+}
+
+int main(void)
+{
+    t_data data;
+    int img_width, img_height;
+
+    data.mlx = mlx_init();
+    if (!data.mlx)
+        return (1);
+
+    data.win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Bird Test");
+    if (!data.win)
+        return (1);
+
+    data.img = mlx_xpm_file_to_image(data.mlx, "wall.xpm", &img_width, &img_height);
+    if (!data.img)
+    {
+        printf("❌ Nie można załadować bird.xpm\n");
+        return (1);
+    }
+
+    // Ustawienie hooków
+    mlx_loop_hook(data.mlx, render, &data);
+    mlx_hook(data.win, 17, 0, (int (*)(void *))close_window, &data);
+    mlx_loop(data.mlx);
+
+    return (0);
+}

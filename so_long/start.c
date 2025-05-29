@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 09:55:42 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/05/28 16:02:33 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:43:17 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <stdio.h>
 
 
-//void	open_window(t_so_long *game)
-//{
-//	game->mlx = mlx_init();
-//	game->win = mlx_new_window(game->mlx,960,640, "so_long");
-//}
+void	open_window(t_so_long *game)
+{
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx,960,640, "so_long");
+}
 int	exit_game(void *param)
 {
 	(void)param;
@@ -46,7 +46,7 @@ char	**readmap(int *w, int *s)
 	*w = 0;
 	*s = 0;
 	
-	fd = open("maps/map_error2.ber", O_RDONLY);
+	fd = open("maps/map_error4.ber", O_RDONLY);
 	if (fd < 0)
 		return(NULL);
 	while((line = get_next_line(fd)) != NULL)
@@ -55,7 +55,7 @@ char	**readmap(int *w, int *s)
 		free(line);
 	}
 	close(fd);
-	fd = open("maps/map_error2.ber", O_RDONLY);
+	fd = open("maps/map_error4.ber", O_RDONLY);
 	if (fd < 0)
 		return(NULL);
 	if (line != NULL)
@@ -86,7 +86,7 @@ char	**readmap(int *w, int *s)
 	if(!map)
 		return(NULL);
 	i = 0;
-	fd = open("maps/map_error2.ber", O_RDONLY);
+	fd = open("maps/map_error4.ber", O_RDONLY);
 	if (fd < 0)
 		return(NULL);
 	while ((line = get_next_line(fd)) != NULL)
