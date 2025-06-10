@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:59:39 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/05/29 10:46:45 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/10 15:12:49 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ int	map_checker(char **map)
 {
 	int	palyer;
 	int	exit;
-	int	colect;
 	int	x;
 	int	y;
 
 	palyer = 0;
 	exit = 0;
-	colect = 0;
 	x = 0;
 	y = 0;
 	while (map[y])
@@ -34,13 +32,33 @@ int	map_checker(char **map)
 				palyer++;
 			if(map[y][x] == 'E')
 				exit++;
+			x++;
+		}
+		y++;
+	}
+	if (palyer == 1 && exit == 1)
+		return(1);
+	return(0);
+}
+int	coin_check(char **map)
+{
+	int	x;
+	int	y;
+	int	colect;
+	y = 0;
+	colect = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
 			if(map[y][x] == 'C')
 				colect++;
 			x++;
 		}
 		y++;
 	}
-	if (palyer == 1 && exit == 1 && colect >= 1)
+	if (colect >= 1)
 		return(1);
 	return(0);
 }
@@ -138,7 +156,7 @@ void print_map(char **map)
 	int y = 0;
 	while (map[y])
 	{
-		ft_printf("%s", map[y]);  // zakładam, że linie mają \n na końcu
+		ft_printf("%s", map[y]);
 		y++;
 	}
 }
@@ -193,6 +211,57 @@ int	way_check(char **map)
 		return(0);
 	return(1);
 }
+int	find_palyer(char **map,t_so_long *game)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while(map[y])
+	{
+		x = 0;
+		while(map[y][x])
+		{
+			if(map[y][x] == 'P')
+			{
+				game->player_x = x;
+				game->player_y = y;
+				return(1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return(0);
+}
+int	final_check(char **map)
+{
+	if(map_checker(map) == 0)
+	{
+		ft_printf("Error: Incorrect number of arguments.");
+		exit(1);
+		return(0);
+	}
+	if(coin_check(map) == 0)
+	{
+		ft_printf("Error: No collectibles on the map.");
+		exit(1);
+		return(0);
+	}
+	if(wall_check(map) == 0)
+	{
+		ft_printf("Error: Map not fully surrounded by walls.");
+		exit(1);
+		return(0);
+	}
+	if(way_check(map) == 0)
+	{
+		ft_printf("Error: No valid path to exit or all collectibles.");
+		exit(1);
+		return(0);
+	}
+	return(1);
+}
 //int main()
 //{
 //	int w = 0, s = 0;
@@ -201,19 +270,19 @@ int	way_check(char **map)
 //	d = way_check(map);
 //	ft_printf("%d\n", d);
 //}
-int main()
-{
-    int w = 0, s = 0;
-	int d = 0;
-    char **map = readmap(&w, &s);
-    if (!map)
-    {
-        ft_printf("Error: map loading failed\n");
-        return 1;
-    }
-	d = way_check(map);
-	ft_printf("\n%d\n", d);
-}
+//int main()
+//{
+//    int w = 0, s = 0;
+//	int d = 0;
+//    char **map = readmap(&w, &s);
+//    if (!map)
+//    {
+//        ft_printf("Error: map loading failed\n");
+//        return 1;
+//    }
+//	d = way_check(map);
+//	ft_printf("\n%d\n", d);
+//}
 //gcc -no-pie map_check.c start.c libft.a libmlx.a -lXext -lX11 -lm -lz -o so_long 
 //./so_long tak odpalasz 
 // zrob jesli nie znajdzie drogi do E to wtedy wywala 0 czyli przeszukaj mape jesli jest e wywal ) 

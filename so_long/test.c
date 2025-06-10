@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:10:00 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/05/29 11:30:23 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/09 10:23:39 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,62 +79,62 @@
 //	mlx_loop(mlx);
 	
 //}
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 600
+//#define WIN_WIDTH 800
+//#define WIN_HEIGHT 600
 
-typedef struct s_data {
-    void *mlx;
-    void *win;
-    void *img;
-}   t_data;
+//typedef struct s_data {
+//    void *mlx;
+//    void *win;
+//    void *img;
+//}   t_data;
 
-// Funkcja do zamykania okna
-int close_window(t_data *data)
-{
-    mlx_destroy_window(data->mlx, data->win);
-    exit(0);
-    return (0);
-}
+//// Funkcja do zamykania okna
+//int close_window(t_data *data)
+//{
+//    mlx_destroy_window(data->mlx, data->win);
+//    exit(0);
+//    return (0);
+//}
 
-// Funkcja rysująca obrazek w pętli (hook)
-int render(void *param)
-{
-    t_data *data = (t_data *)param;
-    int x = 100;
-    int y = 32;
+//// Funkcja rysująca obrazek w pętli (hook)
+//int render(void *param)
+//{
+//    t_data *data = (t_data *)param;
+//    int x = 100;
+//    int y = 32;
 
-    while (y <= WIN_HEIGHT - 32)
-    {
-        mlx_put_image_to_window(data->mlx, data->win, data->img, x, y);
-        y += 32;
-    }
-    return (0);
-}
+//    while (y <= WIN_HEIGHT - 32)
+//    {
+//        mlx_put_image_to_window(data->mlx, data->win, data->img, x, y);
+//        y += 32;
+//    }
+//    return (0);
+//}
 
-int main(void)
-{
-    t_data data;
-    int img_width, img_height;
+//int main(void)
+//{
+//    t_data data;
+//    int img_width, img_height;
 
-    data.mlx = mlx_init();
-    if (!data.mlx)
-        return (1);
+//    data.mlx = mlx_init();
+//    if (!data.mlx)
+//        return (1);
 
-    data.win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Bird Test");
-    if (!data.win)
-        return (1);
+//    data.win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Bird Test");
+//    if (!data.win)
+//        return (1);
 
-    data.img = mlx_xpm_file_to_image(data.mlx, "wall.xpm", &img_width, &img_height);
-    if (!data.img)
-    {
-        printf("❌ Nie można załadować bird.xpm\n");
-        return (1);
-    }
+//    data.img = mlx_xpm_file_to_image(data.mlx, "wall.xpm", &img_width, &img_height);
+//    if (!data.img)
+//    {
+//        printf("❌ Nie można załadować bird.xpm\n");
+//        return (1);
+//    }
 
-    // Ustawienie hooków
-    mlx_loop_hook(data.mlx, render, &data);
-    mlx_hook(data.win, 17, 0, (int (*)(void *))close_window, &data);
-    mlx_loop(data.mlx);
+//    // Ustawienie hooków
+//    mlx_loop_hook(data.mlx, render, &data);
+//    mlx_hook(data.win, 17, 0, (int (*)(void *))close_window, &data);
+//    mlx_loop(data.mlx);
 
-    return (0);
-}
+//    return (0);
+//}

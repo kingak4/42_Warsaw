@@ -6,18 +6,51 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 11:38:35 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/05/29 12:50:02 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/10 09:08:44 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void init_textures(t_texture *image)
+void init_textures(t_so_long *game)
 {	
-	image->w = 64;
-	image->h = 64;
-	image->img_coin = mlx_xpm_file_to_image(image->mlx,"textures/hart.xpm",&image->w, &image->h);
-	image->img_wall = mlx_xpm_file_to_image(image->mlx,"textures/wall.xpm",&image->w, &image->h);
-	image->img_exit = mlx_xpm_file_to_image(image->mlx,"textures/exit.xpm",&image->w, &image->h);
-	image->img_player = mlx_xpm_file_to_image(image->mlx,"textures/char_02.xpm",&image->w, &image->h);
+	game->textures.w = 64;
+	game->textures.h = 64;
+	
+	game->textures.img_coin = mlx_xpm_file_to_image(game->mlx,"textures/col.xpm",&game->textures.w, &game->textures.h);
+	game->textures.img_wall = mlx_xpm_file_to_image(game->mlx,"textures/wall1.xpm",&game->textures.w, &game->textures.h);
+	game->textures.img_exit = mlx_xpm_file_to_image(game->mlx,"textures/exit1.xpm",&game->textures.w, &game->textures.h);
+	game->textures.img_player = mlx_xpm_file_to_image(game->mlx,"textures/p.xpm",&game->textures.w, &game->textures.h);
+	game->textures.img_floor = mlx_xpm_file_to_image(game->mlx,"textures/f1.xpm",&game->textures.w, &game->textures.h);
+}
+void draw_map(t_so_long *game,char **map)
+{
+	int x;
+	int y;
+	
+	mlx_clear_window(game->mlx, game->win);
+	y = 0;
+	while(map[y])
+	{
+		x = 0;
+		while(map[y][x])
+		{
+			if(map[y][x] == '1')
+				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_wall,x * 64, y * 64);
+			else if (map[y][x] == 'C')
+				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_coin,x * 64, y * 64);
+			else if (map[y][x] == 'P')
+				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_player,x * 64, y * 64);
+			else if (map[y][x] == 'E')
+				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_exit,x * 64, y * 64);
+			else if (map[y][x] == '0')
+				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_floor,x * 64, y * 64);
+			x++;
+		}
+		y++;
+	}
+}
+void	start_game(char **map, t_so_long *game)
+{
+	draw_map(game, map);
 }

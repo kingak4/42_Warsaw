@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 09:55:42 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/05/29 11:43:17 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/10 15:28:19 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 void	open_window(t_so_long *game)
 {
-	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx,960,640, "so_long");
 }
 int	exit_game(void *param)
@@ -29,12 +28,11 @@ int	exit_esc(int keycode, void *param)
 {
 	(void)param;
 	if(keycode == 65307)
-	{
 		exit(0);
-	}
 	return(0);
 }
-char	**readmap(int *w, int *s)
+
+char	**readmap(int *w, int *s, t_so_long *game)
 {
 	int		fd;
 	char	**map;
@@ -46,7 +44,7 @@ char	**readmap(int *w, int *s)
 	*w = 0;
 	*s = 0;
 	
-	fd = open("maps/map_error4.ber", O_RDONLY);
+	fd = open("maps/map4.ber", O_RDONLY);
 	if (fd < 0)
 		return(NULL);
 	while((line = get_next_line(fd)) != NULL)
@@ -55,7 +53,7 @@ char	**readmap(int *w, int *s)
 		free(line);
 	}
 	close(fd);
-	fd = open("maps/map_error4.ber", O_RDONLY);
+	fd = open("maps/map4.ber", O_RDONLY);
 	if (fd < 0)
 		return(NULL);
 	if (line != NULL)
@@ -86,7 +84,7 @@ char	**readmap(int *w, int *s)
 	if(!map)
 		return(NULL);
 	i = 0;
-	fd = open("maps/map_error4.ber", O_RDONLY);
+	fd = open("maps/map4.ber", O_RDONLY);
 	if (fd < 0)
 		return(NULL);
 	while ((line = get_next_line(fd)) != NULL)
@@ -102,31 +100,25 @@ char	**readmap(int *w, int *s)
 	}
 	map[i] = NULL;
 	close(fd);
+	game->map = map;
 	return(map);
 }
-//int main()
-//{
-//	t_so_long game;
+
+int main()
+{
+	t_so_long game;
 	
-//	open_window(&game);
-//	setup_hooks(&game);
-//	mlx_loop(game.mlx);
-//}
-//#include <stdio.h>
+	int w = 0, s = 0;
+	char **map = readmap(&w, &s,&game);
+	
+	game.map = map;
+	game.count_moves = 0;
+	game.mlx = mlx_init();
+	open_window(&game);
+	init_textures(&game);
+	find_palyer(map,&game);
+	draw_map(&game,map);
+	setup_hooks(&game);
+	mlx_loop(game.mlx);
+}
 
-//int main() 
-//{
-//    int w = 0, s = 0;
-//    char **map = readmap(&w, &s);  // Przekazujemy adresy w i s
-
-//    if (map == NULL) {
-//        printf("Błąd wczytywania mapy\n");
-//    } else {
-//        printf("Wczytano mapę:\n");
-//        for (int i = 0; map[i] != NULL; i++) {
-//            printf("%s", map[i]);
-//        }
-//        // Pamiętaj, żeby zwolnić pamięć mapy
-//    }
-//    return 0;
-//}
