@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 09:55:42 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/10 15:28:19 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/10 15:30:28 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,15 @@ int main()
 	
 	game.map = map;
 	game.count_moves = 0;
-	game.mlx = mlx_init();
-	open_window(&game);
-	init_textures(&game);
-	find_palyer(map,&game);
-	draw_map(&game,map);
-	setup_hooks(&game);
-	mlx_loop(game.mlx);
+	if(final_check(map) > 0)
+	{
+		game.mlx = mlx_init();
+		open_window(&game);
+		init_textures(&game);
+		find_palyer(map,&game);
+		draw_map(&game,map);
+		setup_hooks(&game);
+		mlx_loop(game.mlx);
+	}
 }
 
