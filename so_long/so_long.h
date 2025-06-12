@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 12:51:16 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 14:19:36 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,14 @@ int		map_checker(t_so_long *game);
 int		coin_check(t_so_long *game);
 int		check_top_bottom_wall(t_so_long *game);
 int		wall_check(t_so_long *game);
-int		find_palyer(t_so_long *game);
+int		find_palyer(t_so_long *game, t_point *begin);
 int		check_top_bottom_wall(t_so_long *game);
 int		wall_check(t_so_long *game);
 void	clean_exit(t_so_long *game);
+void	filler(t_so_long *game,t_point size,int y, int x);
+void	flood_fill(t_so_long *game, t_point size, t_point begin);
+t_point	map_len(t_so_long *game);
+int		way_check(t_so_long *game, t_point *begin);
+int		find_palyer(t_so_long *game,t_point *begin);
+int		final_check(t_so_long *game,t_point *begin);
 #endif

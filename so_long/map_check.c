@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:59:39 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 13:27:01 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:27:29 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,15 @@ int	 wall_check(t_so_long *game)
 }
 void	filler(t_so_long *game,t_point size,int y, int x)
 {
+	if(!game->map_copy)
+		free_map_copy(game);
 	if(y < 0 || x < 0 || y >= size.y || x >= size.x)
 		return ;
 	if(game->map_copy[y][x] == 'D'  || game->map_copy[y][x] == '1')
 		return ;
 	if(game->map_copy[y][x] != '0' && game->map_copy[y][x] != 'C' && game->map_copy[y][x] != 'E' && game->map_copy[y][x] != 'P')
 		return ;
-	game->map[y][x] = 'D';
+	game->map_copy[y][x] = 'D';
 	filler(game, size, y + 1, x);
 	filler(game, size, y - 1, x);
 	filler(game, size, y, x + 1);
@@ -144,53 +146,34 @@ t_point	map_len(t_so_long *game)
 	size.x = game->x;
 	return(size);
 }
-int	way_check(t_so_long *game)
+int	way_check(t_so_long *game, t_point *begin)
 {
 	t_point size;
-	t_point begin;
-	int flag = 0;
+	int y = 0;
+	int x;
 	
-	game->x = 0;
-	game->y = 0;
+	map_duplicate(game);
+	if (!game->map_copy)
+		return 0;
 	size = map_len(game);
-	while (game->map_copy[game->y])
+	flood_fill(game, size, *begin);
+	while(game->map_copy[y])
 	{
-		if(!flag)
+		x = 0;
+		while(game->map_copy[y][x] != '\0' && game->map_copy[y][x] != '\n')
 		{
-			game->x = 0;
-			while(game->map_copy[game->y][game->x] != '\0')
-			{
-				if(game->map_copy[game->y][game->x] == 'P')
-				{
-					begin.x = game->x;
-					begin.y = game->y;
-					flag = 1;
-				}
-				game->x++;
-			}
-			game->y++;
-		}
-		else
-			break;
-	}
-	flood_fill(game, size, begin);
-	begin.y = 0;
-	while(game->map_copy[begin.y])
-	{
-		begin.x = 0;
-		while(game->map_copy[begin.y][begin.x] != '\0' && game->map_copy[begin.y][begin.x] != '\n')
-		{
-			if(game->map_copy[begin.y][begin.x] == 'E'|| game->map_copy[begin.y][begin.x] == 'C' ||game->map_copy[begin.y][begin.x] == '0' )
+			if(game->map_copy[y][x] == 'E'|| game->map_copy[y][x] == 'C' ||game->map_copy[y][x] == '0' )
 				return(0);
-			begin.x++;	
+			x++;	
 		}
-		begin.y++;
+		y++;
 	}
-	if(map_checker(game))	
+	free_map_copy(game);
+	if(!map_checker(game))	
 		return(0);
 	return(1);
 }
-int	find_palyer(t_so_long *game)
+int	find_palyer(t_so_long *game,t_point *begin)
 {
 	int x;
 	int y;
@@ -205,6 +188,8 @@ int	find_palyer(t_so_long *game)
 			{
 				game->player_x = x;
 				game->player_y = y;
+				begin->x = x;
+				begin->y = y;
 				return(1);
 			}
 			x++;
@@ -213,32 +198,32 @@ int	find_palyer(t_so_long *game)
 	}
 	return(0);
 }
-int	final_check(t_so_long *game)
+int	final_check(t_so_long *game,t_point *begin)
 {
 	if(map_checker(game) == 0)
 	{
 		ft_printf("Error: Incorrect number of arguments.");
-		exit(1);
+		clean_exit(game);
 		return(0);
 	}
 	if(coin_check(game) == 0)
 	{
 		ft_printf("Error: No collectibles on the map.");
-		exit(1);
+		clean_exit(game);
 		return(0);
 	}
 	if(check_top_bottom_wall(game) == 0)
 	{
-		exit(1);
+		clean_exit(game);
 		return(0);
 	}
 	if(wall_check(game) == 0)
 	{
 		ft_printf("Error: Map not fully surrounded by walls.");
-		exit(1);
+		clean_exit(game);
 		return(0);
 	}
-	if(way_check(game) == 0)
+	if(way_check(game, begin) == 0)
 	{
 		ft_printf("Error: No valid path to exit or all collectibles.");
 		exit(1);
