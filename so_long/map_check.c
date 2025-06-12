@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:59:39 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 16:27:29 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:39:04 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ int	find_palyer(t_so_long *game,t_point *begin)
 }
 int	final_check(t_so_long *game,t_point *begin)
 {
-	if(map_checker(game) == 0)
+	if(map_checker(game) == 0 && find_palyer(game, begin) == 0)
 	{
 		ft_printf("Error: Incorrect number of arguments.");
 		clean_exit(game);
