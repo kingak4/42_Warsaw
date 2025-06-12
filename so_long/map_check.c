@@ -6,13 +6,13 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:59:39 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/10 15:12:49 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 13:27:01 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	map_checker(char **map)
+int	map_checker(t_so_long *game)
 {
 	int	palyer;
 	int	exit;
@@ -23,14 +23,14 @@ int	map_checker(char **map)
 	exit = 0;
 	x = 0;
 	y = 0;
-	while (map[y])
+	while (game->map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (game->map[y][x])
 		{
-			if(map[y][x] == 'P')
+			if(game->map[y][x] == 'P')
 				palyer++;
-			if(map[y][x] == 'E')
+			if(game->map[y][x] == 'E')
 				exit++;
 			x++;
 		}
@@ -40,19 +40,19 @@ int	map_checker(char **map)
 		return(1);
 	return(0);
 }
-int	coin_check(char **map)
+int	coin_check(t_so_long *game)
 {
 	int	x;
 	int	y;
 	int	colect;
 	y = 0;
 	colect = 0;
-	while (map[y])
+	while (game->map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (game->map[y][x])
 		{
-			if(map[y][x] == 'C')
+			if(game->map[y][x] == 'C')
 				colect++;
 			x++;
 		}
@@ -62,167 +62,146 @@ int	coin_check(char **map)
 		return(1);
 	return(0);
 }
-int	 wall_check(char **map)
+int	check_top_bottom_wall(t_so_long *game)
 {
-	int	x;
-	int	y;
-	int	last;
-	int	lastx;
-
-	y = 0;
-	last = 0;
-	while (map[y])
-		y++;
-	last = y;
-	y = 0;
-	lastx = 0;
-	lastx = ft_strlen(map[y]);
-	if (map[y][lastx - 1] == '\n')
-		lastx--;
-	x = 0;
-	while (map[0][x] != '\n')
+	game->y = 0;
+	game->last = 0;
+	while (game->map[game->y])
+		game->y++;
+	game->last = game->y;
+	game->x = 0;
+	while (game->map[0][game->x] && game->map[0][game->x] != '\n')
 	{
-		if(map[0][x] != '1')
+		if(game->map[0][game->x] != '1')
 		{
-				ft_printf("Error: top row at index %d is '%c'\n", x, map[0][x]);
-				return(0);
+			ft_printf("Error: top row at index %d is '%c'\n", game->x, game->map[0][game->x]);
+			return(0);
 		}
-		x++;
+		game->x++;
 	}
-	x = 0;
-	while (map[last -1 ][x])
+	game->x = 0;
+	while (game->map[game->last - 1][game->x] && game->map[game->last - 1][game->x] != '\n')
 	{
-		if(map[last -1 ][x] != '1')
+		if(game->map[game->last -1 ][game->x] != '1')
 		{
-			ft_printf("Error: bottom row at index %d is '%c'\n", x, map[last - 1][x]);
+			ft_printf("Error: bottom row at index %d is '%c'\n", game->x, game->map[game->last - 1][game->x]);
 			return(0);
 		}
-		x++;
-	}
-	printf("%d\n", lastx);		
-	printf("%d\n", last);
-	while (map[y])
-	{
-		x = 0;
-		if(map[y][0] != '1')
-			return(0);
-		if (map[y][lastx -1] != '1')
-		{
-			ft_printf("Error: last column at line %d (char: '%c')\n", y, map[y][lastx - 1]);
-			return(0);
-		}
-		y++;
+		game->x++;
 	}
 	return(1);
 }
-void	filler(char **map,t_point size,int y, int x)
+int	 wall_check(t_so_long *game)
+{
+	game->y = 0;
+	while (game->map[game->y])
+	{
+		game->x = 0;
+		game->lastx = ft_strlen(game->map[game->y]);
+		if (game->map[game->y][game->lastx - 1] == '\n')
+			game->lastx--;
+		if(game->map[game->y][0] != '1')
+				return(0);
+		if (game->map[game->y][game->lastx -1] != '1')
+		{
+			ft_printf("Error: last column at line %d (char: '%c')\n", game->y, game->map[game->y][game->lastx - 1]);
+			return(0);
+		}
+			game->y++;
+		}
+	return(1);
+}
+void	filler(t_so_long *game,t_point size,int y, int x)
 {
 	if(y < 0 || x < 0 || y >= size.y || x >= size.x)
 		return ;
-	if(map[y][x] == 'D'  || map[y][x] == '1')
+	if(game->map_copy[y][x] == 'D'  || game->map_copy[y][x] == '1')
 		return ;
-	if(map[y][x] != '0' && map[y][x] != 'C' && map[y][x] != 'E' && map[y][x] != 'P')
+	if(game->map_copy[y][x] != '0' && game->map_copy[y][x] != 'C' && game->map_copy[y][x] != 'E' && game->map_copy[y][x] != 'P')
 		return ;
-	map[y][x] = 'D';
-	filler(map, size, y + 1, x);
-	filler(map, size, y - 1, x);
-	filler(map, size, y, x + 1);
-	filler(map, size, y, x - 1);
+	game->map[y][x] = 'D';
+	filler(game, size, y + 1, x);
+	filler(game, size, y - 1, x);
+	filler(game, size, y, x + 1);
+	filler(game, size, y, x - 1);
 }
-void flood_fill(char **map, t_point size, t_point begin)
+void flood_fill(t_so_long *game, t_point size, t_point begin)
 {
-	filler(map, size, begin.y, begin.x);
+	filler(game, size, begin.y, begin.x);
 }
-t_point	map_len(char **map)
+t_point	map_len(t_so_long *game)
 {
-	int x;
-	int y;
 	t_point size;
 
-	x = 0;
-	y = 0;
-	while(map[y] != NULL)
-		y++;
-	while(map[0][x] != '\0' && map[0][x] != '\n')
-			x++;
+	game->x = 0;
+	game->y = 0;
+	while(game->map[game->y] != NULL)
+		game->y++;
+	while(game->map[0][game->x] != '\0' && game->map[0][game->x] != '\n')
+			game->x++;
 			
-	size.y = y;
-	size.x = x;
-	
+	size.y = game->y;
+	size.x = game->x;
 	return(size);
 }
-void print_map(char **map)
+int	way_check(t_so_long *game)
 {
-	int y = 0;
-	while (map[y])
-	{
-		ft_printf("%s", map[y]);
-		y++;
-	}
-}
-int	way_check(char **map)
-{
-	int y;
-	int x;
 	t_point size;
 	t_point begin;
 	int flag = 0;
 	
-	x = 0;
-	y = 0;
-	size = map_len(map);
-	while (map[y])
+	game->x = 0;
+	game->y = 0;
+	size = map_len(game);
+	while (game->map_copy[game->y])
 	{
 		if(!flag)
 		{
-			x = 0;
-			while(map[y][x] != '\0')
+			game->x = 0;
+			while(game->map_copy[game->y][game->x] != '\0')
 			{
-				if(map[y][x] == 'P')
+				if(game->map_copy[game->y][game->x] == 'P')
 				{
-					begin.x = x;
-					begin.y = y;
+					begin.x = game->x;
+					begin.y = game->y;
 					flag = 1;
-					
 				}
-				x++;
+				game->x++;
 			}
-			y++;
+			game->y++;
 		}
 		else
 			break;
-	
 	}
-	flood_fill(map, size, begin);
-	print_map(map);
+	flood_fill(game, size, begin);
 	begin.y = 0;
-	while(map[begin.y])
+	while(game->map_copy[begin.y])
 	{
 		begin.x = 0;
-		while(map[begin.y][begin.x] != '\0' && map[begin.y][begin.x] != '\n')
+		while(game->map_copy[begin.y][begin.x] != '\0' && game->map_copy[begin.y][begin.x] != '\n')
 		{
-			if(map[begin.y][begin.x] == 'E'|| map[begin.y][begin.x] == 'C' ||map[begin.y][begin.x] == '0' )
+			if(game->map_copy[begin.y][begin.x] == 'E'|| game->map_copy[begin.y][begin.x] == 'C' ||game->map_copy[begin.y][begin.x] == '0' )
 				return(0);
 			begin.x++;	
 		}
 		begin.y++;
 	}
-	if(map_checker(map))	
+	if(map_checker(game))	
 		return(0);
 	return(1);
 }
-int	find_palyer(char **map,t_so_long *game)
+int	find_palyer(t_so_long *game)
 {
 	int x;
 	int y;
 
 	y = 0;
-	while(map[y])
+	while(game->map[y])
 	{
 		x = 0;
-		while(map[y][x])
+		while(game->map[y][x])
 		{
-			if(map[y][x] == 'P')
+			if(game->map[y][x] == 'P')
 			{
 				game->player_x = x;
 				game->player_y = y;
@@ -234,27 +213,32 @@ int	find_palyer(char **map,t_so_long *game)
 	}
 	return(0);
 }
-int	final_check(char **map)
+int	final_check(t_so_long *game)
 {
-	if(map_checker(map) == 0)
+	if(map_checker(game) == 0)
 	{
 		ft_printf("Error: Incorrect number of arguments.");
 		exit(1);
 		return(0);
 	}
-	if(coin_check(map) == 0)
+	if(coin_check(game) == 0)
 	{
 		ft_printf("Error: No collectibles on the map.");
 		exit(1);
 		return(0);
 	}
-	if(wall_check(map) == 0)
+	if(check_top_bottom_wall(game) == 0)
+	{
+		exit(1);
+		return(0);
+	}
+	if(wall_check(game) == 0)
 	{
 		ft_printf("Error: Map not fully surrounded by walls.");
 		exit(1);
 		return(0);
 	}
-	if(way_check(map) == 0)
+	if(way_check(game) == 0)
 	{
 		ft_printf("Error: No valid path to exit or all collectibles.");
 		exit(1);

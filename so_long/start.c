@@ -6,122 +6,151 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 09:55:42 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/10 15:30:28 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 11:59:42 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
 
-
-void	open_window(t_so_long *game)
+void	count_map_w(t_so_long *game)
 {
-	game->win = mlx_new_window(game->mlx,960,640, "so_long");
+	game->w = 0;
+	game->fd = open("maps/map1.ber", O_RDONLY);
+	if (game->fd < 0)
+		return ;
+	while((game->map_line = get_next_line(game->fd)) != NULL)
+	{
+			game->w++;
+			free(game->map_line);
+	}
+	close(game->fd);
 }
-int	exit_game(void *param)
+void	count_map_s(t_so_long *game)
 {
-	(void)param;
-	exit(0);
-	return(0);
-}
-int	exit_esc(int keycode, void *param)
-{
-	(void)param;
-	if(keycode == 65307)
-		exit(0);
-	return(0);
-}
-
-char	**readmap(int *w, int *s, t_so_long *game)
-{
-	int		fd;
-	char	**map;
-	char	*line;
-	int		i;
-	int		check;
+	int i;
 	
 	i = 0;
-	*w = 0;
-	*s = 0;
-	
-	fd = open("maps/map4.ber", O_RDONLY);
-	if (fd < 0)
-		return(NULL);
-	while((line = get_next_line(fd)) != NULL)
+	game->s_check = 0;
+	game->s =0;
+	game->fd = open("maps/map1.ber", O_RDONLY);
+	if (game->fd < 0)
+		return ;
+	while((game->map_line = get_next_line(game->fd)) != NULL)
 	{
-		(*w)++;
-		free(line);
-	}
-	close(fd);
-	fd = open("maps/map4.ber", O_RDONLY);
-	if (fd < 0)
-		return(NULL);
-	if (line != NULL)
-	{
-		line = get_next_line(fd);
-		check = 0;
-		*s = ft_strlen(line);
-		free(line);
-	}
-	while((line = get_next_line(fd)) != NULL)
-	{
-		check = ft_strlen(line);
-		if (line[check - 1] == '\n')
-			check--;
+		game->s_check = ft_strlen(game->map_line);
+		if (game->map_line[game->s_check - 1] == '\n')
+			game->s_check--;
 		if (i == 0)
-			*s = check;
-		else if (check != *s)
+			game->s = game->s_check;
+		else if (game->s_check != game->s)
 		{
-			free(line);
-			close(fd);
-			return (NULL);
+			free(game->map_line);
+			close(game->fd);
+			return ;
 		}
 		i++;
-		free(line);
+		free(game->map_line);
 	}
-	close(fd);
-	map = malloc(sizeof(char *) * (*w + 1));
-	if(!map)
-		return(NULL);
-	i = 0;
-	fd = open("maps/map4.ber", O_RDONLY);
-	if (fd < 0)
-		return(NULL);
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		map[i] = ft_strdup(line);
-		if(!map[i])
-		{
-			free(line);
-			return(NULL);
-		}
-		i++;
-		free(line);
-	}
-	map[i] = NULL;
-	close(fd);
-	game->map = map;
-	return(map);
+	close(game->fd);
 }
+void	map_duplicate(t_so_long *game)
+{
+	game->i = 0;
+	game->map_copy = malloc(sizeof(char *) * (game->w+ 1));
+	if(!game->map_copy)
+	return ;
+	game->fd = open("maps/map1.ber", O_RDONLY);
+	if (game->fd < 0)
+	return ;
+	while ((game->map_line = get_next_line(game->fd)) != NULL)
+	{
+		game->map_copy[game->i] = ft_strdup(game->map_line);
+		if(!game->map_copy[game->i])
+		{
+			free_map_copy(game);
+			return;
+		}
+		game->i++;
+		free(game->map_line);
+	}
+	game->map_copy[game->i] = NULL;
+	close(game->fd);
+}
+int	load_map(t_so_long *game)
+{
+	game->i = 0;
+	game->map = malloc(sizeof(char *) * (game->w + 1));
+	game->fd = open("maps/map1.ber", O_RDONLY);
+	if (!game->map || game->fd < 0)
+	return(0);
+	while(game->i < game->w)
+	{
+		game->map_line = get_next_line(game->fd);
+		if(!game->map_line || !(game->map[game->i] = ft_strdup(game->map_line)))
+		{
+			free(game->map_line);
+			free_map(game);
+			close(game->fd);
+			return(0);
+		}
+		free(game->map_line);
+		game->i++;
+	}
+	game->map[game->i] = NULL;
+	close(game->fd);
+	return(1);
+}
+void	free_map(t_so_long *game)
+{
+	int	i;
+
+	i = 0;
+	while (game->map[i] != NULL)
+	{
+		free(game->map[i]);
+		i++;
+	}
+	free(game->map);
+}
+void	free_map_copy(t_so_long *game)
+{
+	int	i;
+
+	i = 0;
+	while (game->map_copy[i] != NULL)
+	{
+		free(game->map_copy[i]);
+		i++;
+	}
+	free(game->map_copy);
+}
+
+int	readmap( t_so_long *game)
+{
+	count_map_w(game);
+	count_map_s(game);
+	if(game->w == 0 || game->s == 0)
+		return(0);
+	if(!load_map(game))
+		return(0);
+	map_duplicate(game);
+	return(1);
+}
+
 
 int main()
 {
 	t_so_long game;
 	
-	int w = 0, s = 0;
-	char **map = readmap(&w, &s,&game);
-	
-	game.map = map;
+	readmap(&game);
 	game.count_moves = 0;
-	if(final_check(map) > 0)
-	{
-		game.mlx = mlx_init();
-		open_window(&game);
-		init_textures(&game);
-		find_palyer(map,&game);
-		draw_map(&game,map);
-		setup_hooks(&game);
-		mlx_loop(game.mlx);
-	}
+	game.mlx = mlx_init();
+	open_window(&game);
+	init_textures(&game);
+	find_palyer(&game);
+	draw_map(&game);
+	setup_hooks(&game);
+	mlx_loop(game.mlx);
 }
 

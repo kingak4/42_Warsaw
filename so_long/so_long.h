@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/10 15:08:15 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:51:16 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,40 +33,59 @@ typedef struct s_so_long
 	void *mlx;
 	void *win;
 	char **map;
+	char **map_copy;
 	int player_x;
 	int player_y;
 	int old_x;
 	int old_y;
 	int count_moves;
+	char *map_line;
+	int w;
+	int s;
+	int fd;
+	int s_check;
+	int	i;
+	int	x;
+	int	y;
+	int	last;
+	int	lastx;
 	t_texture textures;
 } t_so_long;
 
 typedef struct  s_point
 {
-  int           x;
-  int           y;
+  int	x;
+  int	y;
 } 				t_point;
 
-int		exit_game(void *param);
-void	setup_hooks(t_so_long *game);
-int		exit_esc(int keycode, void *param);
-char	**readmap(int *w, int *s, t_so_long *game);
-int		map_checker(char **map);
-int		wall_check(char **map);
-void	open_window(t_so_long *game);
-void	start_game(char **map, t_so_long *game);
-void	draw_map(t_so_long *game,char **map);
+void	count_map_w(t_so_long *game);
+void	count_map_s(t_so_long *game);
+void	free_map(t_so_long *game);
+void	free_map_copy(t_so_long *game);
+void	map_duplicate(t_so_long *game);
+int		load_map(t_so_long *game);
+int		readmap( t_so_long *game);
 void	init_textures(t_so_long *game);
-int		find_palyer(char **map,t_so_long *game);
-int		can_move(char **map,int x, int y);
-void	make_moves(int keycode, void *param, char **map, t_so_long *game);
+void	draw_map(t_so_long *game);
+void	start_game(t_so_long *game);
+void	open_window(t_so_long *game);
+int		exit_game(void *param);
+int		exit_esc(int keycode, void *param);
+int		can_move(t_so_long *game, int x, int y);
+void	make_moves(int keycode, void *param, t_so_long *game);
+void	update_palyer(t_so_long *game);
 int		wrapper(int keycode, void *param);
-void	move_left(t_so_long *game, char **map);
-void	move_right(t_so_long *game, char **map);
-void	move_up(t_so_long *game, char **map);
-void	move_down(t_so_long *game, char **map);
-void	update_palyer(t_so_long *game, char ** map);
-int		coin_check(char **map);
-int		final_check(char **map);
-
+void	move_left(t_so_long *game);
+void	move_right(t_so_long *game);
+void	move_up(t_so_long *game);
+void	move_down(t_so_long *game);
+void	setup_hooks(t_so_long *game);
+int		map_checker(t_so_long *game);
+int		coin_check(t_so_long *game);
+int		check_top_bottom_wall(t_so_long *game);
+int		wall_check(t_so_long *game);
+int		find_palyer(t_so_long *game);
+int		check_top_bottom_wall(t_so_long *game);
+int		wall_check(t_so_long *game);
+void	clean_exit(t_so_long *game);
 #endif

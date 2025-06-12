@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 11:38:35 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/10 09:08:44 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 11:49:52 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,34 @@ void init_textures(t_so_long *game)
 	game->textures.img_player = mlx_xpm_file_to_image(game->mlx,"textures/p.xpm",&game->textures.w, &game->textures.h);
 	game->textures.img_floor = mlx_xpm_file_to_image(game->mlx,"textures/f1.xpm",&game->textures.w, &game->textures.h);
 }
-void draw_map(t_so_long *game,char **map)
+void draw_map(t_so_long *game)
 {
 	int x;
 	int y;
 	
 	mlx_clear_window(game->mlx, game->win);
 	y = 0;
-	while(map[y])
+	while(game->map[y])
 	{
 		x = 0;
-		while(map[y][x])
+		while(game->map[y][x])
 		{
-			if(map[y][x] == '1')
+			if(game->map[y][x] == '1')
 				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_wall,x * 64, y * 64);
-			else if (map[y][x] == 'C')
+			else if (game->map[y][x] == 'C')
 				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_coin,x * 64, y * 64);
-			else if (map[y][x] == 'P')
+			else if (game->map[y][x] == 'P')
 				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_player,x * 64, y * 64);
-			else if (map[y][x] == 'E')
+			else if (game->map[y][x] == 'E')
 				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_exit,x * 64, y * 64);
-			else if (map[y][x] == '0')
+			else if (game->map[y][x] == '0')
 				mlx_put_image_to_window(game->mlx,game->win,game->textures.img_floor,x * 64, y * 64);
 			x++;
 		}
 		y++;
 	}
 }
-void	start_game(char **map, t_so_long *game)
+void	start_game(t_so_long *game)
 {
-	draw_map(game, map);
+	draw_map(game);
 }
