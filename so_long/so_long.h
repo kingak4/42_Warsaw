@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 14:19:36 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:36:37 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,44 +19,44 @@
 
 typedef struct s_texture
 {
-	void *img_wall;
-	void *img_floor;
-	void *img_player;
-	void *img_exit;
-	void *img_coin;
-	int w;
-	int h;
-} t_texture;
+	void	*img_wall;
+	void	*img_floor;
+	void	*img_player;
+	void	*img_exit;
+	void	*img_coin;
+	int		w;
+	int		h;
+}	t_texture;
 
 typedef struct s_so_long
 {
-	void *mlx;
-	void *win;
-	char **map;
-	char **map_copy;
-	int player_x;
-	int player_y;
-	int old_x;
-	int old_y;
-	int count_moves;
-	char *map_line;
-	int w;
-	int s;
-	int fd;
-	int s_check;
-	int	i;
+	void		*mlx;
+	void		*win;
+	char		**map;
+	char		**map_copy;
+	int			player_x;
+	int			player_y;
+	int			old_x;
+	int			old_y;
+	int			count_moves;
+	char		*map_line;
+	int			w;
+	int			s;
+	int			fd;
+	int			s_check;
+	int			i;
+	int			x;
+	int			y;
+	int			last;
+	int			lastx;
+	t_texture	textures;
+}	t_so_long;
+
+typedef struct s_point
+{
 	int	x;
 	int	y;
-	int	last;
-	int	lastx;
-	t_texture textures;
-} t_so_long;
-
-typedef struct  s_point
-{
-  int	x;
-  int	y;
-} 				t_point;
+}	t_point;
 
 void	count_map_w(t_so_long *game);
 void	count_map_s(t_so_long *game);
@@ -88,10 +88,11 @@ int		find_palyer(t_so_long *game, t_point *begin);
 int		check_top_bottom_wall(t_so_long *game);
 int		wall_check(t_so_long *game);
 void	clean_exit(t_so_long *game);
-void	filler(t_so_long *game,t_point size,int y, int x);
+void	filler(t_so_long *game, t_point size, int y, int x);
 void	flood_fill(t_so_long *game, t_point size, t_point begin);
 t_point	map_len(t_so_long *game);
 int		way_check(t_so_long *game, t_point *begin);
-int		find_palyer(t_so_long *game,t_point *begin);
-int		final_check(t_so_long *game,t_point *begin);
+int		find_palyer(t_so_long *game, t_point *begin);
+int		final_check(t_so_long *game, t_point *begin);
+int		free_map_fd(t_so_long *game);
 #endif

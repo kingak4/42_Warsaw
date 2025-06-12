@@ -1,8 +1,0 @@
-
-mlx_init() | Inicjalizacja systemu MLX. To coś jak "start" całej grafiki.
-mlx_new_window() | Tworzy nowe okno, do którego potem rysujesz.
-mlx_loop() | Pętla główna – program czeka tutaj na wydarzenia, np. ruchy myszą, klawiaturę itp.
-mlx_new_image() | Tworzysz "obrazek" w pamięci. Nie na ekranie – tylko w RAM-ie.
-mlx_get_data_addr() | Bierzesz adres tego obrazka, żeby zmieniać piksele ręcznie.
-mlx_put_image_to_window() | Wrzucasz obrazek z pamięci na ekran (do okna).
-mlx_pixel_put() | Wolny sposób rysowania pojedynczego piksela bezpośrednio na ekranie (NIE zalecany).
