@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/13 11:59:49 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:25:35 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ int		way_check(t_so_long *game, t_point *begin);
 int		find_palyer(t_so_long *game, t_point *begin);
 int		final_check(t_so_long *game, t_point *begin);
 int		free_map_fd(t_so_long *game);
-void check_if_one(t_so_long *game, int tmp);
+void	check_if_one(t_so_long *game, int tmp);
+int		sign_checker(t_so_long *game);
 #endif

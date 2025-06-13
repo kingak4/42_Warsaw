@@ -6,41 +6,49 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:59:39 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/13 12:10:25 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:54:09 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-//static void another_ch(t_so_long *game, int flag)
-//{
-//	if(game->map[game->y][game->x] != 'P')
-//		flag++;
-//	if(game->map[game->y][game->x] != 'E')
-//		flag++;
-//	if(game->map[game->y][game->x] != 'C')
-//		flag++;
-//	if(game->map[game->y][game->x] != '0')
-//		flag++;
-//	if(game->map[game->y][game->x] != '1')
-	
-	
-//}
+static void another_ch(t_so_long *game, int *flag)
+{
+	if (game->map[game->y][game->x] == 'P' ||
+	game->map[game->y][game->x] == 'E' ||
+	game->map[game->y][game->x] == 'C' ||
+	game->map[game->y][game->x] == '0' ||
+	game->map[game->y][game->x] == '1' ||
+	game->map[game->y][game->x] == '\n')
+		return ;
+	else
+		(*flag)++;
+}
 
-//int	sign_checker(t_so_long *game)
-//{
-//	int	flag;
+int	sign_checker(t_so_long *game)
+{
+	int	flag;
 
-//	game->y = 0;
-//	while(game->map[game->y])
-//	{
-//		game->x = 0;
-//		while(game->map[game->y][game->x])
-//		{
-//			if(game->map[game->y][game->x] != 'P')
-//		}
-//	}
-//}
+	game->y = 0;
+	flag = 0;
+	while(game->map[game->y])
+	{
+		game->x = 0;
+		while(game->map[game->y][game->x])
+		{
+			another_ch(game, &flag);
+			game->x++;
+		}
+		game->y++;
+	}
+	ft_printf("%d\n", flag);
+	if(flag > 0)
+	{
+		ft_printf("There are invalid characters on the map.");
+		return(0);
+	}
+	return(1);
+}
 int	map_checker(t_so_long *game)
 {
 	int	palyer;
@@ -236,6 +244,11 @@ int	final_check(t_so_long *game,t_point *begin)
 		ft_printf("Error: Incorrect number of arguments.");
 		clean_exit(game);
 		return (0);
+	}
+	if(sign_checker(game) == 0)
+	{
+		clean_exit(game);
+		return(0);
 	}
 	if (coin_check(game) == 0)
 	{
