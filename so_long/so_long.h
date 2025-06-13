@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 17:36:37 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/13 11:59:49 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_point
 }	t_point;
 
 void	count_map_w(t_so_long *game);
-void	count_map_s(t_so_long *game);
+void	count_map_s(t_so_long *game, int tmp);
 void	free_map(t_so_long *game);
 void	free_map_copy(t_so_long *game);
 void	map_duplicate(t_so_long *game);
@@ -95,4 +95,5 @@ int		way_check(t_so_long *game, t_point *begin);
 int		find_palyer(t_so_long *game, t_point *begin);
 int		final_check(t_so_long *game, t_point *begin);
 int		free_map_fd(t_so_long *game);
+void check_if_one(t_so_long *game, int tmp);
 #endif

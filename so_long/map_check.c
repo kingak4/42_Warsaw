@@ -6,12 +6,41 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:59:39 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 21:06:49 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/13 12:10:25 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+//static void another_ch(t_so_long *game, int flag)
+//{
+//	if(game->map[game->y][game->x] != 'P')
+//		flag++;
+//	if(game->map[game->y][game->x] != 'E')
+//		flag++;
+//	if(game->map[game->y][game->x] != 'C')
+//		flag++;
+//	if(game->map[game->y][game->x] != '0')
+//		flag++;
+//	if(game->map[game->y][game->x] != '1')
+	
+	
+//}
+
+//int	sign_checker(t_so_long *game)
+//{
+//	int	flag;
+
+//	game->y = 0;
+//	while(game->map[game->y])
+//	{
+//		game->x = 0;
+//		while(game->map[game->y][game->x])
+//		{
+//			if(game->map[game->y][game->x] != 'P')
+//		}
+//	}
+//}
 int	map_checker(t_so_long *game)
 {
 	int	palyer;
@@ -155,7 +184,7 @@ int	way_check(t_so_long *game, t_point *begin)
 		free_map_copy(game);
 	map_duplicate(game);
 	if (!game->map_copy)
-		return 0;
+		return (0);
 	size = map_len(game);
 	flood_fill(game, size, *begin);
 	while(game->map_copy[y])
@@ -171,8 +200,8 @@ int	way_check(t_so_long *game, t_point *begin)
 	}
 	free_map_copy(game);
 	if(!map_checker(game))	
-		return(0);
-	return(1);
+		return (0);
+	return (1);
 }
 int	find_palyer(t_so_long *game, t_point *begin)
 {

@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 09:55:42 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 21:04:23 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/13 12:00:15 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	count_map_w(t_so_long *game)
 	close(game->fd);
 }
 
-void	count_map_s(t_so_long *game)
+void	count_map_s(t_so_long *game, int tmp)
 {
 	game->i = 0;
 	game->s_check = 0;
@@ -46,15 +46,12 @@ void	count_map_s(t_so_long *game)
 		if (game->i == 0)
 			game->s = game->s_check;
 		else if (game->s_check != game->s)
-		{
-			free(game->map_line);
-			close(game->fd);
-			return ;
-		}
+			tmp = 1;
 		game->i++;
 		free(game->map_line);
 		game->map_line = get_next_line(game->fd);
 	}
+	check_if_one(game, tmp);
 	close(game->fd);
 }
 
@@ -84,11 +81,10 @@ int	load_map(t_so_long *game)
 	return (1);
 }
 
-
 int	readmap(t_so_long *game)
 {
 	count_map_w(game);
-	count_map_s(game);
+	count_map_s(game, 0);
 	if (game->w == 0 || game->s == 0)
 		return (0);
 	if (!load_map(game))

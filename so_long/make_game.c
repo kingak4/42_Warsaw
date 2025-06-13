@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 11:38:35 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 17:15:46 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:23:06 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,9 @@ void	draw_map(t_so_long *game)
 void	start_game(t_so_long *game)
 {
 	draw_map(game);
+}
+
+void	open_window(t_so_long *game)
+{
+	game->win = mlx_new_window(game->mlx, 960, 640, "so_long");
 }

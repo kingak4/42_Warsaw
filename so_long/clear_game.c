@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 09:33:59 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/12 21:01:53 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/13 10:53:33 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,13 @@ void	map_duplicate(t_so_long *game)
 	}
 	game->map_copy[game->i] = NULL;
 	close(game->fd);
+}
+
+int	wrapper(int keycode, void *param)
+{
+	t_so_long	*game;
+	game = (t_so_long *)param;
+
+	make_moves(keycode, NULL, game);
+	return (0);
 }

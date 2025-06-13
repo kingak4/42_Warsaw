@@ -4,7 +4,7 @@ NAME = so_long
 RM = rm -rf
 AR = ar rcs
 
-FILES = start.c hooks.c map_check.c make_game.c clear_game.c
+FILES = start.c hooks.c map_check.c make_game.c clear_game.c moves.c else.c
 OBJS = $(FILES:.c=.o) 
 
 LIBFT_PATH = libft
