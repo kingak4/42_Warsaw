@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/13 13:25:35 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/13 15:19:49 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,11 @@ void	clean_exit(t_so_long *game);
 void	filler(t_so_long *game, t_point size, int y, int x);
 void	flood_fill(t_so_long *game, t_point size, t_point begin);
 t_point	map_len(t_so_long *game);
-int		way_check(t_so_long *game, t_point *begin);
+int		way_check(t_so_long *game, t_point *begin, int y, int x);
 int		find_palyer(t_so_long *game, t_point *begin);
 int		final_check(t_so_long *game, t_point *begin);
 int		free_map_fd(t_so_long *game);
 void	check_if_one(t_so_long *game, int tmp);
 int		sign_checker(t_so_long *game);
+int		check_keycode(int flag, t_so_long *game, int keycode);
 #endif
