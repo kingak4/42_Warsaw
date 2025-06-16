@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 09:33:59 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/13 14:00:42 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/16 09:17:29 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	map_duplicate(t_so_long *game)
 	game->map_copy = malloc(sizeof(char *) * (game->w + 1));
 	if (!game->map_copy)
 		return ;
-	game->fd = open("maps/map_error3.ber", O_RDONLY);
+	game->fd = open("maps/map1.ber", O_RDONLY);
 	if (game->fd < 0)
 		return ;
 	game->map_line = get_next_line(game->fd);

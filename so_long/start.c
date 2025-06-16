@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 09:55:42 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/13 12:00:15 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/16 09:17:11 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	count_map_w(t_so_long *game)
 {
 	game->w = 0;
-	game->fd = open("maps/map_error3.ber", O_RDONLY);
+	game->fd = open("maps/map1.ber", O_RDONLY);
 	if (game->fd < 0)
 		return ;
 	game->map_line = get_next_line(game->fd);
@@ -34,7 +34,7 @@ void	count_map_s(t_so_long *game, int tmp)
 	game->i = 0;
 	game->s_check = 0;
 	game->s = 0;
-	game->fd = open("maps/map_error3.ber", O_RDONLY);
+	game->fd = open("maps/map1.ber", O_RDONLY);
 	if (game->fd < 0)
 		return ;
 	game->map_line = get_next_line(game->fd);
@@ -59,7 +59,7 @@ int	load_map(t_so_long *game)
 {
 	game->i = 0;
 	game->map = malloc(sizeof(char *) * (game->w + 1));
-	game->fd = open("maps/map_error3.ber", O_RDONLY);
+	game->fd = open("maps/map1.ber", O_RDONLY);
 	if (!game->map || game->fd < 0)
 		return (0);
 	while (game->i < game->w)
