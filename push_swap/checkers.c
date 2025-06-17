@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:17:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/17 11:38:38 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:55:06 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ int	is_int_range(char *str)
 		return (0);
 	return (1);
 }
-int	is_duplicate(int *tab,size_t size)
+int	is_duplicate(t_stack *head)
 {
-	int	i;
-	int	j;
+	t_stack *one;
+	t_stack *two;
 
-	i = 0;
-	while (i < (int)size)
+	one = head;
+	while (one)
 	{
-		j = i + 1;
-		while (j < (int)size)
+		two = one->next; 
+		while (two)
 		{
-			if (i != j && tab[i] == tab[j])
+			if (one->nb == two->nb)
 				return (0);
-			j++;
+			two = two->next;
 		}
-		i++;
+		one = one->next;
 	}
 	return (1);
 }

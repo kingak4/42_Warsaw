@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/17 11:40:28 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:53:21 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,23 @@ char	**take_split(char *s)
 				ft_printf("ERROR\n"); //napraw segfalut
 				return (NULL);
 			}
-		i++;
+		i++; 
 	}
-	return(tab_rest); // zrob linked liste 
+	return(tab_rest);
 }
-int	*tab_make(char *s)
+// ogarnij aby dzialo 
+// napraw ten makce stack 
+// debaguj 
+// zrob dal liczb 8 9 7 bez stringa
+// napraw segfalut w take split 
+// sprawdz valgrind
+
+t_Node *make_stack(char *s)
 {
 	char	**tab_rest;
 	int		i;
 	size_t	len;
-	int		*tab;
+	t_Node	*stack;
 
 	len = count_token(s, 32);
 	tab_rest = take_split(s);
@@ -50,19 +57,19 @@ int	*tab_make(char *s)
 		free_tab(tab_rest);
 		return (NULL);
 	}
-	tab = malloc(len * sizeof(int));
-	if (!tab)
-		return (0);
 	i = 0;
 	while (i < (int)len)
 	{
-		tab[i] = ft_atoi(tab_rest[i]);
+		stack = malloc(sizeof(t_Node));
+		if (!stack)
+			return (0);
+		stack->next = ft_atoi(tab[i]);
 		i++;
 	}
 	free_tab(tab_rest);
-	if (!is_duplicate(tab, len))
+	if (!is_duplicate(stack))
 	{
-		free(tab);
+		free();
 		ft_printf("ERROR");
 		return (0);
 	}
