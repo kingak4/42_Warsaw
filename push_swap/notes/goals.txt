@@ -1,0 +1,92 @@
+📅 Dzień 1 – 16 czerwca (poniedziałek)
+CEL: Zrozumienie podstaw + struktury danych + parsowanie argumentów
+
+ Przeczytaj jeszcze raz zasady działania projektu (co dokładnie masz zrobić).
+
+ Naucz się i zapisz sobie zasady działania stosów (a, b) i wszystkich operacji (sa, sb, pa, pb...).
+
+ Zrób struktury danych:
+
+struktura stosu (np. lista jednokierunkowa albo tablica),
+
+struktura do przechowywania danych wejściowych.
+
+ Zaimplementuj parsowanie argumentów wejściowych:
+
+sprawdź poprawność (czy to int, brak duplikatów, zakres int),
+
+wypisz "Error\n" w przypadku błędu (na stderr).
+
+ Przechowuj liczby w kolejności jako stos a.
+
+🧠 Po dzisiaj masz gotowe wczytywanie i struktury – możesz wyświetlać stos.
+
+📅 Dzień 2 – 17 czerwca (wtorek)
+CEL: Implementacja operacji i testowanie działania stosów
+
+ Zaimplementuj wszystkie operacje (sa, sb, ss, pa, pb, ra, rb, rr, rra, rrb, rrr).
+
+ Zrób funkcję print_stack() do debugowania.
+
+ Napisz mini program testowy – np. wrzuć ręcznie dane i zobacz, jak operacje zmieniają stosy.
+
+ Upewnij się, że Twoje operacje są poprawne logicznie (np. sa zamienia tylko 2 pierwsze elementy).
+
+🧠 Po dzisiaj masz pełną manipulację stosami.
+
+📅 Dzień 3 – 18 czerwca (środa)
+CEL: Strategia sortowania – od małych liczb
+
+ Zacznij od najprostszych przypadków:
+
+ sortowanie 2 liczb,
+
+ sortowanie 3 liczb (tutaj jest kilka możliwych przypadków, które możesz rozróżniać warunkami).
+
+ Dodaj obsługę sortowania małej ilości danych.
+
+ Jeśli masz czas: dodaj pb i pa, by móc wrzucać dane do b i z powrotem.
+
+🧠 Po dzisiaj sortujesz poprawnie do 3 liczb.
+
+📅 Dzień 4 – 19 czerwca (czwartek)
+CEL: Sortowanie większych zbiorów – sortowanie indeksami
+
+ Zrób funkcję, która każdej liczbie przypisuje jej indeks w posortowanej tablicy.
+
+ Implementuj algorytm radix sort na indeksach (efektywny przy dużych liczbach).
+
+ Testuj na 5–10–100 liczbach.
+
+ Zapisuj operacje do stdout.
+
+🧠 Po dzisiaj masz pełne sortowanie dużych danych.
+
+📅 Dzień 5 – 20 czerwca (piątek)
+CEL: Optymalizacja + testy z checkerem
+
+ Sprawdź, czy wszystko działa z checker_OS.
+
+ Testuj wydajność (wc -l – liczba operacji).
+
+ Dopracuj strategie (np. lepsze sortowanie dla 5–20 liczb).
+
+ Sprawdź błędy wejścia – duplikaty, złe argumenty.
+
+📅 Dzień 6 – 21 czerwca (sobota – TYLKO JEŚLI BARDZO TRZEBA)
+CEL: Rezerwa + bonusy (jeśli robisz)
+
+ Dodaj bonusy (*_bonus.c/h, np. checker własny, visualizer).
+
+ Finalne czyszczenie kodu, Makefile, norminette.
+
+📌 Narzędzia, które warto przygotować:
+print_stack() – debugowanie stosów.
+
+apply_op() – funkcja, która wykonuje operację po nazwie.
+
+parse_input() – konwersja argumentów.
+
+is_sorted() – sprawdza czy a jest posortowany.
+
+free_all() – czyszczenie pamięci (ważne na obronie).
