@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/17 15:48:48 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/18 12:12:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ typedef struct stack
 
 int		is_valid_number(char *str);
 int		is_int_range(char *str);
-int		is_duplicate(int *tab, size_t size);
+int		is_duplicate(t_stack *head);
 void	free_tab(char **splited);
 char	**take_split(char *s);
-t_Node	*make_stack(char *s);
-
+t_stack	*make_stack(char *s);
+void	free_stack(t_stack *head);
 #endif

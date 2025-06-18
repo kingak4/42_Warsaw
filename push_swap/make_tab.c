@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/17 15:53:21 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/18 12:52:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,69 +35,80 @@ char	**take_split(char *s)
 		i++; 
 	}
 	return(tab_rest);
-}
+} 
 // ogarnij aby dzialo 
 // napraw ten makce stack 
 // debaguj 
 // zrob dal liczb 8 9 7 bez stringa
 // napraw segfalut w take split 
 // sprawdz valgrind
+// zrob aby dzialo  bez stringa 
+// norsma 
+//  tesy 
 
-t_Node *make_stack(char *s)
+t_stack *make_stack(char *s)
 {
 	char	**tab_rest;
 	int		i;
 	size_t	len;
-	t_Node	*stack;
+	t_stack	*head = NULL;
+	t_stack *current = NULL;
+	t_stack *new_node;
 
 	len = count_token(s, 32);
 	tab_rest = take_split(s);
 	if (!tab_rest)
-	{
-		free_tab(tab_rest);
 		return (NULL);
-	}
 	i = 0;
 	while (i < (int)len)
 	{
-		stack = malloc(sizeof(t_Node));
-		if (!stack)
-			return (0);
-		stack->next = ft_atoi(tab[i]);
+		new_node = malloc(sizeof(t_stack));
+		if (!new_node)
+			return (NULL);
+		new_node->nb = ft_atoi(tab_rest[i]);
+		if (i == 0)
+		{
+			head = new_node;
+			current = head;
+			current->prev = NULL;
+		}
+		else
+		{
+			current->next = new_node;
+			new_node->prev = current;
+			current = new_node;
+		}
+		new_node->next = NULL;
 		i++;
 	}
 	free_tab(tab_rest);
-	if (!is_duplicate(stack))
+	if (is_duplicate(head) == 0)
 	{
-		free();
 		ft_printf("ERROR");
-		return (0);
+		free_stack(head);
+		return (NULL);
 	}
-	return (tab);
+	return (head);
 }
-int main()
+int main(void)
 {
-	char *s = "3 5 10 1j";
+    char *input = "3 5 8"; // <- testuj inne przypadki
+    t_stack *stack = make_stack(input);
 
-    if (!s)
+    if (!stack)
     {
-        ft_printf("Error: invalid input or memory allocation failed\n");
-        return 1;
+        ft_printf("make_stack failed!\n");
+        return (1); // ⛔️ KONIEC – nie wypisuj dalej!
     }
-	int *result;
- 	int i = 0;
- 	result = tab_make(s);
- 	if (result == NULL)
- 	{
- 		return 1;
- 	}
- 	while (result[i])
- 	{
- 		printf("%i\n", result[i]);
- 		//free(result[i]);
- 		i++;
- 	}
- 	//free(result);
- 	return 0;
+
+    t_stack *current = stack;
+    while (current)
+    {
+        printf("nb: %d\n", current->nb);
+        current = current->next;
+    }
+
+    free_stack(stack);
+    return (0);
 }
 

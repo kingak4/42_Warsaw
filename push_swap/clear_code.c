@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_code.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 10:18:37 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/17 10:19:03 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/18 12:47:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,19 @@ void	free_tab(char **splited)
 		i++;
 	}
 	free(splited);
+}
+
+void	free_stack(t_stack *head)
+{
+	t_stack *current;
+	t_stack *next_node;
+	
+	current = head;
+	while (current != NULL)
+	{
+		next_node = current->next;
+		free(current);
+		current = next_node;
+	}
+	
 }
