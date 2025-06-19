@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/18 12:52:03 by root             ###   ########.fr       */
+/*   Updated: 2025/06/19 14:15:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,14 @@ char	**take_split(char *s)
 			!is_int_range(tab_rest[i]))
 			{
 				free_tab(tab_rest);
-				ft_printf("ERROR\n"); //napraw segfalut
+				ft_printf("ERROR\n");
 				return (NULL);
 			}
 		i++; 
 	}
 	return(tab_rest);
 } 
-// ogarnij aby dzialo 
-// napraw ten makce stack 
+ 
 // debaguj 
 // zrob dal liczb 8 9 7 bez stringa
 // napraw segfalut w take split 
@@ -45,7 +44,21 @@ char	**take_split(char *s)
 // zrob aby dzialo  bez stringa 
 // norsma 
 //  tesy 
-
+void	append_node(t_stack **head, t_stack **current, t_stack *new_node)
+{
+	if (!*head)
+	{
+		*head = new_node;
+		*current = new_node;
+		new_node->prev = NULL;
+	}
+	else
+	{
+		(*current)->next = new_node;
+		new_node->prev = *current;
+		*current = new_node;
+	}
+}
 t_stack *make_stack(char *s)
 {
 	char	**tab_rest;
@@ -54,11 +67,11 @@ t_stack *make_stack(char *s)
 	t_stack	*head = NULL;
 	t_stack *current = NULL;
 	t_stack *new_node;
-
+	
 	len = count_token(s, 32);
 	tab_rest = take_split(s);
 	if (!tab_rest)
-		return (NULL);
+	return (NULL);
 	i = 0;
 	while (i < (int)len)
 	{
@@ -66,49 +79,81 @@ t_stack *make_stack(char *s)
 		if (!new_node)
 			return (NULL);
 		new_node->nb = ft_atoi(tab_rest[i]);
-		if (i == 0)
-		{
-			head = new_node;
-			current = head;
-			current->prev = NULL;
-		}
-		else
-		{
-			current->next = new_node;
-			new_node->prev = current;
-			current = new_node;
-		}
+		append_node(&head, &current, new_node);
 		new_node->next = NULL;
 		i++;
 	}
 	free_tab(tab_rest);
-	if (is_duplicate(head) == 0)
-	{
-		ft_printf("ERROR");
-		free_stack(head);
-		return (NULL);
-	}
+	head = clear_duplicate(head);
 	return (head);
 }
-int main(void)
+t_stack	*make_int_arg(int ac, char **av)
 {
-    char *input = "3 5 8"; // <- testuj inne przypadki
-    t_stack *stack = make_stack(input);
+	t_stack *head = NULL;
+	t_stack *current;
+	t_stack *new_node;
+	int i;
 
-    if (!stack)
-    {
-        ft_printf("make_stack failed!\n");
-        return (1); // ⛔️ KONIEC – nie wypisuj dalej!
-    }
-
-    t_stack *current = stack;
-    while (current)
-    {
-        printf("nb: %d\n", current->nb);
-        current = current->next;
-    }
-
-    free_stack(stack);
-    return (0);
+	i = 1;
+	current = NULL;
+	while (i < ac)
+	{
+		if (!is_valid_number(av[i]) ||
+			!is_int_range(av[i]))
+			{
+				ft_printf("ERROR\n");
+				return (NULL);
+			}
+		new_node = malloc(sizeof(t_stack));
+		if (!new_node)
+			return (NULL);
+		new_node->nb = ft_atoi(av[i]);
+		append_node(&head, &current, new_node);
+		new_node->next = NULL;
+		i++;
+	}
+	head = clear_duplicate(head);
+	return (head);
 }
+void print_stack(t_stack *head)
+{
+	while (head)
+	{
+		printf("%d\n", head->nb);
+		head = head->next;
+	}
+}
+
+int main(int argc, char **argv)
+{
+	t_stack *stack;
+
+	stack = make_int_arg(argc, argv);
+	if (!stack)
+		return (1);
+	print_stack(stack);
+	free_stack(stack);
+	return (0);
+}
+// int main(void)
+// {
+//     char *input = "3 5 8 12 -9 -21637"; // <- testuj inne przypadki
+//     t_stack *stack = make_stack(input);
+
+//     if (!stack)
+//     {
+//         ft_printf("make_stack failed!\n");
+//         return (1); // ⛔️ KONIEC – nie wypisuj dalej!
+//     }
+
+//     t_stack *current = stack;
+//     while (current)
+//     {
+//         printf("nb: %d\n", current->nb);
+//         current = current->next;
+//     }
+
+//     free_stack(stack);
+//     return (0);
+// }
 

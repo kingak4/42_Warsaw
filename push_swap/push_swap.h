@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/18 12:12:18 by root             ###   ########.fr       */
+/*   Updated: 2025/06/19 09:46:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	free_tab(char **splited);
 char	**take_split(char *s);
 t_stack	*make_stack(char *s);
 void	free_stack(t_stack *head);
+t_stack	*clear_duplicate(t_stack *head);
 #endif

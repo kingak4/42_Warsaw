@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 10:18:37 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/18 12:47:15 by root             ###   ########.fr       */
+/*   Updated: 2025/06/19 09:46:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,14 @@ void	free_stack(t_stack *head)
 		free(current);
 		current = next_node;
 	}
-	
+}
+t_stack	*clear_duplicate(t_stack *head)
+{
+	if (is_duplicate(head) == 0)
+	{
+		ft_printf("ERROR");
+		free_stack(head);
+		return (NULL);
+	}
+	return (head);
 }
