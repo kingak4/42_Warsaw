@@ -4,7 +4,7 @@ NAME = push_swap
 RM = rm -rf
 AR = ar rcs
 
-FILES = checkers.c make_tab.c clear_code.c
+FILES = checkers.c make_tab.c clear_code.c operations.c operations_2.c code_alg.c
 OBJS = $(FILES:.c=.o) 
 
 LIBFT_PATH = libft

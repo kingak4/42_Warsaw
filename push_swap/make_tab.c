@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/19 14:15:37 by root             ###   ########.fr       */
+/*   Updated: 2025/06/19 22:31:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,7 @@ char	**take_split(char *s)
 	}
 	return(tab_rest);
 } 
- 
-// debaguj 
-// zrob dal liczb 8 9 7 bez stringa
-// napraw segfalut w take split 
-// sprawdz valgrind
-// zrob aby dzialo  bez stringa 
-// norsma 
-//  tesy 
+
 void	append_node(t_stack **head, t_stack **current, t_stack *new_node)
 {
 	if (!*head)
@@ -123,16 +116,46 @@ void print_stack(t_stack *head)
 		head = head->next;
 	}
 }
-
+void appen_node(t_stack **stack, t_stack *new_node)
+{
+    if (!*stack)
+        *stack = new_node;
+    else
+    {
+        t_stack *tmp = *stack;
+        while (tmp->next)
+            tmp = tmp->next;
+        tmp->next = new_node;
+        new_node->prev = tmp;
+    }
+}
+t_stack *new_node(int nb)
+{
+    t_stack *node = malloc(sizeof(t_stack));
+    if (!node) return NULL;
+    node->nb = nb;
+    node->next = NULL;
+    node->prev = NULL;
+    return node;
+}
 int main(int argc, char **argv)
 {
-	t_stack *stack;
+	t_stack *stack_a;
+	// t_stack *stack_b = NULL;
 
-	stack = make_int_arg(argc, argv);
-	if (!stack)
+	stack_a = make_int_arg(argc, argv);
+	if (!stack_a)
 		return (1);
-	print_stack(stack);
-	free_stack(stack);
+	// appen_node(&stack_b, new_node(4));
+    // appen_node(&stack_b, new_node(5));
+    // appen_node(&stack_b, new_node(6));
+	
+	rrb(&stack_a, 1);
+    print_stack(stack_a);
+	// printf("\n");
+    // print_stack(stack_b);
+	free_stack(stack_a);
+	// free_stack(stack_b);
 	return (0);
 }
 // int main(void)
