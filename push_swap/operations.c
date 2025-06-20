@@ -6,19 +6,19 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 14:45:10 by root              #+#    #+#             */
-/*   Updated: 2025/06/19 19:17:55 by root             ###   ########.fr       */
+/*   Updated: 2025/06/20 12:24:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	sa(t_stack *stack_a, int flag )
+int	sa(t_stack **stack_a, int flag )
 {
 	t_stack *first;
 	t_stack *second;
 	int tmp;
 
-	first = stack_a;
+	first = *stack_a;
 	second = first->next;
 	if (!first || !second)
 		return (0);
@@ -31,13 +31,13 @@ int	sa(t_stack *stack_a, int flag )
 	return (1);
 }
 
-int	sb(t_stack *stack_b, int flag )
+int	sb(t_stack **stack_b, int flag )
 {
 	t_stack *first;
 	t_stack *second;
 	int tmp;
 
-	first = stack_b;
+	first = *stack_b;
 	second = first->next;
 	if (!first || !second)
 		return (0);
@@ -48,11 +48,11 @@ int	sb(t_stack *stack_b, int flag )
 		ft_printf("sb\n");
 	return (1);
 }
-void	ss(t_stack *stack_a, t_stack *stack_b)
+void	ss(t_stack **stack_a, t_stack **stack_b)
 {
 	int	a;
 	int b;
-	a = sa(stack_a, 0);          
+	a = sa(stack_a, 0);
 	b = sb(stack_b, 0);
 	if (a == 1 || b == 1)
 		ft_printf("ss\n");

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/19 22:31:38 by root             ###   ########.fr       */
+/*   Updated: 2025/06/20 15:20:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ t_stack *new_node(int nb)
 int main(int argc, char **argv)
 {
 	t_stack *stack_a;
-	// t_stack *stack_b = NULL;
+	t_stack *stack_b = NULL;
 
 	stack_a = make_int_arg(argc, argv);
 	if (!stack_a)
@@ -150,7 +150,8 @@ int main(int argc, char **argv)
     // appen_node(&stack_b, new_node(5));
     // appen_node(&stack_b, new_node(6));
 	
-	rrb(&stack_a, 1);
+	sort(&stack_a, &stack_b);
+	//sort_2(&stack_a);
     print_stack(stack_a);
 	// printf("\n");
     // print_stack(stack_b);
