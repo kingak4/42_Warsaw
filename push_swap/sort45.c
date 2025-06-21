@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 11:37:10 by root              #+#    #+#             */
-/*   Updated: 2025/06/20 15:14:09 by root             ###   ########.fr       */
+/*   Updated: 2025/06/21 15:23:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,18 @@ void	sort(t_stack **stack_a, t_stack **stack_b)
 	else if (i == 5)
 		sort_5(stack_a, stack_b);
 	
+}
+
+int is_sorted(t_stack *stack)
+{
+	t_stack *curr;
+	
+	curr = stack;
+	while(curr->next != NULL)
+	{
+		if(curr->nb > curr->next->nb)
+			return (0);
+		curr = curr->next;
+	}
+	return (1);
 }

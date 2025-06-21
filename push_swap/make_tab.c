@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/20 15:20:52 by root             ###   ########.fr       */
+/*   Updated: 2025/06/21 17:16:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,27 +138,27 @@ t_stack *new_node(int nb)
     node->prev = NULL;
     return node;
 }
-int main(int argc, char **argv)
-{
-	t_stack *stack_a;
-	t_stack *stack_b = NULL;
+// int main(int argc, char **argv)
+// {
+// 	t_stack *stack_a;
+// 	t_stack *stack_b = NULL;
 
-	stack_a = make_int_arg(argc, argv);
-	if (!stack_a)
-		return (1);
-	// appen_node(&stack_b, new_node(4));
-    // appen_node(&stack_b, new_node(5));
-    // appen_node(&stack_b, new_node(6));
+// 	stack_a = make_int_arg(argc, argv);
+// 	if (!stack_a)
+// 		return (1);
+// 	// appen_node(&stack_b, new_node(4));
+//     // appen_node(&stack_b, new_node(5));
+//     // appen_node(&stack_b, new_node(6));
 	
-	sort(&stack_a, &stack_b);
-	//sort_2(&stack_a);
-    print_stack(stack_a);
-	// printf("\n");
-    // print_stack(stack_b);
-	free_stack(stack_a);
-	// free_stack(stack_b);
-	return (0);
-}
+// 	sort(&stack_a, &stack_b);
+// 	//sort_2(&stack_a);
+//     print_stack(stack_a);
+// 	// printf("\n");
+//     // print_stack(stack_b);
+// 	free_stack(stack_a);
+// 	// free_stack(stack_b);
+// 	return (0);
+// }
 // int main(void)
 // {
 //     char *input = "3 5 8 12 -9 -21637"; // <- testuj inne przypadki
@@ -180,4 +180,40 @@ int main(int argc, char **argv)
 //     free_stack(stack);
 //     return (0);
 // }
+int main(void)
+{
+	t_stack *stack_b = NULL;
+	int insert_pos;
+	int cost;
+
+	// Przykładowy stos B: [6] -> [4] -> [2] (czyli posortowany malejąco)
+	appen_node(&stack_b, new_node(6));
+	appen_node(&stack_b, new_node(4));
+	appen_node(&stack_b, new_node(2));
+
+	printf("Stos B:\n");
+	print_stack(stack_b);
+
+	// TEST: get_insert_position
+	printf("\nTest get_insert_position:\n");
+	int test_values[] = {7, 5, 3, 1};
+	for (int i = 0; i < 4; i++)
+	{
+		insert_pos = get_insert_position(stack_b, test_values[i]);
+		printf("value = %d → insert_pos = %d\n", test_values[i], insert_pos);
+	}
+
+	// TEST: cost_to_top
+	printf("\nTest cost_to_top:\n");
+	int size = count_node(stack_b);
+	for (int i = 0; i < size; i++)
+	{
+		cost = cost_to_top(stack_b, i);
+		printf("index = %d → cost = %d\n", i, cost);
+	}
+
+	// Sprzątanie
+	free_stack(stack_b);
+	return (0);
+}
 

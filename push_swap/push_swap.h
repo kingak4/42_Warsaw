@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/20 15:13:35 by root             ###   ########.fr       */
+/*   Updated: 2025/06/21 17:16:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ void	sort_3(t_stack **stack_a);
 void	sort_4(t_stack **stack_a, t_stack **stack_b);
 void	sort_5(t_stack **stack_a, t_stack **stack_b);
 t_stack *get_min(t_stack *stack_a);
-int	get_index(t_stack *stack, t_stack *node);
+t_stack *get_max(t_stack *stack_a);
+int		max_min(int value, t_stack *min, t_stack *max, t_stack *stack_b);
+int		get_index(t_stack *stack, t_stack *node);
 void	sort(t_stack **stack_a, t_stack **stack_b);
+int		is_sorted(t_stack *stack);
+int		cost_to_top(t_stack *stack, int index);
+int		get_insert_position(t_stack *stack_b, int value);
 #endif
