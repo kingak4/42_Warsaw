@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/21 17:16:12 by root             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:39:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,9 @@ void	sort(t_stack **stack_a, t_stack **stack_b);
 int		is_sorted(t_stack *stack);
 int		cost_to_top(t_stack *stack, int index);
 int		get_insert_position(t_stack *stack_b, int value);
+int		total_cost(t_stack *stack_a, t_stack *stack_b, int index_a);
+t_stack *get_node_at_index(t_stack *stack, int index);
+int		find_cheapest_index(t_stack *stack_a, t_stack *stack_b);
+void 	rotate_stack_to_top(t_stack **stack, int index);
+void	push_cheapest(t_stack **stack_a, t_stack **stack_b);
 #endif

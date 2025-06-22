@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 15:33:04 by root              #+#    #+#             */
-/*   Updated: 2025/06/21 17:16:50 by root             ###   ########.fr       */
+/*   Updated: 2025/06/22 12:09:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,17 @@ t_stack *get_max(t_stack *stack_a)
 		curr = curr->next;
 	}
 	return(max);
+}
+int	total_cost(t_stack *stack_a, t_stack *stack_b, int index_a)
+{
+	int	cost_a;
+	int cost_b;
+	int	insert_pos;
+	t_stack *node_a;
+	
+	node_a = get_node_at_index(stack_a, index_a);
+	insert_pos = get_insert_position(stack_b, node_a->nb);
+	cost_a = cost_to_top(stack_a, index_a);
+	cost_b = cost_to_top(stack_b, insert_pos);
+	return(cost_a + cost_b);
 }
