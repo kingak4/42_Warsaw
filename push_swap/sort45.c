@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 11:37:10 by root              #+#    #+#             */
-/*   Updated: 2025/06/21 15:23:07 by root             ###   ########.fr       */
+/*   Updated: 2025/06/23 13:39:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ void	sort(t_stack **stack_a, t_stack **stack_b)
 		sort_4(stack_a, stack_b);
 	else if (i == 5)
 		sort_5(stack_a, stack_b);
-	
+	else
+		turk_sort(stack_a, stack_b);
 }
 
 int is_sorted(t_stack *stack)

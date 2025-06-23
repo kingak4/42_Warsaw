@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/22 13:39:11 by root             ###   ########.fr       */
+/*   Updated: 2025/06/23 13:33:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,7 @@ t_stack *get_node_at_index(t_stack *stack, int index);
 int		find_cheapest_index(t_stack *stack_a, t_stack *stack_b);
 void 	rotate_stack_to_top(t_stack **stack, int index);
 void	push_cheapest(t_stack **stack_a, t_stack **stack_b);
+void	push_back_to_a(t_stack **stack_a, t_stack **stack_b);
+void	final_rotate(t_stack **stack_a);
+void	turk_sort(t_stack **stack_a, t_stack **stack_b);
 #endif

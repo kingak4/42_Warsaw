@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 11:38:15 by root              #+#    #+#             */
-/*   Updated: 2025/06/22 13:41:28 by root             ###   ########.fr       */
+/*   Updated: 2025/06/23 13:02:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,46 +94,22 @@ void	push_cheapest(t_stack **stack_a, t_stack **stack_b)
 	rotate_stack_to_top(stack_b, insert_id);
 	pb(stack_a, stack_b);
 }
-// 5. void push_back_to_a(t_stack **a, t_stack **b)
-// Cel: przenosi wszystkie elementy z B z powrotem do A w odpowiedniej kolejności.
+void	push_back_to_a(t_stack **stack_a, t_stack **stack_b)
+{
+    int best_id;
+    int best_in;
+    int val;
 
-// Kroki:
-// Dla każdego elementu w B:
-
-// znajdź miejsce w A, gdzie powinien trafić (get_insert_position() analogiczna)
-
-// obróć B (żeby ten element był na topie)
-
-// obróć A (żeby zrobić miejsce)
-
-// pa()
-
-// 🕒 Implementacja: ~1h
-
-// 6. void final_rotate(t_stack **a)
-// Cel: obraca A tak, żeby minimalna wartość była na górze (czyli pełny sort).
-
-// Kroki:
-// Znajdź index minimalnej liczby w A
-
-// Jeśli index <= size / 2 → ra x razy
-
-// Inaczej → rra x razy
-
-// 🕒 Implementacja: ~30 minut
-
-// 7. void turk_sort(t_stack **a, t_stack **b)
-// Cel: Główna funkcja sterująca algorytmem Turka.
-
-// Kroki:
-// Jeśli is_sorted(*a) → return
-
-// pb(); pb(); (na początek)
-
-// Dopóki count_node(*a) > 3 → push_cheapest()
-
-// sort_3() dla pozostałych w A
-
-// push_back_to_a()
-
-// final_rotate()
+    while (*stack_b != NULL)
+    {
+        best_id = find_cheapest_index(*stack_a, *stack_b);
+        if (best_id < 0)
+            break;
+        rotate_stack_to_top(stack_b, best_id);
+        val = (*stack_b)->nb;
+        best_in = get_insert_position(*stack_a, val);
+        if (best_in >= 0)
+            rotate_stack_to_top(stack_a, best_in);
+        pa(stack_a, stack_b);
+    }
+}
