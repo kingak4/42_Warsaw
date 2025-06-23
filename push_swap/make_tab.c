@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/23 14:02:53 by root             ###   ########.fr       */
+/*   Updated: 2025/06/23 18:34:21 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,13 +146,9 @@ int main(int argc, char **argv)
 	stack_a = make_int_arg(argc, argv);
 	if (!stack_a)
 		return (1);
-	// appen_node(&stack_b, new_node(4));
-    // appen_node(&stack_b, new_node(5));
-    // appen_node(&stack_b, new_node(6));
-	
-	sort(&stack_a, &stack_b);
+	turk_sort(&stack_a, &stack_b);
 	//sort_2(&stack_a);
-    print_stack(stack_a);
+  	print_stack(stack_a);
 	// printf("\n");
     // print_stack(stack_b);
 	free_stack(stack_a);
@@ -190,12 +186,12 @@ int main(int argc, char **argv)
 //     // Tworzymy stos B: [6] -> [4] -> [2]
 //     appen_node(&stack_b, new_node(6));
 //     appen_node(&stack_b, new_node(4));
-//     appen_node(&stack_b, new_node(2));
+//     appen_node(&stack_b, new_node(5));
 
 //     // Tworzymy stos A: [3] -> [5] -> [7] (przykładowo)
 //     appen_node(&stack_a, new_node(3));
-//     appen_node(&stack_a, new_node(5));
-//     appen_node(&stack_a, new_node(7));
+//     appen_node(&stack_a, new_node(2));
+//     appen_node(&stack_a, new_node(1));
 
 //     printf("Stos B:\n");
 //     print_stack(stack_b);
@@ -249,11 +245,23 @@ int main(int argc, char **argv)
 
 //     printf("Stos B:\n");
 //     print_stack(stack_b);
+
+// 	printf("\nTest final rot:\n");
+//     final_rotate(&stack_a);
+
+//     printf("Po final rot:\n");
+
+//      print_stack(stack_a);
+
+//     printf("Stos B:\n");
+//     print_stack(stack_b);
 //     // Sprzątanie
 //     free_stack(stack_a);
 //     free_stack(stack_b);
+// 	 printf("Stos A:\n");
 //     return (0);
-// } printf("Stos A:\n");
+// }
+
   
 // int main(void)
 // {
@@ -301,4 +309,3 @@ int main(int argc, char **argv)
 //     free_stack(stack_b);
 
 //     return 0;
-// }

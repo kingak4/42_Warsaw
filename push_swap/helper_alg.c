@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 11:38:15 by root              #+#    #+#             */
-/*   Updated: 2025/06/23 13:02:41 by root             ###   ########.fr       */
+/*   Updated: 2025/06/23 18:04:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_stack *get_node_at_index(t_stack *stack, int index)
 	}
 	return(curr);
 }
-int find_cheapest_index(t_stack *stack_a, t_stack *stack_b)
+int	find_cheapest_index(t_stack *stack_a, t_stack *stack_b)
 {
 	int	node_nb;
 	int i;
@@ -40,7 +40,7 @@ int find_cheapest_index(t_stack *stack_a, t_stack *stack_b)
 	int	cheap_cost;
 	int	cheap_id;
 
-	node_nb = count_node(stack_a);
+	node_nb = count_node(stack_b);
 	i = 0;
 	cheap_cost = INT_MAX;
 	cheap_id = 0;
@@ -62,6 +62,8 @@ void rotate_stack_to_top(t_stack **stack, int index)
 	int i;
 
 	size = count_node(*stack);
+	if (index < 0 || index >= size)
+        return;
 	if (index <= size / 2)
 	{
 		 i = index;
@@ -71,7 +73,7 @@ void rotate_stack_to_top(t_stack **stack, int index)
 			i--;
 		}
 	}
-	if (index > size / 2)
+	else
 	{
 		i = size - index;
 		while (i > 0)
@@ -88,11 +90,35 @@ void	push_cheapest(t_stack **stack_a, t_stack **stack_b)
 	int insert_id;
 
 	cheap_id = find_cheapest_index(*stack_a, *stack_b);
-	cheap_node = get_node_at_index(*stack_a, cheap_id);
+	cheap_node = get_node_at_index(*stack_b, cheap_id);
 	insert_id = get_insert_position(*stack_b, cheap_node->nb);
 	rotate_stack_to_top(stack_a, cheap_id);
 	rotate_stack_to_top(stack_b, insert_id);
 	pb(stack_a, stack_b);
+}
+int find_best_pa_index(t_stack *stack_a, t_stack *stack_b)
+{
+	int i = 0;
+	int cheapest = INT_MAX;
+	int best_index = 0;
+	int total;
+
+	int len = count_node(stack_b);
+	while (i < len)
+	{
+		int cost_b = cost_to_top(stack_b, i);
+		int insert_pos = get_insert_position(stack_a, get_node_at_index(stack_b, i)->nb);
+		int cost_a = cost_to_top(stack_a, insert_pos);
+		total = cost_b + cost_a;
+
+		if (total < cheapest)
+		{
+			cheapest = total;
+			best_index = i;
+		}
+		i++;
+	}
+	return best_index;
 }
 void	push_back_to_a(t_stack **stack_a, t_stack **stack_b)
 {
@@ -102,7 +128,7 @@ void	push_back_to_a(t_stack **stack_a, t_stack **stack_b)
 
     while (*stack_b != NULL)
     {
-        best_id = find_cheapest_index(*stack_a, *stack_b);
+        best_id = find_best_pa_index(*stack_a, *stack_b);
         if (best_id < 0)
             break;
         rotate_stack_to_top(stack_b, best_id);
