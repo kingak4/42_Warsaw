@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/23 18:06:08 by root             ###   ########.fr       */
+/*   Updated: 2025/06/24 08:36:35 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	sort_2(t_stack **stack_a);
 void	sort_3(t_stack **stack_a);
 void	sort_4(t_stack **stack_a, t_stack **stack_b);
 void	sort_5(t_stack **stack_a, t_stack **stack_b);
-t_stack *get_min(t_stack *stack_a);
-t_stack *get_max(t_stack *stack_a);
+t_stack	*get_min(t_stack *stack_a);
+t_stack	*get_max(t_stack *stack_a);
 int		max_min(int value, t_stack *min, t_stack *max, t_stack *stack_b);
 int		get_index(t_stack *stack, t_stack *node);
 void	sort(t_stack **stack_a, t_stack **stack_b);
@@ -57,9 +57,9 @@ int		is_sorted(t_stack *stack);
 int		cost_to_top(t_stack *stack, int index);
 int		get_insert_position(t_stack *stack_a, int value);
 int		total_cost(t_stack *stack_a, t_stack *stack_b, int index_b);
-t_stack *get_node_at_index(t_stack *stack, int index);
+t_stack	*get_node_at_index(t_stack *stack, int index);
 int		find_cheapest_index(t_stack *stack_a, t_stack *stack_b);
-void 	rotate_stack_to_top(t_stack **stack, int index);
+void	rotate_stack_to_top(t_stack **stack, int index);
 void	push_cheapest(t_stack **stack_a, t_stack **stack_b);
 void	push_back_to_a(t_stack **stack_a, t_stack **stack_b);
 void	final_rotate(t_stack **stack_a);

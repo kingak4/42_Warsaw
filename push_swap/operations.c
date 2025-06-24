@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 14:45:10 by root              #+#    #+#             */
-/*   Updated: 2025/06/20 12:24:45 by root             ###   ########.fr       */
+/*   Updated: 2025/06/24 08:38:17 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 int	sa(t_stack **stack_a, int flag )
 {
-	t_stack *first;
-	t_stack *second;
-	int tmp;
+	t_stack	*first;
+	t_stack	*second;
+	int		tmp;
 
 	first = *stack_a;
 	second = first->next;
 	if (!first || !second)
 		return (0);
-	
 	tmp = first->nb;
 	first->nb = second->nb;
 	second->nb = tmp;
@@ -33,9 +32,9 @@ int	sa(t_stack **stack_a, int flag )
 
 int	sb(t_stack **stack_b, int flag )
 {
-	t_stack *first;
-	t_stack *second;
-	int tmp;
+	t_stack	*first;
+	t_stack	*second;
+	int		tmp;
 
 	first = *stack_b;
 	second = first->next;
@@ -48,20 +47,23 @@ int	sb(t_stack **stack_b, int flag )
 		ft_printf("sb\n");
 	return (1);
 }
+
 void	ss(t_stack **stack_a, t_stack **stack_b)
 {
 	int	a;
-	int b;
+	int	b;
+
 	a = sa(stack_a, 0);
 	b = sb(stack_b, 0);
 	if (a == 1 || b == 1)
 		ft_printf("ss\n");
 }
-void pa(t_stack **stack_a, t_stack **stack_b)
-{
-	t_stack *moved_nb;
 
-	if(!*stack_b ||!stack_a || !stack_b)
+void	pa(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*moved_nb;
+
+	if (!*stack_b ||!stack_a || !stack_b)
 		return ;
 	moved_nb = (*stack_b);
 	(*stack_b) = (*stack_b)->next;
@@ -74,17 +76,10 @@ void pa(t_stack **stack_a, t_stack **stack_b)
 	(*stack_a) = moved_nb;
 	ft_printf("pa\n");
 }
-// Sprawdzasz, czy stack_b istnieje i nie jest puste.
-// Zabierasz pierwszy element stack_b.
-// Przesuwasz stack_b do przodu.
-// Jeśli zostały tam elementy, poprawiasz im prev.
-// Przygotowujesz przenoszony element (czyści prev, ustawia next).
-// Łączysz go z stack_a.
-//Ustawiasz go jako nowy head stosu A.
 
-void pb(t_stack **stack_a, t_stack **stack_b)
+void	pb(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack *moved_nb;
+	t_stack	*moved_nb;
 
 	if (!stack_b || !(*stack_a) || !stack_a)
 		return ;

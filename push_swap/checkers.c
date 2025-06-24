@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:17:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/18 12:43:14 by root             ###   ########.fr       */
+/*   Updated: 2025/06/24 10:21:58 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ int	is_valid_number(char *str)
 	int	i;
 
 	i = 0;
+	if (!str || !*str)
+		return (0);
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
-		if ((str[i] >= '0' && str[i] <= '9') || str[i] == 32
-			|| str[i] == '+' || str[i] == '-')
-			i++;
-		else
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
+		i++;
 	}
 	return (1);
 }
@@ -34,15 +38,16 @@ int	is_int_range(char *str)
 		return (0);
 	return (1);
 }
+
 int	is_duplicate(t_stack *head)
 {
-	t_stack *one;
-	t_stack *two;
+	t_stack	*one;
+	t_stack	*two;
 
 	one = head;
 	while (one)
 	{
-		two = one->next; 
+		two = one->next;
 		while (two)
 		{
 			if (one->nb == two->nb)
@@ -53,16 +58,3 @@ int	is_duplicate(t_stack *head)
 	}
 	return (1);
 }
-
-////int	final_check()
-
-//int main()
-//{
-//	//int tab[] = {42, 7, 12, 0, 0,};
-//	//int size = count_number(tab);
-//	char *s = "76 0 -8 57643756234598";
-
-//	//printf("%d\n", is_duplicate(tab, size));
-//	printf("%d\n", is_int_range(s));
-//	//printf("%d\n", size);
-//}

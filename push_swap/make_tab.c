@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/23 18:34:21 by root             ###   ########.fr       */
+/*   Updated: 2025/06/24 10:14:27 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	**take_split(char *s)
 {
-	char **tab_rest;
-	int	i;
+	char	**tab_rest;
+	int		i;
 
 	if (!s)
 		return (NULL);
@@ -34,32 +34,37 @@ char	**take_split(char *s)
 			}
 		i++; 
 	}
-	return(tab_rest);
+	return (tab_rest);
 } 
 
-void	append_node(t_stack **head, t_stack **current, t_stack *new_node)
+void	append_node(t_stack **head, t_stack *new_node)
 {
-	if (!*head)
+	t_stack *tmp;
+
+	if (!head || !*head)
 	{
 		*head = new_node;
-		*current = new_node;
-		new_node->prev = NULL;
+		return ;
 	}
-	else
+	tmp = *head;
+	while ((*head)->next)
 	{
-		(*current)->next = new_node;
-		new_node->prev = *current;
-		*current = new_node;
+		*head = (*head)->next;	
 	}
+	(*head)->next = new_node;
+	new_node->next = NULL;
+	new_node->prev = *head;
+	*head = tmp;
 }
-t_stack *make_stack(char *s)
+
+t_stack	*make_stack(char *s)
 {
 	char	**tab_rest;
 	int		i;
 	size_t	len;
 	t_stack	*head = NULL;
-	t_stack *current = NULL;
-	t_stack *new_node;
+	//t_stack	*current = NULL;
+	t_stack	*new_node;
 	
 	len = count_token(s, 32);
 	tab_rest = take_split(s);
@@ -72,71 +77,85 @@ t_stack *make_stack(char *s)
 		if (!new_node)
 			return (NULL);
 		new_node->nb = ft_atoi(tab_rest[i]);
-		append_node(&head, &current, new_node);
+		append_node(&head, new_node);
 		new_node->next = NULL;
 		i++;
 	}
 	free_tab(tab_rest);
 	head = clear_duplicate(head);
+	if (!head)
+	{
+		free_stack(head);
+		return (NULL);
+	}
 	return (head);
 }
+
 t_stack	*make_int_arg(int ac, char **av)
 {
-	t_stack *head = NULL;
-	t_stack *current;
+	t_stack	*head = NULL;
+	//t_stack	*current;
 	t_stack *new_node;
 	int i;
 
 	i = 1;
-	current = NULL;
+	//current = NULL;
 	while (i < ac)
 	{
 		if (!is_valid_number(av[i]) ||
 			!is_int_range(av[i]))
 			{
 				ft_printf("ERROR\n");
+				free_stack(head);
 				return (NULL);
 			}
 		new_node = malloc(sizeof(t_stack));
 		if (!new_node)
 			return (NULL);
+		ft_printf("num: %d\n", ft_atoi(av[i]));
 		new_node->nb = ft_atoi(av[i]);
-		append_node(&head, &current, new_node);
+		append_node(&head, new_node);
 		new_node->next = NULL;
 		i++;
 	}
 	head = clear_duplicate(head);
+	if (!head)
+	{
+		free_stack(head);
+		return (NULL);
+	}
 	return (head);
 }
-void print_stack(t_stack *head)
+
+void	print_stack(t_stack *head)
 {
 	while (head)
 	{
-		printf("%d\n", head->nb);
+		printf("num: %d\n", head->nb);
 		head = head->next;
 	}
 }
-void appen_node(t_stack **stack, t_stack *new_node)
+void	appen_node(t_stack **stack, t_stack *new_node)
 {
-    if (!*stack)
-        *stack = new_node;
-    else
-    {
-        t_stack *tmp = *stack;
-        while (tmp->next)
-            tmp = tmp->next;
-        tmp->next = new_node;
-        new_node->prev = tmp;
-    }
+	if (!*stack)
+		*stack = new_node;
+	else
+	{
+		t_stack *tmp = *stack;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_node;
+		new_node->prev = tmp;
+	}
 }
-t_stack *new_node(int nb)
+t_stack	*new_node(int nb)
 {
-    t_stack *node = malloc(sizeof(t_stack));
-    if (!node) return NULL;
-    node->nb = nb;
-    node->next = NULL;
-    node->prev = NULL;
-    return node;
+	t_stack *node = malloc(sizeof(t_stack));
+	if (!node) return NULL;
+	node->nb = nb;
+	node->next = NULL;
+	node->prev = NULL;
+	return node;
 }
 int main(int argc, char **argv)
 {
@@ -146,13 +165,14 @@ int main(int argc, char **argv)
 	stack_a = make_int_arg(argc, argv);
 	if (!stack_a)
 		return (1);
-	turk_sort(&stack_a, &stack_b);
+	sort(&stack_a, &stack_b);
 	//sort_2(&stack_a);
   	print_stack(stack_a);
 	// printf("\n");
     // print_stack(stack_b);
 	free_stack(stack_a);
 	// free_stack(stack_b);
+	//./push_swap $(seq 100 | shuf | paste -sd' ') | wc -l
 	return (0);
 }
 // int main(void)

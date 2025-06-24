@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort45.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 11:37:10 by root              #+#    #+#             */
-/*   Updated: 2025/06/23 13:39:50 by root             ###   ########.fr       */
+/*   Updated: 2025/06/24 08:36:07 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	sort_4(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack *min;
-	int id;
-	
+	t_stack	*min;
+	int		id;
+
 	min = *stack_a;
 	min = get_min(min);
 	id = get_index(*stack_a, min);
@@ -33,10 +33,11 @@ void	sort_4(t_stack **stack_a, t_stack **stack_b)
 	sort_3(stack_a);
 	pa(stack_a, stack_b);
 }
+
 void	sort_1(t_stack **stack_a)
 {
-	int i;
-	
+	int	i;
+
 	i = count_node(*stack_a);
 	if (i == 1)
 	{
@@ -45,10 +46,11 @@ void	sort_1(t_stack **stack_a)
 		exit(0);
 	}
 }
+
 void	sort_5(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack *min;
-	int id;
+	t_stack	*min;
+	int		id;
 
 	min = *stack_a;
 	min = get_min(min);
@@ -65,16 +67,17 @@ void	sort_5(t_stack **stack_a, t_stack **stack_b)
 		rra(stack_a, 1);
 		rra(stack_a, 1);
 	}
-	else if(id == 4)
+	else if (id == 4)
 		rra(stack_a, 1);
 	pb(stack_a, stack_b);
 	sort_4(stack_a, stack_b);
 	pa(stack_a, stack_b);
 }
+
 void	sort(t_stack **stack_a, t_stack **stack_b)
 {
-	int i;
-	
+	int	i;
+
 	i = count_node(*stack_a);
 	if (i == 1)
 		sort_1(stack_a);
@@ -90,14 +93,14 @@ void	sort(t_stack **stack_a, t_stack **stack_b)
 		turk_sort(stack_a, stack_b);
 }
 
-int is_sorted(t_stack *stack)
+int	is_sorted(t_stack *stack)
 {
-	t_stack *curr;
-	
+	t_stack	*curr;
+
 	curr = stack;
-	while(curr->next != NULL)
+	while (curr->next != NULL)
 	{
-		if(curr->nb > curr->next->nb)
+		if (curr->nb > curr->next->nb)
 			return (0);
 		curr = curr->next;
 	}
