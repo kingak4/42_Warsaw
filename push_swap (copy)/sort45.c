@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 11:37:10 by root              #+#    #+#             */
-/*   Updated: 2025/06/24 08:36:07 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:51:51 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	sort_1(t_stack **stack_a)
 	i = count_node(*stack_a);
 	if (i == 1)
 	{
-		ft_printf("\n");
 		free_stack(*stack_a);
 		exit(0);
 	}
@@ -78,6 +77,8 @@ void	sort(t_stack **stack_a, t_stack **stack_b)
 {
 	int	i;
 
+	if (is_sorted(*stack_a) == 1)
+		return ;
 	i = count_node(*stack_a);
 	if (i == 1)
 		sort_1(stack_a);

@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:18:29 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/24 12:32:30 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:40:54 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	is_valid_input(char *arg, t_stack *head)
 {
 	if (!is_valid_number(arg) || !is_int_range(arg))
 	{
-		ft_printf("error\n");
+		ft_printf("Error\n");
 		free_stack(head);
 		return (0);
 	}

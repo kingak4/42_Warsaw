@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 09:51:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/24 12:26:23 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:40:43 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**take_split(char *s)
 			|| !is_int_range(tab_rest[i]))
 		{
 			free_tab(tab_rest);
-			ft_printf("error\n");
+			ft_printf("Error\n");
 			return (NULL);
 		}
 		i++;
@@ -118,6 +118,8 @@ int	main(int argc, char **argv)
 
 	stack_b = NULL;
 	i = 0;
+	if (argc < 2)
+		return (0);
 	if (argc > 2)
 	{
 		stack_a = make_int_arg(argc, argv);

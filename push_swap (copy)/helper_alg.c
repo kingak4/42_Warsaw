@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 11:38:15 by root              #+#    #+#             */
-/*   Updated: 2025/06/24 09:06:32 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:53:00 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	find_cheapest_index(t_stack *stack_a, t_stack *stack_b)
 	return (cheap_id);
 }
 
-void	rotate_stack_to_top(t_stack **stack, int index)
+void	rotate_stack_to_top(t_stack **stack, int index) // rotate _b debilu jebany 
 {
 	int	size;
 	int	i;
@@ -96,7 +96,7 @@ void	push_cheapest(t_stack **stack_a, t_stack **stack_b)
 	cheap_node = get_node_at_index(*stack_b, cheap_id);
 	insert_id = get_insert_position(*stack_a, cheap_node->nb);
 	rotate_stack_to_top(stack_b, cheap_id);
-	rotate_stack_to_top(stack_b, insert_id);
+	rotate_stack_to_top(stack_a, insert_id);
 	pb(stack_a, stack_b);
 }
 
