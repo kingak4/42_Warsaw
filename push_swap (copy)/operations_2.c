@@ -6,36 +6,12 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 19:02:39 by root              #+#    #+#             */
-/*   Updated: 2025/06/24 10:10:43 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/24 11:29:16 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//int	ra(t_stack **stack_a, int flag)
-//{
-//	int		len;
-//	t_stack	*first;
-//	t_stack	*last;
-
-//	first = (*stack_a);
-//	last = (*stack_a);
-//	len = count_node(last);
-//	if (len < 2)
-//		return (0);
-//	(*stack_a) = (*stack_a)->next;
-//	if (!(*stack_a) || !(*stack_a)->next)
-//		return (0);
-//	(*stack_a)->prev = NULL;
-//	while (last->next)
-//		last = last->next;
-//	last->next = first;
-//	first->prev = last;
-//	first->next = NULL;
-//	if (flag == 1)
-//		ft_printf("ra\n");
-//	return (1);
-//}
 int	ra(t_stack **stack_a, int flag)
 {
 	t_stack	*first;
@@ -43,51 +19,20 @@ int	ra(t_stack **stack_a, int flag)
 
 	if (!stack_a || !*stack_a || !(*stack_a)->next)
 		return (0);
-
-	first = *stack_a;
-	last = *stack_a;
-
-	// Znajdź ostatni element
+	first = (*stack_a);
+	last = (*stack_a);
 	while (last->next)
 		last = last->next;
-
-	// Nowa głowa listy to drugi element
 	*stack_a = first->next;
 	(*stack_a)->prev = NULL;
-
-	// Stary pierwszy node idzie na koniec listy
 	last->next = first;
 	first->prev = last;
 	first->next = NULL;
-
 	if (flag == 1)
 		ft_printf("ra\n");
 	return (1);
 }
-//int	rb(t_stack **stack_b, int flag)
-//{
-//	int		len;
-//	t_stack	*first;
-//	t_stack	*last;
 
-//	first = (*stack_b);
-//	last = (*stack_b);
-//	len = count_node(last);
-//	if (len < 2)
-//		return (0);
-//	(*stack_b) = (*stack_b)->next;
-//	if (!(*stack_b) || !(*stack_b)->next)
-//		return (0);
-//	(*stack_b)->prev = NULL;
-//	while (last->next)
-//		last = last->next;
-//	last->next = first;
-//	first->prev = last;
-//	first->next = NULL;
-//	if (flag == 1)
-//		ft_printf("rb\n");
-//	return (1);
-//}
 int	rb(t_stack **stack_b, int flag)
 {
 	t_stack	*first;
@@ -95,20 +40,15 @@ int	rb(t_stack **stack_b, int flag)
 
 	if (!stack_b || !*stack_b || !(*stack_b)->next)
 		return (0);
-
 	first = *stack_b;
 	last = *stack_b;
-
 	while (last->next)
 		last = last->next;
-
 	*stack_b = first->next;
 	(*stack_b)->prev = NULL;
-
 	last->next = first;
 	first->prev = last;
 	first->next = NULL;
-
 	if (flag == 1)
 		ft_printf("rb\n");
 	return (1);

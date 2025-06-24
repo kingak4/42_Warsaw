@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:17:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/24 10:21:58 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:31:34 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	is_valid_number(char *str)
 	if (str[i] == '+' || str[i] == '-')
 		i++;
 	if (!str[i])
+		return (0);
+	if (str[i] == '0' && str[i + 1] != '\0')
 		return (0);
 	while (str[i])
 	{

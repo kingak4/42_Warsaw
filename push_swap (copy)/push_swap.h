@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/06/24 08:36:35 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:28:36 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		is_int_range(char *str);
 int		is_duplicate(t_stack *head);
 void	free_tab(char **splited);
 char	**take_split(char *s);
-t_stack	*make_stack(char *s);
+t_stack	*make_stack(char *s, int i);
 void	free_stack(t_stack *head);
 t_stack	*clear_duplicate(t_stack *head);
 int		sa(t_stack **stack_a, int flag);
@@ -66,4 +66,5 @@ void	final_rotate(t_stack **stack_a);
 void	turk_sort(t_stack **stack_a, t_stack **stack_b);
 void	print_stack(t_stack *head);
 int		find_best_pa_index(t_stack *stack_a, t_stack *stack_b);
+int		is_valid_input(char *arg, t_stack *head);
 #endif

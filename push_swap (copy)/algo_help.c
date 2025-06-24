@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 15:33:04 by root              #+#    #+#             */
-/*   Updated: 2025/06/24 09:17:30 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/06/24 11:28:16 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,41 +21,6 @@ int	cost_to_top(t_stack *stack, int index)
 		return (index);
 	if (index > size / 2)
 		return (size - index);
-	return (0);
-}
-
-int	get_insert_position(t_stack *stack_a, int value)
-{
-	t_stack	*curr;
-	int		curr_index;
-	int		size;
-	int		curr_val;
-	int		next_val;
-
-	if (!stack_a)
-		return (0);
-	curr = stack_a;
-	curr_index = 0;
-	size = count_node(stack_a);
-	while (curr)
-	{
-		curr_val = curr->nb;
-		if (curr->next)
-			next_val = curr->next->nb;
-		else
-			next_val = stack_a->nb;
-		if ((curr_val < value && value < next_val)
-			|| (curr_val > next_val
-				&& (value > curr_val || value < next_val)))
-		{
-			if (curr_index + 1 >= size)
-				return (0);
-			else
-				return (curr_index + 1);
-		}
-		curr = curr->next;
-		curr_index++;
-	}
 	return (0);
 }
 
@@ -108,6 +73,7 @@ int	total_cost(t_stack *stack_a, t_stack *stack_b, int index_b)
 	cost_b = cost_to_top(stack_b, index_b);
 	return (cost_a + cost_b);
 }
+
 int	should_insert_here(int curr_val, int next_val, int value)
 {
 	if ((curr_val < value && value < next_val)

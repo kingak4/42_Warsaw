@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 NAME = push_swap
 RM = rm -rf
 AR = ar rcs
 
-FILES = checkers.c make_tab.c clear_code.c operations.c operations_2.c code_alg.c sort45.c algo_help.c helper_alg.c final_alg.c
+FILES = checkers.c make_tab.c clear_code.c operations.c operations_2.c code_alg.c sort45.c algo_help.c helper_alg.c final_alg.c other.c
 OBJS = $(FILES:.c=.o) 
 
 LIBFT_PATH = libft
