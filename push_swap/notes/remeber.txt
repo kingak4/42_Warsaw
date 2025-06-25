@@ -1,0 +1,91 @@
+W push_swap trzeba obsłużyć wiele potencjalnych błędów – nie zapomnij o żadnym z nich!
+
+✅ Program powinien działać z wieloma argumentami liczbowymi:
+./push_swap 1 3 5 +9 20 -4 50 60 04 08
+
+✅ Program powinien działać również, gdy liczby są przekazane jako jeden ciąg znaków:
+./push_swap "3 4 6 8 9 74 -56 +495"
+
+❌ Program nie powinien działać, jeśli napotka znaki niebędące liczbami:
+
+./push_swap 1 3 dog 35 80 -3
+
+./push_swap a
+
+./push_swap 1 2 3 5 67b778 947
+
+./push_swap "12 4 6 8 54fhd 4354"
+
+./push_swap 1 -- 45 32
+➡️ Te przypadki powinny zwrócić: "Error\n"
+
+❌ Program nie powinien działać, jeśli są powtarzające się liczby:
+
+./push_swap 1 3 58 9 3
+
+./push_swap 3 03
+
+./push_swap "49 128 50 38 49"
+➡️ Te przypadki powinny zwrócić: "Error\n"
+
+✅ Ten przykład powinien działać, bo -9 i 9 to różne liczby:
+./push_swap "95 99 -9 10 9"
+
+✅ Program powinien działać z wartościami INT_MIN i INT_MAX:
+
+./push_swap 2147483647 2 4 7
+
+./push_swap 99 -2147483648 23 545
+
+./push_swap "2147483647 843 56544 24394"
+
+❌ Przykłady z liczbami przekraczającymi zakres int powinny zwrócić: "Error\n"
+
+./push_swap 54867543867438 3
+
+./push_swap -2147483647765 4 5
+
+./push_swap "214748364748385 28 47 29"
+
+ℹ️ Nie ma określonych zasad dotyczących łączenia liczb i łańcuchów znaków – Ty decydujesz, jak chcesz to obsłużyć:
+./push_swap "1 2 4 3" 76 90 "348 05"
+
+🛠️ Lista kontrolna instrukcji (11 funkcji)
+Zweryfikuj, że zakodowałeś wszystkie dozwolone instrukcje, których użyjesz w swoim algorytmie:
+
+sa – zamienia miejscami dwa pierwsze elementy stosu A
+
+sb – zamienia miejscami dwa pierwsze elementy stosu B
+
+ss – wykonuje jednocześnie sa i sb
+
+pa – przenosi pierwszy element ze stosu B na szczyt stosu A
+
+pb – przenosi pierwszy element ze stosu A na szczyt stosu B
+
+ra – przesuwa wszystkie elementy stosu A o jeden w górę (pierwszy staje się ostatnim)
+
+rb – przesuwa wszystkie elementy stosu B o jeden w górę
+
+rr – wykonuje jednocześnie ra i rb
+
+rra – przesuwa wszystkie elementy stosu A o jeden w dół (ostatni staje się pierwszym)
+
+rrb – przesuwa wszystkie elementy stosu B o jeden w dół
+
+rrr – wykonuje jednocześnie rra i rrb
+
+🔄 Lista kontrolna algorytmu / sortowania
+✅ Sprawdź, czy dane wejściowe już są posortowane
+
+✅ Zrób prosty algorytm dla małych zbiorów danych (do 5 elementów):
+
+Dla 2 liczb
+
+Dla 3 liczb
+
+Dla 4 liczb
+
+Dla 5 liczb
+
+✅ Opracuj oddzielny algorytm dla większych zestawów danych

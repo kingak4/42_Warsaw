@@ -1,0 +1,10 @@
+//void	print_stack(t_stack *head)
+//{
+//	while (head)
+//	{
+//		printf("num: %d\n", head->nb);
+//		head = head->next;
+//./push_swap $(seq 100 | shuf | paste -sd' ') | wc -l
+//ARG="4 67 3 87 23"; ./push_swap $ARG | ./checker_linux $ARG
+//	}
+//}
