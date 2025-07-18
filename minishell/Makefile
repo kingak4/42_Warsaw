@@ -3,42 +3,48 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#    By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/01 19:22:14 by kdyga             #+#    #+#              #
-#    Updated: 2025/07/02 12:43:32 by root             ###   ########.fr        #
+#    Updated: 2025/07/16 15:00:37 by kikwasni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = mini
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -lreadline
-NAME = minishell
-RM = rm -rf
-AR = ar rcs
+CFLAGS = -Wall -Wextra -Werror -g -I minishell/ -I libft/includes
+LDFLAGS = -lreadline libft/libft.a
 
-FILES = read_line.c pipe.c
-OBJS = $(FILES:.c=.o) 
+SRCS = main/main.c Kamil/command/cd.c Kinga/lexing/read_line.c Kinga/lexing/clear_split.c Kinga/lexing/ft_split_mini.c Kinga/checkers/check1.c Kinga/checkers/check2.c Kinga/checkers/check3.c
+OBJS = $(SRCS:.c=.o)
 
-LIBFT_PATH = libft
-LIBFTNAME = $(LIBFT_PATH)/libft.a
+# Libft
+LIBFT_DIR = libft
+LIBFT_NAME = libft.a
 
-all: $(NAME)
+.PHONY: all clean fclean re valgrind libft
 
-$(NAME): $(OBJS)
-	make -C $(LIBFT_PATH)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFTNAME)
+all: libft $(NAME)
+
+$(NAME): $(OBJS) libft/$(LIBFT_NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
 
 %.o: %.c
-	$(CC) $(CFLAGS)  -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
+
+libft:
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	make clean -C $(LIBFT_PATH)
-	$(RM) $(OBJS)
+	rm -f $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	make fclean -C $(LIBFT_PATH)
-	$(RM) $(NAME)
+	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+valgrind: $(NAME)
+	valgrind --leak-check=full --suppressions=readline.supp ./$(NAME)

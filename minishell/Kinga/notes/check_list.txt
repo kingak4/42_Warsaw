@@ -1,0 +1,204 @@
+🔧 Kompilacja i Makefile
+ Makefile zawiera targety: NAME, all, clean, fclean, re
+
+ Kompiluje się poprawnie: bez błędów, bez ostrzeżeń (-Wall -Wextra -Werror)
+
+ make nie wykonuje przelinkowania (czyli nie robi nic, jeśli wszystko już jest zbudowane)
+
+ Nie ma wycieków pamięci (sprawdź valgrind, leaks)
+
+ Nie ma użycia zakazanych funkcji ani aliasów
+
+🟢 Podstawowa funkcjonalność
+ Shell wyświetla prompt po uruchomieniu i po każdym wykonaniu komendy
+
+ Shell zapamiętuje historię (działa strzałka w górę i w dół)
+
+ Komendy można uruchamiać z:
+
+ absolutną ścieżką (np. /bin/ls)
+
+ relatywną ścieżką (np. ./my_script)
+
+ bez ścieżki (jeśli jest ustawiona zmienna PATH)
+
+ Po usunięciu PATH komendy przestają działać
+
+ Działa interpretacja zmiennych środowiskowych ($USER, $HOME, itp.)
+
+ Działa $? — zwraca kod wyjścia poprzedniej komendy
+
+ Obsługiwane są komendy wbudowane (builtins):
+
+ echo z opcją -n
+
+ cd z relatywną i absolutną ścieżką, także . i ..
+
+ pwd
+
+ export (tworzenie i nadpisywanie zmiennych)
+
+ unset (usuwanie zmiennych)
+
+ env (wypisuje środowisko)
+
+ exit z i bez argumentów
+
+ Shell nie wykonuje komend, jeśli użytkownik wpisze pustą linię lub samą spację
+
+ Shell używa maksymalnie jednej zmiennej globalnej do sygnałów (np. g_exit_status)
+
+📐 Obsługa cudzysłowów
+ Pojedyncze cudzysłowy '...' – wszystko traktowane dosłownie (np. echo '$USER' wypisuje $USER)
+
+ Podwójne cudzysłowy "..." – interpretowane zmienne (echo "$USER" wypisuje wartość)
+
+ Niezamknięte cudzysłowy powodują błąd (a nie segfault ani dziwne zachowanie)
+
+ Shell nie obsługuje nieopisanych znaków specjalnych: \, ;, itp.
+
+➡️ Redirekcje
+ > – przekierowanie wyjścia do pliku (nadpisanie)
+
+ >> – przekierowanie wyjścia do pliku (dopisywanie)
+
+ < – wczytanie danych z pliku
+
+ << – heredoc działa poprawnie (nie musi zapisywać do historii)
+
+ W przypadku nieprawidłowej składni redirekcji shell nie crashuje i wypisuje błąd
+
+🧪 Pipe’y
+ Polecenia połączone | działają poprawnie: cat file | grep x | wc
+
+ Błędne komendy w środku pipe’a (np. ls nieistnieje | grep x) nie wywalają programu
+
+ Można łączyć pipe’y i redirekcje (cat < file | grep x > out)
+
+ Działa przypadek cat | cat | ls
+
+⚠️ Obsługa sygnałów
+ Ctrl-C na pustym promptcie: wyświetla nową linię i nowy prompt
+
+ Ctrl-C po wpisaniu komendy: czyszczony bufor, nic nie wykonuje się
+
+ Ctrl-D na pustym promptcie: kończy minishell
+
+ Ctrl-D po wpisaniu tekstu: nic się nie dzieje
+
+ Ctrl-\ w każdej sytuacji: nic się nie dzieje
+
+ Obsługa Ctrl-C, Ctrl-D, Ctrl-\ działa również przy uruchomieniu komend blokujących (cat, grep)
+
+💲 Zmienne środowiskowe
+ echo $VAR – zmienne są rozwijane do wartości
+
+ echo "$VAR" – również rozwija do wartości
+
+ echo '$VAR' – wypisuje dosłownie $VAR
+
+ Jeśli USER nie istnieje – shell potrafi go ustawić
+
+🎭 Zachowanie interaktywne i testy skrajne
+ Bufor jest czyszczony po Ctrl-C + Enter (nic się nie wykonuje)
+
+ Shell nie zawiesza się przy błędnych poleceniach (sdgshgshg)
+
+ Shell działa stabilnie przy długich liniach z wieloma argumentami
+
+ Możliwa jest nawigacja po historii (strzałki góra/dół)
+
+ Można powtarzać wcześniejsze komendy z historii
+ 
+ skrót w Visual Studio aby poprawić kod zgodnie z norminette Control+shift+I
+
+
+🔹 1. Sanity check na wejściu
+ Czy linia wejściowa nie jest pusta po trimie (nie licząc spacji/tabów)?
+
+ Czy wszystkie nawiasy cudzysłowu są domknięte (symetria ', ").
+
+ Czy nie ma nieprawidłowych zakończeń typu:
+
+|, >, < bez argumentu po nich
+
+||, >>>, ><, <| (nieobsługiwane przez minishella)
+
+ Czy liczba metaznaków jest sensowna (|, <, >, <<, >>)
+
+🔹 2. Tokenizacja (ft_split_mini)
+ Czy poprawnie rozdzielasz string na tokeny, uwzględniając:
+
+pojedyncze ' ' (nie interpretuj metaznaków, nawet $)
+
+podwójne " (interpretuj $, ale nie inne metaznaki)
+
+ignorowanie spacji i tabów między tokenami
+
+ Czy traktujesz operatory redirekcji (<, >, <<, >>) i pipe (|) jako osobne tokeny?
+
+ Czy tokeny są poprawnie czyszczone z cudzysłowów (przechowujesz je osobno tylko jeśli trzeba)?
+
+🔹 3. Rozpoznanie redirekcji i ich argumentów
+Dla każdego polecenia:
+
+ Czy redirekcje mają argument (plik/nazwa) bezpośrednio po sobie?
+
+ Czy argumenty redirekcji nie są pipe’ami lub innymi operatorami?
+
+ Czy nie ma wielu redirekcji tego samego typu bez sensu (np. cmd > a > b)?
+
+ Czy << limiter działa bez interpretacji $ w limiterze?
+
+ Czy << z pustym limitem nie powoduje awarii?
+
+🔹 4. Rozdzielenie poleceń względem pipe
+ Czy każde polecenie przed i po | istnieje i zawiera coś do wykonania?
+
+ Czy tworzysz strukturę tablicy t_cmd[], gdzie każdy t_cmd to jedno polecenie między |?
+
+ Czy dla każdego t_cmd przypisujesz:
+
+jego argv (komenda i argumenty)
+
+jego redirekcje (typ + plik docelowy)
+
+info, czy ma pipe do następnego (has_pipe)
+
+🔹 5. Rozpoznanie built-in vs external
+Dla każdego t_cmd:
+
+ Czy sprawdzasz, czy komenda to built-in (echo, cd, pwd, export, unset, env, exit)?
+
+ Czy odpowiednio zaznaczasz to w strukturze (cmd->builtin = BUILTIN_ECHO lub NONE)?
+
+🔹 6. Ekspansja zmiennych środowiskowych
+ Czy wykonujesz ekspansję $VAR wewnątrz cudzysłowów "..." i na zewnątrz, ale nie wewnątrz '...'?
+
+ Czy $? zostaje zamienione na kod wyjścia poprzedniego polecenia?
+
+ Czy brakujące zmienne $NIEISTNIEJE są zamieniane na pusty string?
+
+🔹 7. Finalna walidacja każdego t_cmd przed przekazaniem do egzekucji
+Dla każdego t_cmd:
+
+ Czy argv[0] istnieje? (czy komenda nie jest pusta)
+
+ Czy nie ma błędnych redirekcji (np. brak pliku do redir)?
+
+ Czy wszystkie tokeny są „czyste” (czyli bez śmieci typu niezamknięte cudzysłowy, pipe'y w argumentach itp.)?
+
+ Czy nie przekazujesz pustych tablic argv do execve?
+
+ 🔁 Kolejność działania parsera:
+Czy linia pusta?
+
+Czy cudzysłowy są domknięte?
+
+Czy są nieprawidłowe sekwencje redirekcji?
+
+Czy redirekcje mają cel?
+
+Czy pipe’y są poprawnie użyte?
+
+Dopiero potem: tokenizacja i analiza składniowa
