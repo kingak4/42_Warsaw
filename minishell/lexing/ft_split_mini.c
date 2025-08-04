@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:19:40 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/07/11 14:59:54 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/07/23 11:30:42 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static size_t	count_token(char const *s, char c)
 	return (count);
 }
 
-static char	**free_token(char **result, size_t token_index)
+char	**free_token(char **result, size_t token_index)
 {
 	while (token_index > 0)
 		free(result[--token_index]);
@@ -91,13 +91,26 @@ char	**ft_split_mini(char const *s, char c)
 {
 	size_t	token_count;
 	char	**result;
+	char	*normalized;
+	char	*tmp;
 
 	if (!s)
 		return (NULL);
-	s = space(s);
-	token_count = count_token(s, c);
+	normalized = normalize_input(s, 0, 0, 0);
+	if (!normalized)
+		return (NULL);
+	tmp = space(normalized);
+	free(normalized);
+	if (!tmp)
+		return (NULL);
+	token_count = count_token(tmp, c);
 	result = malloc((token_count + 1) * sizeof(char *));
 	if (!result)
+	{
+		free(tmp);
 		return (NULL);
-	return (tk(s, c, result));
+	}
+	result = tk(tmp, c, result);
+	free(tmp);
+	return (result);
 }

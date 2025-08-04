@@ -1,0 +1,61 @@
+🎯 Część obowiązkowa (Mandatory Part)
+⚠️ Obsługa błędów (Error Handling)
+Projekt musi być napisany w języku C i zgodny z normą Norminette.
+
+Każdy crash, niezdefiniowane zachowanie, wyciek pamięci lub błąd norminette = 0 punktów za cały projekt.
+
+Na wolnym sprzęcie projekt może nie działać idealnie. Jeśli jakieś testy zawodzą tylko na Twoim sprzęcie – zgłoś to uczciwie przed uznaniem ich za błędne.
+
+🚫 Zmienne globalne (Global variables)
+Sprawdź, czy w kodzie występują zmienne globalne używane do zarządzania współdzielonymi zasobami (np. widelcami, mutexami) między filozofami.
+
+Jeśli znajdziesz choć jedną taką zmienną – zatrzymujesz ocenianie projektu. Możesz dalej przeglądać kod, ale projekt uznaje się za nieważny.
+
+👨‍💻 Kod programu philo – Co ma być?
+Wymagania techniczne:
+Jeden wątek na filozofa – nie więcej, nie mniej.
+
+Jeden widelec na filozofa.
+
+Każdy widelec powinien mieć swój mutex, który służy do:
+
+Sprawdzania, czy widelec jest wolny,
+
+Zmiany jego stanu (np. zajęcie lub odłożenie).
+
+Synchronizacja:
+Wypisywane komunikaty nie mogą się mieszać (czyli np. dwa filozofowie nie mogą pisać jednocześnie is eating i has taken a fork w tej samej linii).
+
+Sprawdź, jak sprawdzana jest śmierć filozofa:
+
+Czy program zabezpiecza się mutexem, żeby filozof nie mógł jednocześnie umrzeć i zacząć jeść.
+
+🧪 Testowanie philo – Jak testować i jakie są limity?
+📌 Ograniczenia testowe:
+Nie testuj z więcej niż 200 filozofami.
+
+Nie testuj z czasami (time_to_die, time_to_eat, time_to_sleep) mniejszymi niż 60 ms.
+
+✅ Obowiązkowe testy:
+Test	Oczekiwany wynik
+./philo 1 800 200 200	Filozof nie powinien zjeść i powinien umrzeć
+./philo 5 800 200 200	Żaden filozof nie powinien umrzeć
+./philo 5 800 200 200 7	Żaden filozof nie powinien umrzeć, a symulacja zakończy się po tym, jak każdy zje 7 razy
+./philo 4 410 200 200	Żaden filozof nie powinien umrzeć
+./philo 4 310 200 100	Jeden filozof powinien umrzeć
+
+🔍 Test dokładności:
+Przetestuj program z 2 filozofami i sprawdź czasy:
+
+Opóźnienie śmierci większe niż 10 ms = niedopuszczalne.
+
+🧪 Inne testy:
+Sprawdź różne własne dane wejściowe.
+
+Zweryfikuj:
+
+Czy filozofowie umierają we właściwym czasie.
+
+Czy nie kradną widelców.
+
+Czy wszystko działa zgodnie z założeniami projektu.

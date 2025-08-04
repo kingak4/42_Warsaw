@@ -1,0 +1,100 @@
+Rozdział III – Opis projektu
+Przy stole siedzi jeden lub więcej filozofów.
+
+Na środku stołu znajduje się duża misa spaghetti.
+
+Filozofowie na przemian jedzą, myślą lub śpią.
+Nie mogą wykonywać więcej niż jednej z tych czynności naraz.
+
+Na stole znajdują się widelce – tyle, ilu filozofów.
+
+Do jedzenia filozof potrzebuje dwóch widelców (z prawej i z lewej strony).
+
+Po zakończeniu jedzenia filozof odkłada widelce, idzie spać, po przebudzeniu znów zaczyna myśleć.
+
+Symulacja kończy się, gdy filozof umiera z głodu.
+
+Filozofowie nie komunikują się między sobą.
+
+Filozof nie wie, że inny może umrzeć.
+
+Filozofowie powinni unikać umierania.
+
+Rozdział IV – Zasady ogólne
+Trzeba napisać dwa programy: jeden dla części obowiązkowej, drugi dla bonusu (jeśli robisz bonus).
+
+Zabronione są zmienne globalne.
+
+Program przyjmuje następujące argumenty:
+
+bash
+Copy
+Edit
+number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+number_of_philosophers: liczba filozofów i widelców.
+
+time_to_die: czas w ms, po którym filozof umrze, jeśli nie zaczął jeść.
+
+time_to_eat: czas w ms, jaki zajmuje jedzenie.
+
+time_to_sleep: czas w ms, jaki zajmuje sen.
+
+number_of_times_each_philosopher_must_eat: (opcjonalny) – jeśli każdy filozof zje podaną liczbę razy, symulacja się kończy. Jeśli brak tego argumentu – kończy się, gdy ktoś umrze.
+
+Filozofowie są numerowani od 1.
+
+Filozof 1 siedzi obok filozofa numer number_of_philosophers. Każdy filozof N siedzi między N-1 a N+1.
+
+Logi programu
+Zmiana stanu filozofa musi być wypisana wg wzoru:
+
+csharp
+Copy
+Edit
+timestamp_in_ms X has taken a fork
+timestamp_in_ms X is eating
+timestamp_in_ms X is sleeping
+timestamp_in_ms X is thinking
+timestamp_in_ms X died
+timestamp_in_ms – czas od początku symulacji w milisekundach
+
+X – numer filozofa
+
+Komunikaty nie mogą się mieszać (muszą być synchronizowane).
+
+Informacja o śmierci filozofa musi pojawić się najpóźniej 10 ms po faktycznej śmierci.
+
+Unikaj śmierci filozofów!
+
+Program nie może mieć data race’ów (konfliktów współbieżności).
+
+Rozdział V – Część obowiązkowa
+Nazwa programu: philo
+
+Do oddania: Makefile, *.h, *.c – w folderze philo/
+
+Makefile musi zawierać: NAME, all, clean, fclean, re
+
+Argumenty programu:
+
+css
+Copy
+Edit
+number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+Dozwolone funkcje: memset, printf, malloc, free, write, usleep, gettimeofday, pthread_create, pthread_detach, pthread_join, pthread_mutex_*
+
+Nie można używać libft
+
+Opis: Filozofowie z użyciem wątków i mutexów
+
+Specyficzne zasady obowiązkowej części:
+
+Każdy filozof jest osobnym wątkiem.
+
+Między każdą parą filozofów jest jeden widelec.
+
+Jeśli filozofów jest wielu, każdy ma widelec po lewej i prawej stronie.
+
+Jeśli jest tylko jeden filozof, na stole jest tylko jeden widelec.
+
+Aby uniknąć problemów z widelcami, każdy widelec musi być chroniony mutexem.
