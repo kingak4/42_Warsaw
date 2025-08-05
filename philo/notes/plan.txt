@@ -1,0 +1,92 @@
+✅ 1. Funkcja print_action z użyciem mutex (priorytet!)
+Po co?
+
+Do jednolitego drukowania komunikatów (np. "has taken a fork", "died", "is eating" itd.).
+
+Chroni przed rozjechaniem się outputu, gdy wielu filozofów drukuje jednocześnie.
+
+Nawet w przypadku jednego filozofa dobrze mieć już gotowy system logowania.
+
+Co musi przyjmować ta funkcja?
+
+Czas (timestamp)
+
+Numer filozofa
+
+Treść komunikatu
+
+Wskaźnik na mutex do print
+
+💡 To jest twoja "drukarka" — masz ją raz zrobić porządnie i korzystać zawsze.
+
+✅ 2. Funkcja do pobierania aktualnego czasu w ms (np. get_time_ms())
+Po co?
+
+Będziesz mierzyć timestampy, np. kiedy filozof coś zrobił.
+
+Będziesz też liczyć, ile czasu minęło od startu.
+
+Opiera się na: gettimeofday.
+
+✅ 3. Zmienna start_time
+Po co?
+
+Potrzebna do tego, żeby każdy komunikat był w formacie:
+timestamp philosopher_number action
+
+timestamp = current_time – start_time
+
+Gdzie ją przechowujesz?
+
+Albo w strukturze t_args
+
+Albo globalnie (jeśli dopuszczasz zmienne globalne – choć lepiej nie)
+
+✅ 4. Struktura t_philo (choćby tymczasowa)
+Po co?
+
+Żeby móc przechować dane jednego filozofa, np.:
+
+id
+
+args (wskaźnik do t_args)
+
+start_time
+
+print_mutex
+
+Uwaga: Na razie może być tylko jeden filozof, ale jak ją dobrze zrobisz, potem rozszerzenie do wielu to kwestia dodania pętli.
+
+✅ 5. Funkcja handle_one_philo()
+To będzie osobna funkcja, która:
+
+Tworzy jednego filozofa (t_philo)
+
+Wywołuje print_action ("has taken a fork")
+
+Czeka time_to_die
+
+Wywołuje print_action ("died")
+
+Kończy program
+
+🔁 6. (Później) Ogólna pętla symulacji i routine()
+Dopiero po tym, jak:
+
+masz printy,
+
+masz pomiar czasu,
+
+masz jeden przypadek działający poprawnie,
+
+wchodzisz w:
+
+tworzenie filozofów (tablica t_philo)
+
+tworzenie mutexów (widelce)
+
+routine z while (1) dla filozofów
+
+
+ogarnac te taski oraz obejrzec filmiki  o tym  aby dobrze sie przygotowac
+zeby wszytsko zrozumiec 

@@ -1,0 +1,11 @@
+| Kategoria | Funkcja                 | Do czego służy w `philo`                                |
+| --------- | ----------------------- | ------------------------------------------------------- |
+| Czas      | `usleep`                | symulacja jedzenia/spania                               |
+|           | `gettimeofday`          | pomiar timestampów (kiedy kto coś zrobił)               |
+| Wątki     | `pthread_create`        | tworzenie filozofów jako wątki                          |
+|           | `pthread_detach`        | wątki działające niezależnie (np. obserwator śmierci)   |
+|           | `pthread_join`          | czekanie, aż filozof zakończy (np. na koniec symulacji) |
+| Mutexy    | `pthread_mutex_init`    | inicjalizacja mutexów (widelce, drukarka)               |
+|           | `pthread_mutex_lock`    | filozof bierze widelec lub blokuje dostęp do drukowania |
+|           | `pthread_mutex_unlock`  | filozof odkłada widelec / kończy printowanie            |
+|           | `pthread_mutex_destroy` | zwalnianie zasobów                                      |

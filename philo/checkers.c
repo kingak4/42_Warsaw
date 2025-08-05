@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:33:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/04 18:36:47 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:13:20 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_valid_number(char *str)
 	if (!str || !*str)
 		return (0);
 	if (str[i] == '+' || str[i] == '-')
-		i++;
+		return (0);
 	if (!str[i])
 		return (0);
 	if (str[i] == '0' && str[i + 1] != '\0')
@@ -41,12 +41,45 @@ int	is_int_range(char *str)
 	return (1);
 }
 
-int	is_valid_input(char *arg, t_node *head)
+int	is_valid_input(char *arg)
 {
 	if (!is_valid_number(arg) || !is_int_range(arg))
 	{
-		ft_printf("Error\n");
-		free_stack(head);
+		printf("Error\n");
+		return (0);
+	}
+	return (1);
+}
+
+void	init_args_struct(t_args *args)
+{
+	memset(args, 0, sizeof(t_args));
+}
+
+int	parse_args(int ac, char **av, t_args *args)
+{
+	if (!is_valid_input(av[1]) || !is_valid_input(av[2])
+		|| !is_valid_input(av[3]) || !is_valid_input(av[4])
+		|| !is_valid_input(av[5]))
+		return (0);
+	if (ac != 5 && ac != 6)
+	{
+		printf("Error\n");
+		return (0);
+	}
+	args->philo_count = ft_atol(av[1]);
+	args->time_to_die = ft_atol(av[2]);
+	args->time_to_sleep = ft_atol(av[3]);
+	args->time_to_eat = ft_atol(av[4]);
+	if (ac == 6)
+		args->must_eat_count = ft_atol(av[5]);
+	else
+		args->must_eat_count = -1;
+	if (args->philo_count == 0 || args->time_to_die == 0
+		|| args->time_to_sleep == 0 || args->time_to_eat == 0
+		|| args->must_eat_count == 0)
+	{
+		printf("Error\n");
 		return (0);
 	}
 	return (1);

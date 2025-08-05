@@ -1,27 +1,23 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 NAME = philo
 RM = rm -rf
-AR = ar rcs
 
-FILES = checkres.c
-OBJS = $(FILES:.c=.o) 
+FILES = checkers.c ft_atol.c main.c
+OBJS = $(FILES:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C 
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) 
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS)  -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	make clean -C 
 	$(RM) $(OBJS)
 
 fclean: clean
-	make fclean -C 
 	$(RM) $(NAME)
 
 re: fclean all
