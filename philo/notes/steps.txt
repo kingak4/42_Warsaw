@@ -1,12 +1,3 @@
-✅ Etapy projektu philo – checklista do wdrożenia (w kolejności logicznej)
-🟩 1. ✅ Parsowanie argumentów (już masz)
-Obsługa 4–5 argumentów wejściowych
-
-Konwersja char **argv na int (lub long do walidacji)
-
-Walidacja danych: liczby dodatnie, brak nadmiarowych znaków, limity
-
-Zapis do struktury t_args
 
 🟨 2. 🔒 Inicjalizacja struktury głównej
 Musisz stworzyć i przygotować:

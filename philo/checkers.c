@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:33:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/05 13:13:20 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:08:58 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,21 @@ int	is_valid_input(char *arg)
 void	init_args_struct(t_args *args)
 {
 	memset(args, 0, sizeof(t_args));
+	pthread_mutex_init(&args->print_mutex, NULL);
 }
 
 int	parse_args(int ac, char **av, t_args *args)
 {
-	if (!is_valid_input(av[1]) || !is_valid_input(av[2])
-		|| !is_valid_input(av[3]) || !is_valid_input(av[4])
-		|| !is_valid_input(av[5]))
-		return (0);
 	if (ac != 5 && ac != 6)
+		return (warp());
+	if (ac == 6)
 	{
-		printf("Error\n");
-		return (0);
+		if (av[6] != NULL || !is_valid_input(av[5]))
+			return (0);
 	}
+	if (!is_valid_input(av[1]) || !is_valid_input(av[2])
+		|| !is_valid_input(av[3]) || !is_valid_input(av[4]))
+		return (0);
 	args->philo_count = ft_atol(av[1]);
 	args->time_to_die = ft_atol(av[2]);
 	args->time_to_sleep = ft_atol(av[3]);
@@ -78,9 +80,6 @@ int	parse_args(int ac, char **av, t_args *args)
 	if (args->philo_count == 0 || args->time_to_die == 0
 		|| args->time_to_sleep == 0 || args->time_to_eat == 0
 		|| args->must_eat_count == 0)
-	{
-		printf("Error\n");
-		return (0);
-	}
+		return (warp());
 	return (1);
 }
