@@ -1,9 +1,6 @@
 
 🔁 6. (Później) Ogólna pętla symulacji i routine()
 Dopiero po tym, jak:
-masz printy,
-masz pomiar czasu,
-masz jeden przypadek działający poprawnie,
 wchodzisz w:
 tworzenie filozofów (tablica t_philo)
 tworzenie mutexów (widelce)
@@ -12,3 +9,16 @@ routine z while (1) dla filozofów
 1. Inicjalizacja therad
 2. Rutyna 1. Jedznie 2. spanie 3. Myslenie 
 3. Monitorowanie czy umarl.
+4. Plan krok po kroku do wykonania dziś
+Przygotowanie funkcji startującej wątki (start_philosophers):
+
+Inicjalizacja i uruchomienie wszystkich filozofów.
+Zapamiętanie czasu startowego.
+Stworzenie i zapamiętanie identyfikatorów wątków.
+Opracowanie funkcji rutyny filozofa (philosopher_routine):
+Cykl życia filozofa w pętli: podnoszenie widelców, jedzenie, odkładanie widelców, spanie, myślenie.
+Kontrola warunków zakończenia.
+Implementacja i testowanie funkcji pomocniczych:
+Precyzyjny pomiar czasu.
+Synchronizowane logowanie zdarzeń.
+Funkcja spania z wysoką dokładnością.

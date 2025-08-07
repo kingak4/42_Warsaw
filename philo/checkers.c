@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:33:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/06 15:08:58 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:13:02 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,22 @@ int	is_valid_input(char *arg)
 
 void	init_args_struct(t_args *args)
 {
+	int	i;
+
+	i = 0;
 	memset(args, 0, sizeof(t_args));
 	pthread_mutex_init(&args->print_mutex, NULL);
+	args->forks = malloc(sizeof(pthread_mutex_t) * args->philo_count);
+	if (!args->forks)
+		return ;
+	while (i < args->philo_count)
+	{
+		pthread_mutex_init(&args->forks[i], NULL);
+		i++;
+	}
+	args->philo = malloc(sizeof(t_philo) * args->philo_count);
+	if (!args->philo)
+		return ;
 }
 
 int	parse_args(int ac, char **av, t_args *args)

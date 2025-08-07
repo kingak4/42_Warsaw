@@ -58,11 +58,6 @@ Jeśli wszyscy zjedli – kończ symulację (np. philos_fed++)
 
 Musisz to bezpiecznie zliczać (mutex do zmiennej globalnej)
 
-🟧 7. 🥄 Obsługa przypadku z 1 filozofem
-Filozof nie może nigdy zjeść – umiera po time_to_die
-
-Ten przypadek musisz obsłużyć osobno (bez wchodzenia w główną pętlę)
-
 🟪 8. 🧹 Zwalnianie zasobów
 pthread_join() lub pthread_detach() dla każdego filozofa
 

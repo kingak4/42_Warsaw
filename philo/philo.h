@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/06 15:53:03 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:19:24 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+typedef struct s_philo
+{
+	int				id;
+	pthread_t		thread;
+	long			last_meal;
+	int				eat_count;
+	struct s_args	*args;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	meal_mutex;
+}	t_philo;
+
 typedef struct s_args
 {
 	int				philo_count;
@@ -31,17 +43,9 @@ typedef struct s_args
 	pthread_mutex_t	print_mutex;
 	long			time_start;
 	int				died;
-	int				philo_id;
+	pthread_mutex_t	*forks;
+	t_philo			*philo;
 }		t_args;
-
-typedef struct s_philo
-{
-	int				id;
-	pthread_t		thread;
-	long			last_meal;
-	int				meals_eaten;
-	t_args			*args;
-}	t_philo;
 
 int		is_valid_number(char *str);
 int		is_int_range(char *str);
@@ -54,5 +58,12 @@ long	get_relative_time(t_args *args);
 void	print_action(t_philo *philo, char *message);
 int		warp(void);
 void	handle_one_philo(t_philo *philo);
+void	init_philo(t_philo *philo, t_args *args, int i);
+void	cleanup(t_philo *philo, t_args *args);
+void	philo_think(t_philo *philo, t_args *args);
+void	philo_take_forks(t_philo *philo, t_args *args);
+
+// routine
+void	*philo_routine(void *arg);
 
 #endif
