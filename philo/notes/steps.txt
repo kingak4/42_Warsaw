@@ -1,62 +1,13 @@
 
-🟨 2. 🔒 Inicjalizacja struktury głównej
-Musisz stworzyć i przygotować:
-
-t_philo – dane każdego filozofa (numer, licznik posiłków, czas ostatniego posiłku, mutex do własnego "czasu ostatniego posiłku")
-
-t_fork lub pthread_mutex_t *forks – mutexy do widelców
-
-pthread_mutex_t print_mutex – do synchronizacji wypisywania
-
-pthread_mutex_t death_mutex – do ochrony informacji o śmierci
-
-long start_time – punkt startowy symulacji
-
-(opcjonalnie) inne pola – np. all_alive, must_eat_count
-
-🟨 3. 🧵 Tworzenie wątków (pthread)
-Dla każdego filozofa utwórz osobny wątek pthread_create
-
-Wątki będą wykonywać główną funkcję symulacyjną philo_routine
-
-Upewnij się, że każdy filozof otrzymuje swoją własną kopię danych
-
-🟦 4. 🔁 Funkcja główna filozofa (ruchy)
-W philo_routine zrób pętlę:
-
-Myślenie
-
-Branie widelców (mutex_lock)
-
-Jedzenie (czas + aktualizacja czasu ostatniego posiłku)
-
-Odkładanie widelców (mutex_unlock)
-
-Spanie (usleep)
-
-Loguj wszystko z zachowaniem synchronizacji.
 
 🟥 5. 💀 Monitor śmierci
 Osobny wątek lub sprawdzanie w philo_routine
-
 Regularnie sprawdza get_time() - last_meal_time > time_to_die
-
 Jeśli ktoś umiera:
-
 Wypisz X died
-
 Zablokuj inne wątki przed wypisywaniem
 
 Zakończ symulację (np. ustaw flagę all_alive = 0)
-
-🟨 6. 🍝 Obsługa limitu jedzenia
-Jeśli przekazany 5. argument:
-
-Każdy filozof musi zjeść N razy
-
-Jeśli wszyscy zjedli – kończ symulację (np. philos_fed++)
-
-Musisz to bezpiecznie zliczać (mutex do zmiennej globalnej)
 
 🟪 8. 🧹 Zwalnianie zasobów
 pthread_join() lub pthread_detach() dla każdego filozofa
@@ -69,60 +20,15 @@ free() dla dynamicznie alokowanych struktur
 | Etap | Nazwa                            | Gotowe? |
 | ---- | -------------------------------- | ------- |
 | 1    | Parsing i walidacja argumentów   | ✅      |
-| 2    | Inicjalizacja struktur i mutexów | 🔜      |
-| 3    | Tworzenie wątków filozofów       | 🔜      |
-| 4    | Główna pętla życia filozofa      | 🔜      |
+| 2    | Inicjalizacja struktur i mutexów | ✅      |
+| 3    | Tworzenie wątków filozofów       | ✅      |
+| 4    | Główna pętla życia filozofa      | ✅      |
 | 5    | Monitor śmierci                  | 🔜      |
 | 6    | Obsługa limitu jedzenia          | 🔜      |
-| 7    | Obsługa przypadku z 1 filozofem  | 🔜      |
+| 7    | Obsługa przypadku z 1 filozofem  | ✅      |
 | 8    | Zwalnianie zasobów               | 🔜      |
 | 9    | Testy i norminette               | 🔜      |
 
-🧱 ETAP 1 – STRUKTURY I INICJALIZACJA
-📚 Czego się nauczyć:
-Jak działają pthread_t i pthread_mutex_t.
-
-Jak działają struct, malloc, free.
-
-✅ Co zaimplementować:
-Struktury:
-
-t_args: przechowuje dane z argumentów.
-
-t_philo: dane o filozofie (numer, mutexy, licznik jedzenia, wskaźnik do args, czas ostatniego posiłku itd.).
-
-t_data: dane główne (mutexy, start_time, tablica filozofów).
-
-Inicjalizacja:
-
-Alokacja tablicy filozofów.
-
-Tworzenie mutexów do widelców.
-
-Przypisanie lewej i prawej ręki dla każdego filozofa.
-
-🍝 ETAP 2 – TWORZENIE WĄTKÓW FILOZOFÓW
-📚 Czego się nauczyć:
-pthread_create, pthread_join, pthread_detach
-
-Jak przekazywać argumenty do wątku
-
-✅ Co zaimplementować:
-Każdy filozof = osobny wątek.
-
-Wątek filozofa wykonuje funkcję, np. routine(void *arg), która:
-
-Zaczyna od myślenia.
-
-Bierze dwa widelce (mutex_lock).
-
-Je (usleep), zapisuje last_meal.
-
-Odkłada widelce (mutex_unlock).
-
-Śpi (usleep).
-
-Myśli i wraca na początek pętli.
 
 ☠️ ETAP 3 – MONITOROWANIE ŚMIERCI
 📚 Czego się nauczyć:
@@ -134,68 +40,9 @@ Tworzenie osobnego wątku do monitorowania
 
 ✅ Co zaimplementować:
 Wątek monitorujący, który:
-
 Co kilka milisekund sprawdza current_time - last_meal.
-
 Jeśli przekracza time_to_die, wypisuje X died i kończy program.
-
 Zabezpieczenie przed wyścigiem danych (mutex przy odczycie last_meal).
-
-🥄 ETAP 4 – WIDELCE (MUTEXY)
-📚 Czego się nauczyć:
-pthread_mutex_lock / pthread_mutex_unlock
-
-Blokowanie zasobów
-
-✅ Co zaimplementować:
-Każdy widelec to mutex.
-
-Filozof najpierw blokuje jeden widelec, potem drugi.
-
-Zadbaj o kolejność blokowania:
-
-Parzysty filozof: lewy → prawy
-
-Nieparzysty: prawy → lewy
-
-Dzięki temu unikasz zakleszczenia (deadlock)
-
-📝 ETAP 5 – WYDRUK ZDARZEŃ (SYNCHRONIZACJA PRINT)
-📚 Czego się nauczyć:
-Jak unikać mieszania się printf w wielu wątkach
-
-✅ Co zaimplementować:
-Jeden mutex do drukowania.
-
-Wszystkie printf() zawijaj w mutex_lock(print) i mutex_unlock(print).
-
-🧍‍♂️ ETAP 6 – PRZYPADKI SZCZEGÓLNE
-📚 Czego się nauczyć:
-Jak działa zachowanie filozofa z jednym widelcem
-
-Jak kończyć program
-
-✅ Co zaimplementować:
-Przypadek: 1 filozof
-
-Powinien podnieść 1 widelec i umrzeć po time_to_die.
-
-Zakończenie programu:
-
-Jeśli podany jest number_of_times_each_philosopher_must_eat, to gdy wszyscy tyle razy zjedzą, kończysz symulację.
-
-🧹 ETAP 7 – SPRZĄTANIE
-📚 Czego się nauczyć:
-pthread_mutex_destroy
-
-free
-
-✅ Co zaimplementować:
-Zwolnij wszystkie mutexy.
-
-Zwolnij pamięć.
-
-Upewnij się, że nie ma memory leaks ani zombie threads.
 
 🧪 ETAP 8 – TESTOWANIE
 ✅ Co przetestować:

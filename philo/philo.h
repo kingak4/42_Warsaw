@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/07 17:19:24 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/09 00:15:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct s_args
 	t_philo			*philo;
 }		t_args;
 
+// get_current_time() → „Która jest teraz godzina w ms od 1970?”
+// get_relative_time() → „Ile czasu minęło od startu programu?”
+
 int		is_valid_number(char *str);
 int		is_int_range(char *str);
 int		is_valid_input(char *arg);
@@ -60,10 +63,12 @@ int		warp(void);
 void	handle_one_philo(t_philo *philo);
 void	init_philo(t_philo *philo, t_args *args, int i);
 void	cleanup(t_philo *philo, t_args *args);
-void	philo_think(t_philo *philo, t_args *args);
-void	philo_take_forks(t_philo *philo, t_args *args);
 
 // routine
 void	*philo_routine(void *arg);
+void	philo_think(t_philo *philo, t_args *args);
+void	philo_take_forks(t_philo *philo, t_args *args);
+void	philo_eat(t_philo *philo, t_args *args);
+void	philo_sleep(t_philo *philo, t_args *args);
 
 #endif

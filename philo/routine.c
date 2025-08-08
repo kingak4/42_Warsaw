@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:16:18 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/07 17:20:19 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/09 00:45:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,22 @@
 void	*philo_routine(void *arg)
 {
 	t_philo	*p;
+	t_args	*a;
 
 	p = (t_philo *)arg;
+	a = p->args;
 	if (p->id % 2 == 0)
 		usleep(1);
 	while (1)
 	{
-		// eating function
-		// sleeping function
-		// thinking
+		if (a->died)
+			break ;
+		philo_think(p, a);
+		philo_take_forks(p, a);
+		philo_eat(p, a);
+		philo_sleep(p, a);
+		if (a->must_eat_count > 0 && p->eat_count >= a->must_eat_count)
+				break ;
 	}
 }
 
@@ -55,35 +62,25 @@ void	philo_take_forks(t_philo *philo, t_args *args)
 	}
 }
 
-//void	philo_eat(t_philo *philo, t_args *args)
-//{
-//	pthread_mutex_lock(philo->meal_mutex);
-//}
-//📌 Krok po kroku — co musi się wydarzyć w philo_eat()
-//🔐 Zablokuj dostęp do danych współdzielonych:
+void	philo_eat(t_philo *philo, t_args *args)
+{
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal = get_relative_time(args);
+	pthread_mutex_unlock(&philo->meal_mutex);
+	print_action(philo, "is eating");
+	if (args->must_eat_count > 0)
+	{
+		pthread_mutex_lock(&philo->meal_mutex);
+		philo->eat_count++;
+		pthread_mutex_unlock(&philo->meal_mutex);
+	}
+	usleep(args->time_to_eat * 1000);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+}
 
-//Chcesz zmienić philo->last_meal i philo->meals_eaten.
-
-//To są dane współdzielone przez wątki, więc zabezpiecz je mutexem.
-
-//🕰️ Zapisz czas ostatniego posiłku:
-
-//Zapisz aktualny timestamp (czas) jako philo->last_meal.
-
-//Dzięki temu monitorujący wątek może sprawdzić, czy filozof nie głoduje.
-
-//🍽️ Wydrukuj akcję „is eating”:
-
-//Użyj funkcji print_action(philo, "is eating").
-
-//➕ Zwiększ licznik zjedzonych posiłków:
-
-//Jeśli masz ograniczenie (np. każdy filozof musi zjeść X razy), to licz meals_eaten.
-
-//💤 Zasymuluj czas jedzenia:
-
-//Użyj usleep(args->time_to_eat * 1000), żeby „symulować” jedzenie.
-
-//🔓 Odblokuj mutexy (widełki):
-
-//Po zakończeniu jedzenia zwolnij oba mutexy (lewy i prawy widelec).
+void	philo_sleep(t_philo *philo, t_args *args)
+{
+	print_action(philo, "is sleeping");
+	usleep(args->time_to_sleep * 1000);
+}

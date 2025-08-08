@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 NAME = philo
 RM = rm -rf
 
-FILES = checkers.c ft_atol.c main.c print.c utils.c one_philo.c init_philo.c routine.c
+FILES = checkers.c ft_atol.c main.c print.c utils.c one_philo.c init_philo.c routine.c monitor.c
 OBJS = $(FILES:.c=.o)
 
 all: $(NAME)
