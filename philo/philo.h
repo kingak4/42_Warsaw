@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/09 00:15:19 by root             ###   ########.fr       */
+/*   Updated: 2025/08/13 14:38:47 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@ int		warp(void);
 void	handle_one_philo(t_philo *philo);
 void	init_philo(t_philo *philo, t_args *args, int i);
 void	cleanup(t_philo *philo, t_args *args);
+void	start_philo(t_philo *philo, t_args *args);
 
 // routine
 void	*philo_routine(void *arg);
-void	philo_think(t_philo *philo, t_args *args);
-void	philo_take_forks(t_philo *philo, t_args *args);
+void	philo_think(t_philo *philo);
+void	philo_take_forks(t_philo *philo);
 void	philo_eat(t_philo *philo, t_args *args);
 void	philo_sleep(t_philo *philo, t_args *args);
-
+void	*monitor(void *a);
 #endif

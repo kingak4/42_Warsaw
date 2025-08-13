@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:33:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/07 17:13:02 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/13 14:54:00 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	init_args_struct(t_args *args)
 	int	i;
 
 	i = 0;
-	memset(args, 0, sizeof(t_args));
+	//args->died = 0;
+	//memset(args, 0, sizeof(t_args));
 	pthread_mutex_init(&args->print_mutex, NULL);
 	args->forks = malloc(sizeof(pthread_mutex_t) * args->philo_count);
 	if (!args->forks)
@@ -69,6 +70,12 @@ void	init_args_struct(t_args *args)
 	args->philo = malloc(sizeof(t_philo) * args->philo_count);
 	if (!args->philo)
 		return ;
+	i = 0;
+	while (i < args->philo_count)
+	{
+		pthread_mutex_init(&args->philo[i].meal_mutex, NULL);
+		i++;
+	}
 }
 
 int	parse_args(int ac, char **av, t_args *args)
@@ -85,8 +92,8 @@ int	parse_args(int ac, char **av, t_args *args)
 		return (0);
 	args->philo_count = ft_atol(av[1]);
 	args->time_to_die = ft_atol(av[2]);
-	args->time_to_sleep = ft_atol(av[3]);
-	args->time_to_eat = ft_atol(av[4]);
+	args->time_to_eat = ft_atol(av[3]);
+	args->time_to_sleep = ft_atol(av[4]);
 	if (ac == 6)
 		args->must_eat_count = ft_atol(av[5]);
 	else

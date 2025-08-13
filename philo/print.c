@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 11:07:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/06 15:54:42 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:15:41 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_action(t_philo *philo, char *message)
 	long	times;
 
 	times = 0;
-	pthread_mutex_lock(&philo->args->print_mutex);
+	//pthread_mutex_lock(&philo->args->print_mutex);
 	if (philo->args->died == 1)
 	{
 		pthread_mutex_unlock(&philo->args->print_mutex);

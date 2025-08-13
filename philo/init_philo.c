@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 10:41:05 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/07 17:13:34 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/13 14:57:52 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	start_philo(t_philo *philo, t_args *args)
 
 	i = 0;
 	args->time_start = get_current_time();
+
 	while (i < args->philo_count)
 	{
 		init_philo(&philo[i], args, i);
@@ -53,6 +54,7 @@ void	start_philo(t_philo *philo, t_args *args)
 	while (i < args->philo_count)
 	{
 		res = pthread_create(&philo[i].thread, NULL, philo_routine, &philo[i]);
+		
 		if (res != 0)
 			handle_creation_error(philo, args, i);
 		i++;

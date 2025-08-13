@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:16:18 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/09 00:45:14 by root             ###   ########.fr       */
+/*   Updated: 2025/08/13 15:00:25 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,26 @@ void	*philo_routine(void *arg)
 		usleep(1);
 	while (1)
 	{
-		if (a->died)
-			break ;
-		philo_think(p, a);
-		philo_take_forks(p, a);
+		philo_think(p);
+		philo_take_forks(p);
 		philo_eat(p, a);
 		philo_sleep(p, a);
-		if (a->must_eat_count > 0 && p->eat_count >= a->must_eat_count)
+		if (a->died || (a->must_eat_count > 0 && p->eat_count >= a->must_eat_count))
 				break ;
 	}
+	return (NULL);
 }
 
-void	philo_think(t_philo *philo, t_args *args)
+void	philo_think(t_philo *philo)
 {
-	pthread_mutex_lock(&args->print_mutex);
+	//pthread_mutex_lock(&args->print_mutex);
 	print_action(philo, "is thinking");
-	pthread_mutex_unlock(&args->print_mutex);
-	usleep(1000);
+	//pthread_mutex_unlock(&args->print_mutex);
+	//usleep(1000);
 }
 
-void	philo_take_forks(t_philo *philo, t_args *args)
+void	philo_take_forks(t_philo *philo)
 {
-	philo->left_fork = &args->forks[philo->id];
-	philo->right_fork = &args->forks[(philo->id + 1) % args->philo_count];
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->left_fork);
@@ -65,12 +62,13 @@ void	philo_take_forks(t_philo *philo, t_args *args)
 void	philo_eat(t_philo *philo, t_args *args)
 {
 	pthread_mutex_lock(&philo->meal_mutex);
-	philo->last_meal = get_relative_time(args);
+	philo->last_meal = get_current_time();
 	pthread_mutex_unlock(&philo->meal_mutex);
 	print_action(philo, "is eating");
 	if (args->must_eat_count > 0)
 	{
 		pthread_mutex_lock(&philo->meal_mutex);
+		philo->last_meal = get_current_time();
 		philo->eat_count++;
 		pthread_mutex_unlock(&philo->meal_mutex);
 	}
