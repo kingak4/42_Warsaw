@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:16:18 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/13 15:00:25 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:43:54 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*philo_routine(void *arg)
 	p = (t_philo *)arg;
 	a = p->args;
 	if (p->id % 2 == 0)
-		usleep(1);
+		usleep(500);
 	while (1)
 	{
 		philo_think(p);

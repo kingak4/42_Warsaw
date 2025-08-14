@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:33:47 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/13 14:54:00 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:42:14 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	init_args_struct(t_args *args)
 	int	i;
 
 	i = 0;
-	//args->died = 0;
-	//memset(args, 0, sizeof(t_args));
 	pthread_mutex_init(&args->print_mutex, NULL);
 	args->forks = malloc(sizeof(pthread_mutex_t) * args->philo_count);
 	if (!args->forks)
