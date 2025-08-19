@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:16:18 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/19 14:08:03 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:25:39 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,11 @@ void *philo_routine(void *arg)
 		}
 		pthread_mutex_unlock(&a->death);
 		if (philo_eat(p, a))
+		{
+			pthread_mutex_unlock(p->left_fork);
+			pthread_mutex_unlock(p->right_fork);
 			return (NULL);
+		}
 		if (p->died || (a->must_eat_count > 0 && p->eat_count >= a->must_eat_count))
 			break;
 		philo_sleep(p);

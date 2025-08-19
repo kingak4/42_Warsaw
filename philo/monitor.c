@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 00:57:38 by root              #+#    #+#             */
-/*   Updated: 2025/08/19 14:05:36 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:11:22 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@
 //	return (NULL);
 //}
 
-void *monitor(void *arg)
+void	*monitor(void *arg)
 {
 	t_args *data;
-	int i;
-	long current_time;
+	int	i;
+	long	current_time;
 
 	data = (t_args *)arg;
 	while (1)
@@ -67,7 +67,7 @@ void *monitor(void *arg)
 				pthread_mutex_lock(&data->print_mutex);
 				printf("%ld %d died\n", get_relative_time(data), data->philo[i].id);
 				pthread_mutex_unlock(&data->print_mutex);
-				return NULL;
+				return (NULL);
 			}
 			pthread_mutex_unlock(&data->philo[i].meal_mutex);
 			i++;
