@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 10:41:05 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/19 11:34:56 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:52:51 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,59 +38,30 @@ void	handle_creation_error(t_philo *philo, t_args *args, int i)
 	exit(1);
 }
 
-//void	start_philo(t_philo *philo, t_args *args)
-//{
-//	int	i;
-//	int	res;
-
-//	i = 0;
-//	args->time_start = get_current_time();
-
-//	while (i < args->philo_count)
-//	{
-//		init_philo(&philo[i], args, i);
-//		i++;
-//	}
-//	i = 0;
-//	while (i < args->philo_count)
-//	{
-//		res = pthread_create(&philo[i].thread, NULL, philo_routine, &philo[i]);
-//		if (res != 0)
-//			handle_creation_error(philo, args, i);
-//		i++;
-//	}
-//	//monitor(args);
-//	i = 0;
-//	while (i < args->philo_count)
-//	{
-//		pthread_join(philo[i].thread, NULL);
-//		i++;
-//	}
-//}
-
-void start_philo(t_philo *philo, t_args *args)
+void	start_philo(t_philo *philo, t_args *args)
 {
-    int i;
-    int res;
-    pthread_t monitor_thread;
+	int	i;
+	int	res;
 
-    args->time_start = get_current_time();
-
-    for (i = 0; i < args->philo_count; i++)
-        init_philo(&philo[i], args, i);
-
-    for (i = 0; i < args->philo_count; i++)
-    {
-        res = pthread_create(&philo[i].thread, NULL, philo_routine, &philo[i]);
-        if (res != 0)
-            handle_creation_error(philo, args, i);
-    }
-
-    if (pthread_create(&monitor_thread, NULL, monitor, args) != 0)
-        handle_creation_error(philo, args, args->philo_count);
-
-    for (i = 0; i < args->philo_count; i++)
-        pthread_join(philo[i].thread, NULL);
-
-    pthread_join(monitor_thread, NULL);
+	i = 0;
+	args->time_start = get_current_time();
+	while (i < args->philo_count)
+	{
+		init_philo(&philo[i], args, i);
+		i++;
+	}
+	i = 0;
+	while (i < args->philo_count)
+	{
+		res = pthread_create(&philo[i].thread, NULL, philo_routine, &philo[i]);
+		if (res != 0)
+			handle_creation_error(philo, args, i);
+		i++;
+	}
+	i = 0;
+	while (i < args->philo_count)
+	{
+		pthread_join(philo[i].thread, NULL);
+		i++;
+	}
 }
