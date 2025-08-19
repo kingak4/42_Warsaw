@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/13 14:38:47 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/19 11:41:14 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	long			last_meal;
 	int				eat_count;
+	int				died;
 	struct s_args	*args;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -41,8 +42,9 @@ typedef struct s_args
 	int				time_to_sleep;
 	int				must_eat_count;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	death;
 	long			time_start;
-	int				died;
+	// int				died;
 	pthread_mutex_t	*forks;
 	t_philo			*philo;
 }		t_args;
@@ -54,7 +56,7 @@ int		is_valid_number(char *str);
 int		is_int_range(char *str);
 int		is_valid_input(char *arg);
 long	ft_atol(const char *nptr);
-void	init_args_struct(t_args *args);
+int	init_args_struct(t_args *args);
 int		parse_args(int ac, char **av, t_args *args);
 long	get_current_time(void);
 long	get_relative_time(t_args *args);
@@ -68,8 +70,20 @@ void	start_philo(t_philo *philo, t_args *args);
 // routine
 void	*philo_routine(void *arg);
 void	philo_think(t_philo *philo);
-void	philo_take_forks(t_philo *philo);
-void	philo_eat(t_philo *philo, t_args *args);
-void	philo_sleep(t_philo *philo, t_args *args);
+// void	philo_take_forks(t_philo *philo);
+int		philo_take_forks(t_philo *philo);
+//void	philo_eat(t_philo *philo, t_args *args);
+int	philo_eat(t_philo *philo, t_args *args);
+// void	philo_sleep(t_philo *philo, t_args *args);
+void	philo_sleep(t_philo *philo);
 void	*monitor(void *a);
+
+// utils.c
+int	ft_usleep(size_t time_in_ms);
+int	is_dead(t_philo *p);
+int all_philos_eaten(t_args *data);
+int has_philo_eaten_max(t_args *data, int i);
+int all_philos_eaten(t_args *data);
+void increment_meals(t_args *data, int i);
+void check_philos(t_args *data);
 #endif
