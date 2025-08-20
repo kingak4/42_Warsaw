@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:16:18 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/19 15:25:39 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/20 14:00:20 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int philo_take_forks(t_philo *philo)
 			pthread_mutex_unlock(philo->right_fork);
 			return (1);
 		}
-		print_action(philo, "has taken a right fork");
-
+		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
 		if (is_dead(philo))
 		{
@@ -31,7 +30,7 @@ int philo_take_forks(t_philo *philo)
 			pthread_mutex_unlock(philo->right_fork);
 			return (1);
 		}
-		print_action(philo, "has taken a left fork");
+		print_action(philo, "has taken a fork");
 	}
 	else
 	{
@@ -41,8 +40,7 @@ int philo_take_forks(t_philo *philo)
 			pthread_mutex_unlock(philo->left_fork);
 			return (1);
 		}
-		print_action(philo, "has taken a left fork");
-
+		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->right_fork);
 		if (is_dead(philo))
 		{
@@ -50,7 +48,7 @@ int philo_take_forks(t_philo *philo)
 			pthread_mutex_unlock(philo->left_fork);
 			return (1);
 		}
-		print_action(philo, "has taken a right fork");
+		print_action(philo, "has taken a fork");
 	}
 	return (0);
 }
@@ -65,7 +63,22 @@ void philo_think(t_philo *philo)
 	print_action(philo, "is thinking");
 }
 
-int	philo_eat(t_philo *philo, t_args *args)
+// int	philo_eat(t_philo *philo, t_args *args)
+//{
+//	if (philo_take_forks(philo))
+//		return (1);
+//	print_action(philo, "is eating"); //dodaj flage ze jak je t ni e moze umierac
+//	ft_usleep(args->time_to_eat);
+//	pthread_mutex_lock(&philo->meal_mutex);
+//	philo->last_meal = get_current_time();
+//	philo->eat_count++;
+//	//printf("%d eating time = %ld\n", philo->id ,philo->last_meal);
+//	pthread_mutex_unlock(&philo->meal_mutex);
+//	pthread_mutex_unlock(philo->left_fork);
+//	pthread_mutex_unlock(philo->right_fork);
+//	return (0);
+// }
+int philo_eat(t_philo *philo, t_args *args)
 {
 	if (philo_take_forks(philo))
 		return (1);
@@ -98,12 +111,16 @@ void *philo_routine(void *arg)
 		pthread_mutex_unlock(&a->death);
 		if (philo_eat(p, a))
 		{
-			pthread_mutex_unlock(p->left_fork);
-			pthread_mutex_unlock(p->right_fork);
+			// pthread_mutex_unlock(p->left_fork);
+			// pthread_mutex_unlock(p->right_fork);
 			return (NULL);
 		}
-		if (p->died || (a->must_eat_count > 0 && p->eat_count >= a->must_eat_count))
+		pthread_mutex_lock(&a->death);
+		if (p->died || (a->must_eat_count > 0 && p->eat_count >= a->must_eat_count)){
+			pthread_mutex_unlock(&a->death);
 			break;
+		}
+		pthread_mutex_unlock(&a->death);
 		philo_sleep(p);
 		pthread_mutex_lock(&a->death);
 		if (p->died)

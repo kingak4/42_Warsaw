@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 00:57:38 by root              #+#    #+#             */
-/*   Updated: 2025/08/19 14:11:22 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/20 14:00:05 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ void	*monitor(void *arg)
 			current_time = get_current_time();
 			if (!data->philo[i].died && (current_time - data->philo[i].last_meal > data->time_to_die))
 			{
-				data->philo[i].died = 1;
 				pthread_mutex_unlock(&data->philo[i].meal_mutex);
+				pthread_mutex_lock(&data->death);
+				data->philo[i].died = 1;
+				pthread_mutex_unlock(&data->death);
 				pthread_mutex_lock(&data->print_mutex);
 				printf("%ld %d died\n", get_relative_time(data), data->philo[i].id);
 				pthread_mutex_unlock(&data->print_mutex);
@@ -78,7 +80,7 @@ void	*monitor(void *arg)
 			pthread_mutex_unlock(&data->print_mutex);
 			return (NULL);
 		}
-		usleep(1000);
+		usleep(10000);
 	}
 	return (NULL);
 }
