@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 12:46:07 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/19 12:52:40 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/20 17:12:16 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,13 @@ int	is_any_philo_dead(t_args *data)
 	dead = 0;
 	while (i < data->philo_count)
 	{
-		pthread_mutex_lock(&data->philo[i].meal_mutex);
-		if (data->philo[i].died)
+		//pthread_mutex_lock(&data->philo[i].meal_mutex);
+		pthread_mutex_lock(&data->death);
+		if (data->philo[i].died == 1)
 			dead = 1;
-		pthread_mutex_unlock(&data->philo[i].meal_mutex);
-		if (dead)
+		pthread_mutex_unlock(&data->death);
+		//pthread_mutex_unlock(&data->philo[i].meal_mutex);
+		if (dead == 1)
 			return (1);
 		i++;
 	}

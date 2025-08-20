@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:16:18 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/20 14:00:20 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:54:59 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,30 +102,22 @@ void *philo_routine(void *arg)
 		ft_usleep(1);
 	while (1)
 	{
-		pthread_mutex_lock(&a->death);
-		if (p->died)
-		{
-			pthread_mutex_unlock(&a->death);
-			break;
-		}
-		pthread_mutex_unlock(&a->death);
+		if (is_any_philo_dead(a) == 1)
+			return (NULL);
 		if (philo_eat(p, a))
 		{
 			// pthread_mutex_unlock(p->left_fork);
 			// pthread_mutex_unlock(p->right_fork);
 			return (NULL);
 		}
-		pthread_mutex_lock(&a->death);
-		if (p->died || (a->must_eat_count > 0 && p->eat_count >= a->must_eat_count)){
-			pthread_mutex_unlock(&a->death);
+		if (is_any_philo_dead(a) == 1)
+			return (NULL);
+		if ((a->must_eat_count > 0 && p->eat_count >= a->must_eat_count)){
 			break;
 		}
-		pthread_mutex_unlock(&a->death);
 		philo_sleep(p);
-		pthread_mutex_lock(&a->death);
-		if (p->died)
-			break;
-		pthread_mutex_unlock(&a->death);
+		if (is_any_philo_dead(a) == 1)
+			return (NULL);
 		philo_think(p);
 	}
 	return (NULL);

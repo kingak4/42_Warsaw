@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/19 12:53:14 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:52:40 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		philo_eat(t_philo *philo, t_args *args);
 // void	philo_sleep(t_philo *philo, t_args *args);
 void	philo_sleep(t_philo *philo);
 void	*monitor(void *a);
-
+int	is_any_philo_dead(t_args *data);
 //utils.c
 int		ft_usleep(size_t time_in_ms);
 int		is_dead(t_philo *p);
