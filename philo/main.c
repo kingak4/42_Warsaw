@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:18:56 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/19 16:40:38 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/21 08:35:48 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 int main(int argc, char **argv)
 {
-	t_args args;
-	t_philo *philo;
-	//pthread_t monitor_thread;
+	t_args	args;
+	t_philo	*philo;
 	if (!parse_args(argc, argv, &args))
 		return (1);
 	if (!init_args_struct(&args))
 		return (1);
 	philo = args.philo;
+	if (args.philo_count == 1)
+	{
+		init_philo(&philo[0], &args, 0);
+		handle_one_philo(&philo[0], &args);
+		cleanup(philo, &args);
+		return (0);
+	}
 	start_philo(philo, &args);
-	//if (pthread_create(&monitor_thread, NULL, monitor, philo->args) != 0)
-	//{
-	//	printf("Error: monitor thread creation failed\n");
-	//	cleanup(philo, &args);
-	//	return (1);
-	//}
-	//pthread_join(monitor_thread, NULL);
 	cleanup(philo, &args);
 	return 0;
 }

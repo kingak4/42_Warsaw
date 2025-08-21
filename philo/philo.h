@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/20 16:52:40 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/20 17:28:27 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ long	get_current_time(void);
 long	get_relative_time(t_args *args);
 void	print_action(t_philo *philo, char *message);
 int		warp(void);
-void	handle_one_philo(t_philo *philo);
+void	handle_one_philo(t_philo *philo, t_args *args);
 void	init_philo(t_philo *philo, t_args *args, int i);
 void	cleanup(t_philo *philo, t_args *args);
 void	start_philo(t_philo *philo, t_args *args);

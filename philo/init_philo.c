@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 10:41:05 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/20 10:19:53 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/21 08:47:02 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ void	handle_creation_error(t_philo *philo, t_args *args, int i)
 
 void	start_philo(t_philo *philo, t_args *args)
 {
-	int	i;
-	int	res;
-
-	pthread_t monitor_thread;
-
+	int			i;
+	int			res;
+	pthread_t	monitor_thread;
+	
 	i = 0;
 	args->time_start = get_current_time();
 	while (i < args->philo_count)
@@ -60,15 +59,8 @@ void	start_philo(t_philo *philo, t_args *args)
 			handle_creation_error(philo, args, i);
 		i++;
 	}
-	
-	
-	
 	if (pthread_create(&monitor_thread, NULL, monitor, philo->args) != 0)
-	{
 		cleanup(philo, args);
-		//return (1);
-	}
-
 	i = 0;
 	while (i < args->philo_count)
 	{
@@ -77,30 +69,3 @@ void	start_philo(t_philo *philo, t_args *args)
 	}
 	pthread_join(monitor_thread, NULL);
 }
-
-//void start_philo(t_philo *philo, t_args *args)
-//{
-//    int i;
-//    int res;
-
-//    args->time_start = get_current_time();
-
-//    // inicjalizacja filozofów
-//    i = 0;
-//    while (i < args->philo_count)
-//    {
-//        init_philo(&philo[i], args, i);
-//        i++;
-//    }
-
-//    // uruchamianie wątków filozofów
-//    i = 0;
-//	monitor(args);
-//    while (i < args->philo_count)
-//    {
-//        res = pthread_create(&philo[i].thread, NULL, philo_routine, &philo[i]);
-//        if (res != 0)
-//            handle_creation_error(philo, args, i);
-//        i++;
-//    }
-//}
