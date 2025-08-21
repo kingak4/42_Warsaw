@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/20 17:28:27 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/21 10:38:01 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,16 @@ int		warp(void);
 void	handle_one_philo(t_philo *philo, t_args *args);
 void	init_philo(t_philo *philo, t_args *args, int i);
 void	cleanup(t_philo *philo, t_args *args);
-void	start_philo(t_philo *philo, t_args *args);
+void	start_philo(t_philo *philo, t_args *args, int i, int res);
 
 //routine
 void	*philo_routine(void *arg);
 void	philo_think(t_philo *philo);
-// void	philo_take_forks(t_philo *philo);
 int		philo_take_forks(t_philo *philo);
-//void	philo_eat(t_philo *philo, t_args *args);
 int		philo_eat(t_philo *philo, t_args *args);
-// void	philo_sleep(t_philo *philo, t_args *args);
 void	philo_sleep(t_philo *philo);
 void	*monitor(void *a);
-int	is_any_philo_dead(t_args *data);
+int		is_any_philo_dead(t_args *data);
 //utils.c
 int		ft_usleep(size_t time_in_ms);
 int		is_dead(t_philo *p);

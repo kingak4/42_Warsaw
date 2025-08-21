@@ -6,16 +6,17 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:18:56 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/21 08:35:48 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/21 10:38:30 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_args	args;
 	t_philo	*philo;
+
 	if (!parse_args(argc, argv, &args))
 		return (1);
 	if (!init_args_struct(&args))
@@ -28,7 +29,7 @@ int main(int argc, char **argv)
 		cleanup(philo, &args);
 		return (0);
 	}
-	start_philo(philo, &args);
+	start_philo(philo, &args, 0, 0);
 	cleanup(philo, &args);
-	return 0;
+	return (0);
 }

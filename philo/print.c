@@ -6,7 +6,7 @@
 /*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 11:07:44 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/21 08:42:06 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/21 10:33:02 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,9 @@ void	print_action(t_philo *philo, char *message)
 
 	times = 0;
 	if (is_any_philo_dead(philo->args) == 1)
-		return;
+		return ;
 	pthread_mutex_lock(&philo->args->print_mutex);
 	times = get_relative_time(philo->args);
 	printf("%ld %d %s\n", times, philo->id, message);
 	pthread_mutex_unlock(&philo->args->print_mutex);
 }
-//void	print_action(t_philo *philo, char *message) 1
-//{
-//	long	times;
-
-//	pthread_mutex_lock(&philo->args->print_mutex);
-//	times = get_relative_time(philo->args);
-//	if (!is_dead(philo))
-//		printf("%ld %d %s\n", times, philo->id, message);
-//	pthread_mutex_unlock(&philo->args->print_mutex);
-//}
-//void print_action(t_philo *philo, char *message)
-//{
-//    long times;
-
-//    pthread_mutex_lock(&philo->args->print_mutex);
-//    times = get_relative_time(philo->args);
-//    printf("%ld %d %s\n", times, philo->id, message);
-//    pthread_mutex_unlock(&philo->args->print_mutex);
-//}
