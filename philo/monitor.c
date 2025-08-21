@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 00:57:38 by root              #+#    #+#             */
-/*   Updated: 2025/08/21 12:11:43 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:14:50 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	*monitor(void *arg)
 	data = (t_args *)arg;
 	while (1)
 	{
-		if (check_death(data))
-			return (NULL);
 		if (check_meals(data))
 			return (NULL);
-		usleep(10000);
+		if (check_death(data))
+			return (NULL);
+		usleep(1000);
 	}
 	return (NULL);
 }

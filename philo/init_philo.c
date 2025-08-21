@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 10:41:05 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/21 10:37:41 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:00:10 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	handle_creation_error(t_philo *philo, t_args *args, int i)
 		j++;
 	}
 	cleanup(philo, args);
-	exit(1);
+	return ;
 }
 
 void	start_philo(t_philo *philo, t_args *args, int i, int res)

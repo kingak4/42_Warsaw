@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:16:18 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/21 12:17:17 by kikwasni         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:08:29 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	philo_take_forks(t_philo *philo)
+int philo_take_forks(t_philo *philo)
 {
-	if (philo->left_fork > philo->right_fork)
+	if (philo->id % 2 == 0)
 	{
+        usleep(500);
 		pthread_mutex_lock(philo->right_fork);
 		if (is_dead(philo))
 		{
@@ -34,6 +35,7 @@ int	philo_take_forks(t_philo *philo)
 	}
 	else
 	{
+        usleep(500);
 		pthread_mutex_lock(philo->left_fork);
 		if (is_dead(philo))
 		{
@@ -64,21 +66,6 @@ void	philo_think(t_philo *philo)
 	print_action(philo, "is thinking");
 }
 
-// int	philo_eat(t_philo *philo, t_args *args)
-//{
-//	if (philo_take_forks(philo))
-//		return (1);
-//	print_action(philo, "is eating");
-//	ft_usleep(args->time_to_eat);
-//	pthread_mutex_lock(&philo->meal_mutex);
-//	philo->last_meal = get_current_time();
-//	philo->eat_count++;
-//	//printf("%d eating time = %ld\n", philo->id ,philo->last_meal);
-//	pthread_mutex_unlock(&philo->meal_mutex);
-//	pthread_mutex_unlock(philo->left_fork);
-//	pthread_mutex_unlock(philo->right_fork);
-//	return (0);
-// }
 int philo_eat(t_philo *philo, t_args *args)
 {
 	if (philo_take_forks(philo))
@@ -96,25 +83,27 @@ int philo_eat(t_philo *philo, t_args *args)
 
 void *philo_routine(void *arg)
 {
-	t_philo	*p = (t_philo *)arg;
-	t_args	*a = p->args;
+	t_philo *p = (t_philo *)arg;
+	t_args *a = p->args;
 
 	if (p->id % 2 != 0)
-		ft_usleep(1);
+		ft_usleep(100);
 	while (1)
 	{
 		if (is_any_philo_dead(a) == 1)
 			return (NULL);
-		if (philo_eat(p, a))
+		if (p->id % 2 == 0)
+			usleep(500);
+        if (philo_eat(p, a))
 			return (NULL);
 		if (is_any_philo_dead(a) == 1)
 			return (NULL);
+        philo_sleep(p);
+        philo_think(p);
 		if ((a->must_eat_count > 0 && p->eat_count >= a->must_eat_count))
 			break ;
-		philo_sleep(p);
 		if (is_any_philo_dead(a) == 1)
 			return (NULL);
-		philo_think(p);
 	}
 	return (NULL);
 }
