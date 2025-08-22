@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kikwasni <kikwasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:34:34 by kikwasni          #+#    #+#             */
-/*   Updated: 2025/08/21 16:12:08 by bkotwica         ###   ########.fr       */
+/*   Updated: 2025/08/22 08:36:25 by kikwasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ typedef struct s_philo
 
 typedef struct s_args
 {
-	int                 philo_count;
-	int                 time_to_die;
-	int                 time_to_eat;
-	int                 time_to_sleep;
-	int                 must_eat_count;
-	pthread_mutex_t     print_mutex;
-	pthread_mutex_t     death;
-	long                time_start;
-	pthread_mutex_t     *forks;
-	t_philo             *philo;
-}   t_args;
+	int					philo_count;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					must_eat_count;
+	pthread_mutex_t		print_mutex;
+	pthread_mutex_t		death;
+	long				time_start;
+	pthread_mutex_t		*forks;
+	t_philo				*philo;
+}	t_args;
 
 // get_current_time() → „Która jest teraz godzina w ms od 1970?”
 // get_relative_time() → „Ile czasu minęło od startu programu?”
@@ -69,6 +69,8 @@ void	start_philo(t_philo *philo, t_args *args, int i, int res);
 //routine
 void	*philo_routine(void *arg);
 void	philo_think(t_philo *philo);
+int		take_forks_left_right(t_philo *philo);
+int		take_forks_right_left(t_philo *philo);
 int		philo_take_forks(t_philo *philo);
 int		philo_eat(t_philo *philo, t_args *args);
 void	philo_sleep(t_philo *philo);
