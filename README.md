@@ -28,3 +28,7 @@ What I learned: processes, pipes, system calls, and UNIX environment handling.
 🧘 philosophers
 Implementation of the “Dining Philosophers Problem”.
 What I learned: multithreading, synchronization, mutexes, and avoiding deadlocks.
+
+🌐 net-practice
+A practical networking project to explore and understand basic networking concepts.
+What I learned: configuring small-scale networks, understanding TCP/IP addressing, solving network issues, and using a browser-based training interface to complete exercises. The project consisted of 10 levels, each focused on a different networking challenge, allowing hands-on practice without using real networks.
